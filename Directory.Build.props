@@ -1,0 +1,15 @@
+<Project>
+  <!-- WSL (dotnet) and Windows (MSBuild for the VSIX) build the same tree; keep their restore
+       and build outputs apart so neither overwrites the other's project.assets.json. -->
+  <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
+    <BaseIntermediateOutputPath>obj.win\</BaseIntermediateOutputPath>
+    <BaseOutputPath>bin.win\</BaseOutputPath>
+  </PropertyGroup>
+
+  <!-- Nothing here is published as a package, so skip SourceLink's git queries (they also fail on
+       the placeholder files Claude Code's sandbox mounts over the repo root). -->
+  <PropertyGroup>
+    <EnableSourceLink>false</EnableSourceLink>
+    <EnableSourceControlManagerQueries>false</EnableSourceControlManagerQueries>
+  </PropertyGroup>
+</Project>

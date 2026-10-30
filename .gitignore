@@ -7,9 +7,12 @@
 # Claude Code session configuration
 /.claude/
 
-# .NET / Visual Studio build output
+# .NET / Visual Studio build output (obj.win/bin.win: Windows MSBuild, see Directory.Build.props)
 bin/
 obj/
+bin.win/
+obj.win/
+.cache/
 .vs/
 *.user
 *.vsix
