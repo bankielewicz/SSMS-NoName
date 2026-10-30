@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <Extern href="stdidcmd.h" />
+  <Extern href="vsshlids.h" />
+
+  <Commands package="guidNoNameDiagnosticsPackage">
+    <Groups>
+      <Group guid="guidNoNameDiagnosticsCmdSet" id="ToolsGroup" priority="0x0600">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS" />
+      </Group>
+      <!-- SSMS's own query-window context menu (IDs as used by StatisticsParser), plus the
+           standard code-window context menu in case SSMS shows that one instead. -->
+      <Group guid="guidNoNameDiagnosticsCmdSet" id="QueryWindowGroup" priority="0x03F0">
+        <Parent guid="queryWindowContextCommandSet" id="queryWindowContextMenu" />
+      </Group>
+      <Group guid="guidNoNameDiagnosticsCmdSet" id="QueryWindowGroup" priority="0x0600">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_CODEWIN" />
+      </Group>
+    </Groups>
+
+    <Buttons>
+      <Button guid="guidNoNameDiagnosticsCmdSet" id="cmdidOpenWindow" priority="0x0100" type="Button">
+        <Parent guid="guidNoNameDiagnosticsCmdSet" id="ToolsGroup" />
+        <Strings>
+          <ButtonText>NoName Diagnostics</ButtonText>
+          <CanonicalName>NoName.Diagnostics.OpenWindow</CanonicalName>
+        </Strings>
+      </Button>
+      <Button guid="guidNoNameDiagnosticsCmdSet" id="cmdidProbeWindow" priority="0x0100" type="Button">
+        <Parent guid="guidNoNameDiagnosticsCmdSet" id="QueryWindowGroup" />
+        <Strings>
+          <ButtonText>NoName Diagnostics: Probe This Window</ButtonText>
+          <CanonicalName>NoName.Diagnostics.ProbeWindow</CanonicalName>
+        </Strings>
+      </Button>
+      <Button guid="guidNoNameDiagnosticsCmdSet" id="cmdidCopyPrompt" priority="0x0101" type="Button">
+        <Parent guid="guidNoNameDiagnosticsCmdSet" id="QueryWindowGroup" />
+        <Strings>
+          <ButtonText>NoName Diagnostics: Copy Test Prompt</ButtonText>
+          <CanonicalName>NoName.Diagnostics.CopyPrompt</CanonicalName>
+        </Strings>
+      </Button>
+    </Buttons>
+  </Commands>
+
+  <Symbols>
+    <GuidSymbol name="guidNoNameDiagnosticsPackage" value="{82F933FB-7999-4A45-BDB9-D30245C261ED}" />
+    <GuidSymbol name="guidNoNameDiagnosticsCmdSet" value="{8279B979-35CC-4CA7-9371-34A949C05C97}">
+      <IDSymbol name="ToolsGroup" value="0x1020" />
+      <IDSymbol name="QueryWindowGroup" value="0x1021" />
+      <IDSymbol name="cmdidOpenWindow" value="0x0100" />
+      <IDSymbol name="cmdidProbeWindow" value="0x0101" />
+      <IDSymbol name="cmdidCopyPrompt" value="0x0102" />
+    </GuidSymbol>
+    <GuidSymbol name="queryWindowContextCommandSet" value="{33F13AC3-80BB-4ECB-85BC-225435603A5E}">
+      <IDSymbol name="queryWindowContextMenu" value="0x0050" />
+    </GuidSymbol>
+  </Symbols>
+</CommandTable>

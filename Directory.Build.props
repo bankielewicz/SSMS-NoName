@@ -6,6 +6,11 @@
     <BaseOutputPath>bin.win\</BaseOutputPath>
   </PropertyGroup>
 
+  <!-- Each OS must not compile the other's generated files (e.g. obj/*.AssemblyInfo.cs). -->
+  <PropertyGroup>
+    <DefaultItemExcludes>$(DefaultItemExcludes);obj/**;obj.win/**;bin/**;bin.win/**</DefaultItemExcludes>
+  </PropertyGroup>
+
   <!-- Nothing here is published as a package, so skip SourceLink's git queries (they also fail on
        the placeholder files Claude Code's sandbox mounts over the repo root). -->
   <PropertyGroup>
