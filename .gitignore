@@ -1,0 +1,16 @@
+# DevForgeAI framework checkout: a separate repository (bankielewicz/Specs)
+/Specs-main/
+
+# Codex marketplace pointer left from plugin setup; not part of this project
+/.agents/
+
+# Claude Code session configuration
+/.claude/
+
+# .NET / Visual Studio build output
+bin/
+obj/
+.vs/
+*.user
+*.vsix
+TestResults/
