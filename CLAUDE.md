@@ -70,7 +70,7 @@ The output is `src/NoName.Diagnostics.Vsix/bin.win/Debug/NoName.Diagnostics.vsix
 # uninstall: same installer, /instanceIds:dd3b7a98 /uninstall:NoName.Diagnostics.6B1E5C8A-3F7D-4E2B-9A61-0C4D2E8F7B13
 ```
 
-The installer log is the newest `/mnt/c/Users/bryan/AppData/Local/Temp/dd_VSIXInstaller_*.log`. Diagnostic session logs are in `/mnt/c/Users/bryan/AppData/Local/NoName/Diagnostics/logs/*.jsonl`, and SSMS's load errors are in `/mnt/c/Users/bryan/AppData/Local/Microsoft/SSMS/22.0_dd3b7a98/ActivityLog.xml` when the owner starts SSMS with `/log`.
+The installer log is the newest `/mnt/c/Users/bryan/AppData/Local/Temp/dd_VSIXInstaller_*.log`. Diagnostic session logs are in `/mnt/c/Users/bryan/AppData/Local/NoName/Diagnostics/logs/*.jsonl`, and SSMS's load errors are in `/mnt/c/Users/bryan/AppData/Roaming/Microsoft/SSMS/22.0_dd3b7a98/ActivityLog.xml` when the owner starts SSMS with `/log`.
 
 ## Architecture
 
