@@ -135,5 +135,87 @@ namespace NoName.Diagnostics.Core.Tests
                 new[] { "notes.txt", "session-20261030-090000-x.jsonl", "session-20261030-100000-x.jsonl" },
                 Directory.GetFiles(_dir).Select(Path.GetFileName).OrderBy(n => n, StringComparer.Ordinal));
         }
+
+        [Fact]
+        public void A_log_directory_is_required()
+        {
+            Assert.Throws<ArgumentException>(() => new DiagnosticLog(""));
+        }
+
+        [Fact]
+        public void Writes_after_dispose_are_ignored_and_dispose_can_repeat()
+        {
+            var log = new DiagnosticLog(_dir, () => Noon, "s");
+            log.Dispose();
+
+            log.Write("event", "late");
+            log.Dispose();
+
+            Assert.DoesNotContain("late", File.ReadAllText(log.FilePath));
+        }
+
+        [Fact]
+        public void Value_whose_ToString_throws_is_logged_as_a_serialization_error()
+        {
+            using (var log = new DiagnosticLog(_dir, () => Noon, "s"))
+            {
+                log.Write("event", "bad", new Dictionary<string, object> { ["value"] = new ThrowingToString() });
+                log.Write("event", "after");
+            }
+
+            List<JsonElement> lines = File.ReadAllLines(Directory.GetFiles(_dir).Single())
+                .Select(l => JsonDocument.Parse(l).RootElement)
+                .ToList();
+            JsonElement bad = lines.Single(e => e.GetProperty("name").GetString() == "bad");
+            Assert.Equal("System.InvalidOperationException",
+                bad.GetProperty("data").GetProperty("serializationError").GetProperty("type").GetString());
+            Assert.Contains(lines, e => e.GetProperty("name").GetString() == "after");
+        }
+
+        [Fact]
+        public void A_throwing_line_handler_does_not_stop_logging()
+        {
+            using (var log = new DiagnosticLog(_dir, () => Noon, "s"))
+            {
+                log.LineWritten += _ => throw new InvalidOperationException("viewer broke");
+                log.Write("event", "first");
+                log.Write("event", "second");
+            }
+
+            Assert.Contains("\"second\"", File.ReadAllText(Directory.GetFiles(_dir).Single()));
+        }
+
+        [Fact]
+        public void Prune_of_a_missing_directory_deletes_nothing()
+        {
+            Assert.Equal(0, DiagnosticLog.Prune(Path.Combine(_dir, "missing"), keep: 1));
+        }
+
+        [Fact]
+        public void Prune_skips_files_it_may_not_delete()
+        {
+            // Relies on Unix directory permissions; root and Windows ignore them, so the check can't run there.
+            if (OperatingSystem.IsWindows() || Environment.UserName == "root")
+                return;
+
+            Directory.CreateDirectory(_dir);
+            File.WriteAllText(Path.Combine(_dir, "session-20261028-090000-x.jsonl"), "{}");
+            File.WriteAllText(Path.Combine(_dir, "session-20261030-090000-x.jsonl"), "{}");
+            File.SetUnixFileMode(_dir, UnixFileMode.UserRead | UnixFileMode.UserExecute);
+            try
+            {
+                Assert.Equal(0, DiagnosticLog.Prune(_dir, keep: 1));
+                Assert.Equal(2, Directory.GetFiles(_dir).Length);
+            }
+            finally
+            {
+                File.SetUnixFileMode(_dir, UnixFileMode.UserRead | UnixFileMode.UserWrite | UnixFileMode.UserExecute);
+            }
+        }
+
+        private sealed class ThrowingToString
+        {
+            public override string ToString() => throw new InvalidOperationException("no text");
+        }
     }
 }

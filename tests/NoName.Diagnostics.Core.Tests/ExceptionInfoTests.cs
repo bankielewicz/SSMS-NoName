@@ -58,6 +58,22 @@ namespace NoName.Diagnostics.Core.Tests
         }
 
         [Fact]
+        public void Null_gives_null()
+        {
+            Assert.Null(ExceptionInfo.From(null));
+        }
+
+        [Fact]
+        public void Unwrapping_stops_after_ten_wrappers()
+        {
+            Exception ex = new InvalidOperationException("core");
+            for (int i = 0; i < 12; i++)
+                ex = new TargetInvocationException(ex);
+
+            Assert.Equal("System.Reflection.TargetInvocationException", ExceptionInfo.From(ex)["type"]);
+        }
+
+        [Fact]
         public void Thrown_exception_includes_a_stack()
         {
             Exception caught;

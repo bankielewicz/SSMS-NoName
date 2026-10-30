@@ -91,5 +91,38 @@ namespace NoName.Diagnostics.Core.Tests
             Assert.False(Sanitizer.IsSecretKey("Server"));
             Assert.False(Sanitizer.IsSecretKey("User ID"));
         }
+
+        [Fact]
+        public void Null_and_empty_input_are_handled()
+        {
+            Assert.Null(Sanitizer.Shape(null));
+            Assert.Empty(new Sanitizer(verbose: false).ConnectionString(null));
+            Assert.Empty(new Sanitizer(verbose: false).ConnectionString(""));
+            Assert.False(Sanitizer.IsSecretKey(null));
+        }
+
+        [Fact]
+        public void Connection_string_tolerates_empty_segments_bare_flags_and_missing_keys()
+        {
+            IDictionary<string, object> logged = new Sanitizer(verbose: true)
+                .ConnectionString(";;Server = x ;  ;Flag;=orphan;Database=d;;");
+
+            Assert.Equal(3, logged.Count);
+            Assert.Equal("x", logged["server"]);
+            Assert.Equal(string.Empty, logged["flag"]);
+            Assert.Equal("d", logged["database"]);
+        }
+
+        [Fact]
+        public void Connection_string_doubled_quotes_are_literal_and_text_after_a_closing_quote_is_ignored()
+        {
+            IDictionary<string, object> logged = new Sanitizer(verbose: true)
+                .ConnectionString("Application Name='O''Brien''s tool';Server=\"a\"\"b\";Database='db' trailing;Encrypt=True");
+
+            Assert.Equal("O'Brien's tool", logged["application name"]);
+            Assert.Equal("a\"b", logged["server"]);
+            Assert.Equal("db", logged["database"]);
+            Assert.Equal("True", logged["encrypt"]);
+        }
     }
 }

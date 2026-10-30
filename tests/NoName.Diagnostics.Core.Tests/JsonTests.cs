@@ -82,5 +82,52 @@ namespace NoName.Diagnostics.Core.Tests
         {
             Assert.Equal("null", Json.Serialize(null));
         }
+
+        [Fact]
+        public void Remaining_control_characters_and_paragraph_separator_round_trip()
+        {
+            string value = "a\rb\bc\fd" + (char)0x2029 + "e"; // U+2029 PARAGRAPH SEPARATOR
+
+            string json = Json.Serialize(value);
+
+            Assert.Equal(value, JsonDocument.Parse(json).RootElement.GetString());
+            Assert.DoesNotContain("\r", json);
+        }
+
+        [Fact]
+        public void Chars_dates_floats_and_decimals_use_invariant_text()
+        {
+            Assert.Equal("\"x\"", Json.Serialize('x'));
+            Assert.Equal("\"2026-10-30T12:00:00.0000000Z\"", Json.Serialize(new DateTime(2026, 10, 30, 12, 0, 0, DateTimeKind.Utc)));
+            Assert.Equal("0.25", Json.Serialize(0.25f));
+            Assert.Equal("1.10", Json.Serialize(1.10m));
+        }
+
+        [Fact]
+        public void Non_generic_dictionary_keys_become_strings()
+        {
+            var table = new System.Collections.Hashtable { [7] = "seven" };
+
+            Assert.Equal("{\"7\":\"seven\"}", Json.Serialize(table));
+        }
+
+        [Fact]
+        public void Other_objects_are_written_with_ToString()
+        {
+            Assert.Equal("\"1.2.3\"", Json.Serialize(new Version(1, 2, 3)));
+        }
+
+        [Fact]
+        public void Nesting_beyond_the_limit_is_cut_off_but_stays_valid()
+        {
+            object value = "leaf";
+            for (int i = 0; i < 40; i++)
+                value = new List<object> { value };
+
+            string json = Json.Serialize(value);
+
+            JsonDocument.Parse(json);
+            Assert.Contains("[max depth]", json);
+        }
     }
 }

@@ -17,3 +17,4 @@ obj.win/
 *.user
 *.vsix
 TestResults/
+coverage.cobertura.xml
