@@ -1,11 +1,11 @@
 name: CI
 
 # Tests and measures the parts of NoName that can run outside SSMS: the NoName.Diagnostics.Core
-# library. The VSIX runs only inside SSMS 22 and is checked by the diagnostic run instead
-# (docs/specs/noname/feasibility-spike.md).
+# library and the coverage gate script. The VSIX runs only inside SSMS 22 and is checked by the
+# diagnostic run instead (docs/specs/noname/feasibility-spike.md).
 #
-# Pushes to main set the coverage baseline; pull requests are compared against it by the
-# repository's code-coverage rule (95% line coverage minimum).
+# scripts/coverage_gate.py fails the job below 95% line coverage. GitHub's Code Quality coverage
+# upload isn't used: Code Quality isn't available for this personal-account repository.
 
 on:
   push:
@@ -18,7 +18,8 @@ permissions:
   contents: read
 
 concurrency:
-  group: ci-${{ github.event.pull_request.number || github.ref }}
+  # A new push to a pull request cancels its older run; every push to main gets its own run.
+  group: ci-${{ github.event.pull_request.number || github.sha }}
   cancel-in-progress: true
 
 jobs:
@@ -26,19 +27,18 @@ jobs:
     name: Core tests and coverage
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    permissions:
-      contents: read
-      code-quality: write # upload coverage for the code-coverage rule
     env:
       DOTNET_NOLOGO: "1"
       DOTNET_CLI_TELEMETRY_OPTOUT: "1"
     steps:
+      # For a pull request this is GitHub's merge commit, so CI tests what main would become.
       - name: Check out the commit under test
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          # Coverage line numbers must match the pull request's files, not GitHub's merge commit.
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           persist-credentials: false
+
+      - name: Test the coverage gate
+        run: python3 -m unittest discover -s tests/scripts
 
       - name: Set up .NET 8
         uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
@@ -53,17 +53,4 @@ jobs:
           --results-directory TestResults
 
       - name: Check line coverage (95% minimum)
-        id: coverage
         run: python3 scripts/coverage_gate.py TestResults coverage.cobertura.xml --minimum 95
-
-      - name: Upload coverage to GitHub
-        # Upload even when the check above fails, so the pull request shows what's missing.
-        # The upload returns HTTP 404 until Code Quality is enabled for the repository, so it only
-        # warns; the 95% gate above is what fails the job.
-        if: ${{ !cancelled() && steps.coverage.outputs.report != '' }}
-        uses: actions/upload-code-coverage@2b21a77928be8d5168c2b9581a67f2adbebacc52 # v1.4.4
-        with:
-          file: ${{ steps.coverage.outputs.report }}
-          language: C#
-          label: code-coverage/core
-          fail-on-error: false
