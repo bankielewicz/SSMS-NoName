@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
+using System.Text;
 using System.Text.Json;
 using System.Threading;
 using NoName.Diagnostics.Core;
@@ -84,23 +86,55 @@ namespace NoName.Diagnostics.Core.Tests
         }
 
         [Fact]
-        public void Remaining_control_characters_and_paragraph_separator_round_trip()
+        public void Control_characters_and_line_separators_are_escaped_and_round_trip()
         {
-            string value = "a\rb\bc\fd" + (char)0x2029 + "e"; // U+2029 PARAGRAPH SEPARATOR
+            // Every control character, plus U+2028 LINE SEPARATOR and U+2029 PARAGRAPH SEPARATOR.
+            var all = new StringBuilder("a\rb\bc\fd");
+            for (char c = '\0'; c < ' '; c++)
+                all.Append(c);
+            all.Append((char)0x2028).Append((char)0x2029);
+            string value = all.ToString();
 
             string json = Json.Serialize(value);
 
             Assert.Equal(value, JsonDocument.Parse(json).RootElement.GetString());
-            Assert.DoesNotContain("\r", json);
+
+            // A round trip also holds for raw characters, so check the text itself: nothing that
+            // line-based readers split on may appear unescaped, or one log entry would span lines.
+            Assert.False(json.Any(ch => ch < ' ' || ch == (char)0x2028 || ch == (char)0x2029),
+                "the serialized text must contain no raw control or line/paragraph separator characters");
+            Assert.Contains("\\u2028", json);
+            Assert.Contains("\\u2029", json);
+
+            string expected = "\"a\\rb\\bc\\fd"
+                + "\\u0000\\u0001\\u0002\\u0003\\u0004\\u0005\\u0006\\u0007"
+                + "\\b\\t\\n\\u000b\\f\\r"
+                + "\\u000e\\u000f\\u0010\\u0011\\u0012\\u0013\\u0014\\u0015\\u0016\\u0017"
+                + "\\u0018\\u0019\\u001a\\u001b\\u001c\\u001d\\u001e\\u001f"
+                + "\\u2028\\u2029\"";
+            Assert.Equal(expected, json, ignoreCase: true); // hex digits may be either case
         }
 
         [Fact]
         public void Chars_dates_floats_and_decimals_use_invariant_text()
         {
-            Assert.Equal("\"x\"", Json.Serialize('x'));
-            Assert.Equal("\"2026-10-30T12:00:00.0000000Z\"", Json.Serialize(new DateTime(2026, 10, 30, 12, 0, 0, DateTimeKind.Utc)));
-            Assert.Equal("0.25", Json.Serialize(0.25f));
-            Assert.Equal("1.10", Json.Serialize(1.10m));
+            // de-DE writes decimals with a comma ("1,10"), so a value formatted with the current
+            // culture instead of the invariant one would show up here.
+            CultureInfo saved = CultureInfo.CurrentCulture;
+            try
+            {
+                CultureInfo.CurrentCulture = new CultureInfo("de-DE");
+                Assert.Equal("1,10", 1.10m.ToString()); // the culture really is in effect
+
+                Assert.Equal("\"x\"", Json.Serialize('x'));
+                Assert.Equal("\"2026-10-30T12:00:00.0000000Z\"", Json.Serialize(new DateTime(2026, 10, 30, 12, 0, 0, DateTimeKind.Utc)));
+                Assert.Equal("0.25", Json.Serialize(0.25f));
+                Assert.Equal("1.10", Json.Serialize(1.10m));
+            }
+            finally
+            {
+                CultureInfo.CurrentCulture = saved;
+            }
         }
 
         [Fact]

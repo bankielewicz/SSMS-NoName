@@ -66,11 +66,28 @@ namespace NoName.Diagnostics.Core.Tests
         [Fact]
         public void Unwrapping_stops_after_ten_wrappers()
         {
-            Exception ex = new InvalidOperationException("core");
-            for (int i = 0; i < 12; i++)
-                ex = new TargetInvocationException(ex);
+            // Ten wrappers are all removed: only the real error is logged.
+            IDictionary<string, object> ten = ExceptionInfo.From(Wrapped(10));
+            Assert.Equal("System.InvalidOperationException", ten["type"]);
+            Assert.False(ten.ContainsKey("inner"));
 
-            Assert.Equal("System.Reflection.TargetInvocationException", ExceptionInfo.From(ex)["type"]);
+            // An eleventh is left in place, so it is logged with the real error beneath it.
+            foreach (int count in new[] { 11, 12 })
+            {
+                IDictionary<string, object> info = ExceptionInfo.From(Wrapped(count));
+                Assert.Equal("System.Reflection.TargetInvocationException", info["type"]);
+                var inner = Assert.IsAssignableFrom<IDictionary<string, object>>(info["inner"]);
+                Assert.Equal("System.InvalidOperationException", inner["type"]);
+                Assert.False(inner.ContainsKey("inner"));
+            }
+        }
+
+        private static Exception Wrapped(int wrappers)
+        {
+            Exception ex = new InvalidOperationException("core");
+            for (int i = 0; i < wrappers; i++)
+                ex = new TargetInvocationException(ex);
+            return ex;
         }
 
         [Fact]

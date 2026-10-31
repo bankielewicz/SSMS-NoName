@@ -6,6 +6,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using NoName.Diagnostics.Core;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace NoName.Diagnostics.Core.Tests
 {
@@ -14,6 +15,12 @@ namespace NoName.Diagnostics.Core.Tests
         private static readonly DateTimeOffset Noon = new DateTimeOffset(2026, 10, 30, 12, 0, 0, TimeSpan.Zero);
 
         private readonly string _dir = Path.Combine(Path.GetTempPath(), "noname-log-tests-" + Guid.NewGuid().ToString("N"));
+        private readonly ITestOutputHelper _output;
+
+        public DiagnosticLogTests(ITestOutputHelper output)
+        {
+            _output = output;
+        }
 
         public void Dispose()
         {
@@ -139,7 +146,13 @@ namespace NoName.Diagnostics.Core.Tests
         [Fact]
         public void A_log_directory_is_required()
         {
-            Assert.Throws<ArgumentException>(() => new DiagnosticLog(""));
+            // Null and empty are both rejected by the constructor's own check, which names the
+            // parameter "directory" (Directory.CreateDirectory would say "path").
+            foreach (string directory in new string[] { null, string.Empty })
+            {
+                var error = Assert.Throws<ArgumentException>(() => new DiagnosticLog(directory));
+                Assert.Equal("directory", error.ParamName);
+            }
         }
 
         [Fact]
@@ -194,13 +207,32 @@ namespace NoName.Diagnostics.Core.Tests
         [Fact]
         public void Prune_skips_files_it_may_not_delete()
         {
-            // Relies on Unix directory permissions; root and Windows ignore them, so the check can't run there.
-            if (OperatingSystem.IsWindows() || Environment.UserName == "root")
-                return;
-
             Directory.CreateDirectory(_dir);
-            File.WriteAllText(Path.Combine(_dir, "session-20261028-090000-x.jsonl"), "{}");
+            string oldest = Path.Combine(_dir, "session-20261028-090000-x.jsonl");
+            File.WriteAllText(oldest, "{}");
             File.WriteAllText(Path.Combine(_dir, "session-20261030-090000-x.jsonl"), "{}");
+
+            if (OperatingSystem.IsWindows())
+            {
+                // A file another handle holds open without sharing can't be deleted: File.Delete throws IOException.
+                _output.WriteLine("Windows: the oldest session file is held open with FileShare.None, so deleting it throws IOException.");
+                using (new FileStream(oldest, FileMode.Open, FileAccess.Read, FileShare.None))
+                {
+                    Assert.Equal(0, DiagnosticLog.Prune(_dir, keep: 1));
+                }
+                Assert.Equal(2, Directory.GetFiles(_dir).Length);
+                return;
+            }
+
+            if (Environment.UserName == "root")
+            {
+                _output.WriteLine("Not run: root ignores directory permissions, so a delete can't be made to fail here "
+                    + "(the Windows branch covers the IOException path; non-root Linux covers UnauthorizedAccessException).");
+                return;
+            }
+
+            // A read-only directory makes File.Delete throw UnauthorizedAccessException.
+            _output.WriteLine("Unix: user '" + Environment.UserName + "' deleting in a read-only directory, which throws UnauthorizedAccessException.");
             File.SetUnixFileMode(_dir, UnixFileMode.UserRead | UnixFileMode.UserExecute);
             try
             {

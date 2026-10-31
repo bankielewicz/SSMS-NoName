@@ -64,10 +64,20 @@ namespace NoName.Diagnostics.Core.Tests
         public async Task Probe_that_hangs_times_out()
         {
             var hang = new TaskCompletionSource<bool>();
+            try
+            {
+                Task<ProbeResult> running = _runner.RunAsync(new Probe("P-4", (ctx, ct) => hang.Task));
 
-            ProbeResult result = await _runner.RunAsync(new Probe("P-4", (ctx, ct) => hang.Task));
+                // The limit is 500 ms. If the runner ignored it, fail here rather than hang the suite.
+                Task first = await Task.WhenAny(running, Task.Delay(TimeSpan.FromSeconds(10)));
+                Assert.True(first == running, "the runner did not stop a hanging probe within 10 s of its 500 ms limit");
 
-            Assert.Equal(ProbeStatus.Timeout, result.Status);
+                Assert.Equal(ProbeStatus.Timeout, (await running).Status);
+            }
+            finally
+            {
+                hang.TrySetResult(true); // let a still-pending run finish
+            }
         }
 
         [Fact]

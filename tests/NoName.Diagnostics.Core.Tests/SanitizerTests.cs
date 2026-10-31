@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using NoName.Diagnostics.Core;
 using Xunit;
 
@@ -123,6 +125,11 @@ namespace NoName.Diagnostics.Core.Tests
             Assert.Equal("a\"b", logged["server"]);
             Assert.Equal("db", logged["database"]);
             Assert.Equal("True", logged["encrypt"]);
+
+            // Exactly these four settings: the text after 'db' is not a setting of its own.
+            Assert.Equal(
+                new[] { "application name", "database", "encrypt", "server" },
+                logged.Keys.OrderBy(k => k, StringComparer.Ordinal));
         }
     }
 }
