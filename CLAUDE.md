@@ -13,15 +13,16 @@ Read before changing direction or scope:
 - `docs/specs/noname/brainstorming.md` (IDEA-NN-001): confirmed owner inputs (`INPUT-NN-*`), evidence, constraints (`C-*`) and open questions (`Q-NN-*`).
 - `docs/specs/noname/feasibility-spike.md` (RES-NN-001): research questions, probe catalog (`PRB-*`), install/run procedure and log-privacy rules.
 
-## Where the planning stands (as of 2026-10-31)
+## Finding where the planning stands
 
-Check each item against the documents' versions and `gh pr list` before relying on it, and update this section when a planning step completes.
+Derive the current state from the repository, not from memory:
+- The furthest document in the planning chain that exists (`docs/specs/brainstorm/` → `design/` → `prd/` → `arch/` → `epic/`), its `status` and its latest Change Log row, which say what was decided last; the next skill in the chain is the next step.
+- What a capability waits on: its class in BRN-001 (A proven, B waits on a named probe, C outside SSMS); a class B capability becomes buildable only when its probe passes in NoName Diagnostics.
+- Open work: `gh pr list` and `gh issue list` on `bankielewicz/SSMS-NoName`.
 
-- Done: BRN-001 version 2. The first design canvas ("SQL Server Health Dashboards") was judged too much of an enterprise monitoring platform; the owner asked for a new single-instance canvas, iterated in Claude Design until it is impressive.
-- Next: `/devforgeai:ui BRN-001` (a create run: it proposes flows and briefs for the owner to confirm, then draws the new canvas and records it as DSN-001), then `/devforgeai:prd BRN-001`.
-- In parallel: the diagnostic probes (`PRB-*` in RES-NN-001 and the class B probes in BRN-001), which decide which tools are buildable. Only P1 is proven: the VSIX loads and its menu commands fire.
-- Open: GitHub issue #4 (the sanitizer logs connection-string key names verbatim). Not yet done: recording the owner's newer inputs as `INPUT-NN-015` onward in IDEA-NN-001; BRN-001 quotes them meanwhile.
-- Research for the design lives outside the repository: third-party repositories in the git-ignored `tmp/` are read for ideas only, never copied (two of them aren't MIT: `local-llm-chat-ssms` is GPL-2.0 and SqlPulse has no licence).
+Snapshot, 2026-10-31 (update it when a planning step completes): BRN-001 version 2 is converged, with no design document yet. The first canvas ("SQL Server Health Dashboards") was judged too much of an enterprise monitoring platform. The next step is a create run of `/devforgeai:ui BRN-001` for a new single-instance canvas, iterated in Claude Design until it is impressive, then `/devforgeai:prd BRN-001`.
+
+Research for the design lives outside the repository: third-party repositories in the git-ignored `tmp/` are read for ideas only, never copied. Two of them aren't MIT: `local-llm-chat-ssms` is GPL-2.0, and SqlPulse has no licence.
 
 ## Workflow: DevForgeAI, TDD, then QA with /code-review
 
