@@ -9,8 +9,6 @@
         <Configuration>
           <Format>cobertura</Format>
           <Include>[NoName.Diagnostics.Core]*</Include>
-          <ExcludeByAttribute>Obsolete,GeneratedCodeAttribute,CompilerGeneratedAttribute</ExcludeByAttribute>
-          <SkipAutoProps>true</SkipAutoProps>
           <DeterministicReport>false</DeterministicReport>
         </Configuration>
       </DataCollector>

@@ -118,12 +118,15 @@ namespace NoName.Diagnostics.Core.Tests
         [Fact]
         public void Chars_dates_floats_and_decimals_use_invariant_text()
         {
-            // de-DE writes decimals with a comma ("1,10"), so a value formatted with the current
-            // culture instead of the invariant one would show up here.
+            // A culture that writes decimals with a comma ("1,10"), so a value formatted with the
+            // current culture instead of the invariant one would show up here. It is the invariant
+            // culture with one setting changed, so it needs no ICU culture data.
+            var comma = (CultureInfo)CultureInfo.InvariantCulture.Clone();
+            comma.NumberFormat.NumberDecimalSeparator = ",";
             CultureInfo saved = CultureInfo.CurrentCulture;
             try
             {
-                CultureInfo.CurrentCulture = new CultureInfo("de-DE");
+                CultureInfo.CurrentCulture = comma;
                 Assert.Equal("1,10", 1.10m.ToString()); // the culture really is in effect
 
                 Assert.Equal("\"x\"", Json.Serialize('x'));

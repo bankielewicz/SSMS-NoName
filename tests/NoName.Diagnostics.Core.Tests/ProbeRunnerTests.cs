@@ -242,14 +242,57 @@ namespace NoName.Diagnostics.Core.Tests
             var hang = new TaskCompletionSource<bool>();
             using (var cts = new CancellationTokenSource())
             {
-                Task<ProbeResult> running = runner.RunAsync(new Probe("P-16", (ctx, ct) => hang.Task), cts.Token);
-                cts.CancelAfter(50);
+                try
+                {
+                    // The probe cancels the caller's token as soon as it has started, then ignores it and hangs.
+                    ProbeResult result = await runner.RunAsync(new Probe("P-16", (ctx, ct) =>
+                    {
+                        cts.Cancel();
+                        return hang.Task;
+                    }), cts.Token);
 
-                ProbeResult result = await running;
-
-                Assert.Equal(ProbeStatus.Skipped, result.Status);
-                Assert.True(result.DurationMs < 10000, "should end on cancellation, not after the 30 s limit");
+                    Assert.Equal(ProbeStatus.Skipped, result.Status);
+                    Assert.True(result.DurationMs < 10000, "should end on cancellation, not after the 30 s limit");
+                }
+                finally
+                {
+                    hang.TrySetResult(true);
+                }
             }
+        }
+
+        [Fact]
+        public async Task Probes_receive_the_runners_own_sanitizer()
+        {
+            var sanitizer = new Sanitizer(verbose: true);
+            var runner = new ProbeRunner(_log, sanitizer, TimeSpan.FromSeconds(5));
+            Sanitizer seen = null;
+
+            await runner.RunAsync(new Probe("P-17", (ctx, ct) =>
+            {
+                seen = ctx.Sanitizer;
+                return Task.CompletedTask;
+            }));
+
+            Assert.Same(sanitizer, seen);
+        }
+
+        [Fact]
+        public async Task Action_step_runs_the_action_and_records_a_successful_step()
+        {
+            int calls = 0;
+
+            ProbeResult result = await _runner.RunAsync(new Probe("P-18", (ctx, ct) =>
+            {
+                ctx.Step("Action.Api", () => { calls++; });
+                return Task.CompletedTask;
+            }));
+
+            Assert.Equal(1, calls);
+            Assert.Equal(ProbeStatus.Pass, result.Status);
+            IDictionary<string, object> step = result.Steps.Single();
+            Assert.Equal("Action.Api", step["api"]);
+            Assert.Equal(true, step["ok"]);
         }
 
         [Fact]

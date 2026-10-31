@@ -204,7 +204,7 @@ namespace NoName.Diagnostics.Core.Tests
             Assert.Equal(0, DiagnosticLog.Prune(Path.Combine(_dir, "missing"), keep: 1));
         }
 
-        [Fact]
+        [NotAsRootFact]
         public void Prune_skips_files_it_may_not_delete()
         {
             Directory.CreateDirectory(_dir);
@@ -221,13 +221,6 @@ namespace NoName.Diagnostics.Core.Tests
                     Assert.Equal(0, DiagnosticLog.Prune(_dir, keep: 1));
                 }
                 Assert.Equal(2, Directory.GetFiles(_dir).Length);
-                return;
-            }
-
-            if (Environment.UserName == "root")
-            {
-                _output.WriteLine("Not run: root ignores directory permissions, so a delete can't be made to fail here "
-                    + "(the Windows branch covers the IOException path; non-root Linux covers UnauthorizedAccessException).");
                 return;
             }
 
