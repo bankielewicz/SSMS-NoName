@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text.Json;
 using System.Threading.Tasks;
 using NoName.Diagnostics.Core;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace NoName.Diagnostics.Core.Tests
 {
@@ -14,6 +16,12 @@ namespace NoName.Diagnostics.Core.Tests
         private static readonly DateTimeOffset Noon = new DateTimeOffset(2026, 10, 30, 12, 0, 0, TimeSpan.Zero);
 
         private readonly string _dir = Path.Combine(Path.GetTempPath(), "noname-log-tests-" + Guid.NewGuid().ToString("N"));
+        private readonly ITestOutputHelper _output;
+
+        public DiagnosticLogTests(ITestOutputHelper output)
+        {
+            _output = output;
+        }
 
         public void Dispose()
         {
@@ -134,6 +142,112 @@ namespace NoName.Diagnostics.Core.Tests
             Assert.Equal(
                 new[] { "notes.txt", "session-20261030-090000-x.jsonl", "session-20261030-100000-x.jsonl" },
                 Directory.GetFiles(_dir).Select(Path.GetFileName).OrderBy(n => n, StringComparer.Ordinal));
+        }
+
+        [Fact]
+        public void A_log_directory_is_required()
+        {
+            // Null and empty are both rejected by the constructor's own check, which names the
+            // parameter "directory" (Directory.CreateDirectory would say "path").
+            foreach (string directory in new string[] { null, string.Empty })
+            {
+                var error = Assert.Throws<ArgumentException>(() => new DiagnosticLog(directory));
+                Assert.Equal("directory", error.ParamName);
+            }
+        }
+
+        [Fact]
+        public void Writes_after_dispose_are_ignored_and_dispose_can_repeat()
+        {
+            var log = new DiagnosticLog(_dir, () => Noon, "s");
+            log.Dispose();
+
+            log.Write("event", "late");
+            log.Dispose();
+
+            Assert.DoesNotContain("late", File.ReadAllText(log.FilePath));
+        }
+
+        [Fact]
+        public void Value_whose_ToString_throws_is_logged_as_a_serialization_error()
+        {
+            using (var log = new DiagnosticLog(_dir, () => Noon, "s"))
+            {
+                log.Write("event", "bad", new Dictionary<string, object> { ["value"] = new ThrowingToString() });
+                log.Write("event", "after");
+            }
+
+            List<JsonElement> lines = File.ReadAllLines(Directory.GetFiles(_dir).Single())
+                .Select(l => JsonDocument.Parse(l).RootElement)
+                .ToList();
+            JsonElement bad = lines.Single(e => e.GetProperty("name").GetString() == "bad");
+            Assert.Equal("System.InvalidOperationException",
+                bad.GetProperty("data").GetProperty("serializationError").GetProperty("type").GetString());
+            Assert.Contains(lines, e => e.GetProperty("name").GetString() == "after");
+        }
+
+        [Fact]
+        public void A_throwing_line_handler_does_not_stop_logging()
+        {
+            using (var log = new DiagnosticLog(_dir, () => Noon, "s"))
+            {
+                log.LineWritten += _ => throw new InvalidOperationException("viewer broke");
+                log.Write("event", "first");
+                log.Write("event", "second");
+            }
+
+            Assert.Contains("\"second\"", File.ReadAllText(Directory.GetFiles(_dir).Single()));
+        }
+
+        [Fact]
+        public void Prune_of_a_missing_directory_deletes_nothing()
+        {
+            Assert.Equal(0, DiagnosticLog.Prune(Path.Combine(_dir, "missing"), keep: 1));
+        }
+
+        [NotAsRootFact]
+        public void Prune_skips_files_it_may_not_delete()
+        {
+            Directory.CreateDirectory(_dir);
+            string oldest = Path.Combine(_dir, "session-20261028-090000-x.jsonl");
+            File.WriteAllText(oldest, "{}");
+            File.WriteAllText(Path.Combine(_dir, "session-20261030-090000-x.jsonl"), "{}");
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                // A file another handle holds open without sharing can't be deleted: File.Delete throws IOException.
+                _output.WriteLine("Windows: the oldest session file is held open with FileShare.None, so deleting it throws IOException.");
+                using (new FileStream(oldest, FileMode.Open, FileAccess.Read, FileShare.None))
+                {
+                    Assert.Equal(0, DiagnosticLog.Prune(_dir, keep: 1));
+                }
+                Assert.Equal(2, Directory.GetFiles(_dir).Length);
+                return;
+            }
+
+#if NET8_0_OR_GREATER
+            // A read-only directory makes File.Delete throw UnauthorizedAccessException.
+            _output.WriteLine("Unix: user '" + Environment.UserName + "' deleting in a read-only directory, which throws UnauthorizedAccessException.");
+            File.SetUnixFileMode(_dir, UnixFileMode.UserRead | UnixFileMode.UserExecute);
+            try
+            {
+                Assert.Equal(0, DiagnosticLog.Prune(_dir, keep: 1));
+                Assert.Equal(2, Directory.GetFiles(_dir).Length);
+            }
+            finally
+            {
+                File.SetUnixFileMode(_dir, UnixFileMode.UserRead | UnixFileMode.UserWrite | UnixFileMode.UserExecute);
+            }
+#else
+            // File.SetUnixFileMode needs .NET 7+. The net48 target is built and run only on Windows, where
+            // the branch above always returns. If it ever ran elsewhere, fail instead of passing untested.
+            Assert.Fail("net48 runs only on Windows, where the Windows branch above runs.");
+#endif
+        }
+
+        private sealed class ThrowingToString
+        {
+            public override string ToString() => throw new InvalidOperationException("no text");
         }
     }
 }

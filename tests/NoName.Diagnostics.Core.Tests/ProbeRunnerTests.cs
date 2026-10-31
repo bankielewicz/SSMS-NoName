@@ -64,10 +64,20 @@ namespace NoName.Diagnostics.Core.Tests
         public async Task Probe_that_hangs_times_out()
         {
             var hang = new TaskCompletionSource<bool>();
+            try
+            {
+                Task<ProbeResult> running = _runner.RunAsync(new Probe("P-4", (ctx, ct) => hang.Task));
 
-            ProbeResult result = await _runner.RunAsync(new Probe("P-4", (ctx, ct) => hang.Task));
+                // The limit is 500 ms. If the runner ignored it, fail here rather than hang the suite.
+                Task first = await Task.WhenAny(running, Task.Delay(TimeSpan.FromSeconds(10)));
+                Assert.True(first == running, "the runner did not stop a hanging probe within 10 s of its 500 ms limit");
 
-            Assert.Equal(ProbeStatus.Timeout, result.Status);
+                Assert.Equal(ProbeStatus.Timeout, (await running).Status);
+            }
+            finally
+            {
+                hang.TrySetResult(true); // let a still-pending run finish
+            }
         }
 
         [Fact]
@@ -163,13 +173,151 @@ namespace NoName.Diagnostics.Core.Tests
             Assert.Equal("Error", summary.GetProperty("statuses").GetProperty("B").GetString());
         }
 
+        [Fact]
+        public async Task Cancelled_step_is_recorded_and_ends_the_probe_as_an_error()
+        {
+            // The caller didn't cancel, so a cancellation inside the probe is an error, not a skip.
+            ProbeResult result = await _runner.RunAsync(new Probe("P-11", (ctx, ct) =>
+            {
+                ctx.Step("Cancelled.Api", () => throw new OperationCanceledException());
+                ctx.Step("Never.Reached", () => 1);
+                return Task.CompletedTask;
+            }));
+
+            Assert.Equal(ProbeStatus.Error, result.Status);
+            Assert.Equal("Cancelled.Api", result.Steps.Single()["api"]);
+            Assert.Equal(false, result.Steps.Single()["ok"]);
+        }
+
+        [Fact]
+        public async Task Failed_async_step_fails_the_probe_and_returns_default()
+        {
+            int value = -1;
+            ProbeResult result = await _runner.RunAsync(new Probe("P-12", async (ctx, ct) =>
+            {
+                value = await ctx.StepAsync<int>("Async.Missing", async () =>
+                {
+                    await Task.Yield();
+                    throw new MissingMethodException("Async.Missing");
+                });
+            }));
+
+            Assert.Equal(0, value);
+            Assert.Equal(ProbeStatus.Fail, result.Status);
+            Assert.Equal("System.MissingMethodException", ((IDictionary<string, object>)result.Steps.Single()["error"])["type"]);
+        }
+
+        [Fact]
+        public async Task Cancelled_async_step_is_recorded_and_rethrown()
+        {
+            ProbeResult result = await _runner.RunAsync(new Probe("P-13", async (ctx, ct) =>
+            {
+                await ctx.StepAsync<int>("Async.Cancelled", async () =>
+                {
+                    await Task.Yield();
+                    throw new OperationCanceledException();
+                });
+            }));
+
+            Assert.Equal(ProbeStatus.Error, result.Status);
+            Assert.Equal(false, result.Steps.Single()["ok"]);
+        }
+
+        [Fact]
+        public async Task Explicit_fail_and_skip_are_reported_with_reasons()
+        {
+            ProbeResult failed = await _runner.RunAsync(new Probe("P-14", (ctx, ct) => { ctx.Fail("wrong value"); return Task.CompletedTask; }));
+            ProbeResult skipped = await _runner.RunAsync(new Probe("P-15", (ctx, ct) => { ctx.Skip("no grid open"); return Task.CompletedTask; }));
+
+            Assert.Equal(ProbeStatus.Fail, failed.Status);
+            Assert.Equal("wrong value", failed.Reason);
+            Assert.Equal(ProbeStatus.Skipped, skipped.Status);
+            Assert.Equal("no grid open", skipped.Reason);
+        }
+
+        [Fact]
+        public async Task Cancelling_a_probe_that_ignores_the_token_skips_it_without_waiting_for_the_time_limit()
+        {
+            var runner = new ProbeRunner(_log, new Sanitizer(verbose: false), TimeSpan.FromSeconds(30));
+            var hang = new TaskCompletionSource<bool>();
+            using (var cts = new CancellationTokenSource())
+            {
+                try
+                {
+                    // The probe cancels the caller's token as soon as it has started, then ignores it and hangs.
+                    ProbeResult result = await runner.RunAsync(new Probe("P-16", (ctx, ct) =>
+                    {
+                        cts.Cancel();
+                        return hang.Task;
+                    }), cts.Token);
+
+                    Assert.Equal(ProbeStatus.Skipped, result.Status);
+                    Assert.True(result.DurationMs < 10000, "should end on cancellation, not after the 30 s limit");
+                }
+                finally
+                {
+                    hang.TrySetResult(true);
+                }
+            }
+        }
+
+        [Fact]
+        public async Task Probes_receive_the_runners_own_sanitizer()
+        {
+            var sanitizer = new Sanitizer(verbose: true);
+            var runner = new ProbeRunner(_log, sanitizer, TimeSpan.FromSeconds(5));
+            Sanitizer seen = null;
+
+            await runner.RunAsync(new Probe("P-17", (ctx, ct) =>
+            {
+                seen = ctx.Sanitizer;
+                return Task.CompletedTask;
+            }));
+
+            Assert.Same(sanitizer, seen);
+        }
+
+        [Fact]
+        public async Task Action_step_runs_the_action_and_records_a_successful_step()
+        {
+            int calls = 0;
+
+            ProbeResult result = await _runner.RunAsync(new Probe("P-18", (ctx, ct) =>
+            {
+                ctx.Step("Action.Api", () => { calls++; });
+                return Task.CompletedTask;
+            }));
+
+            Assert.Equal(1, calls);
+            Assert.Equal(ProbeStatus.Pass, result.Status);
+            IDictionary<string, object> step = result.Steps.Single();
+            Assert.Equal("Action.Api", step["api"]);
+            Assert.Equal(true, step["ok"]);
+        }
+
+        [Fact]
+        public void Runner_arguments_are_checked()
+        {
+            Assert.Throws<ArgumentNullException>(() => new ProbeRunner(null, new Sanitizer(verbose: false), TimeSpan.FromSeconds(1)));
+            Assert.Throws<ArgumentNullException>(() => new ProbeRunner(_log, null, TimeSpan.FromSeconds(1)));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new ProbeRunner(_log, new Sanitizer(verbose: false), TimeSpan.Zero));
+            Assert.Throws<ArgumentNullException>(() => new ProbeContext(null));
+        }
+
+        [Fact]
+        public async Task Null_probe_or_probe_list_is_rejected()
+        {
+            await Assert.ThrowsAsync<ArgumentNullException>(() => _runner.RunAsync(null));
+            await Assert.ThrowsAsync<ArgumentNullException>(() => _runner.RunAllAsync(null));
+        }
+
         private List<JsonElement> ReadLines()
         {
             using (var stream = new FileStream(_log.FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             using (var reader = new StreamReader(stream))
             {
                 return reader.ReadToEnd()
-                    .Split('\n', StringSplitOptions.RemoveEmptyEntries)
+                    .Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries)
                     .Select(l => JsonDocument.Parse(l).RootElement.Clone())
                     .ToList();
             }

@@ -54,8 +54,19 @@ scripts/wsl-dotnet.sh test tests/NoName.Diagnostics.Core.Tests/NoName.Diagnostic
 
 # Coverage plus the same 95% line-coverage gate CI uses (pick a new folder each run; don't rm first)
 scripts/wsl-dotnet.sh test tests/NoName.Diagnostics.Core.Tests/NoName.Diagnostics.Core.Tests.csproj --settings tests/coverage.runsettings --collect "XPlat Code Coverage" --results-directory .cache/coverage-run-3
-python3 scripts/coverage_gate.py .cache/coverage-run-3 .cache/coverage-run-3.xml --minimum 95
+python3 scripts/coverage_gate.py .cache/coverage-run-3 --minimum 95
+
+# The coverage gate's own tests (stdlib unittest, run first in CI)
+python3 -m unittest discover -s tests/scripts
 ```
+
+The commands above run net8.0 only. Any run with Windows dotnet (the CI Windows job, or `dotnet.exe` from WSL) runs net8.0 and net48, because the test project adds net48 only when `$(OS)` is Windows. From WSL, restore from the repo's cache so no packages land in the Windows profile:
+
+```sh
+"/mnt/c/Program Files/dotnet/dotnet.exe" test '\\wsl.localhost\Ubuntu\home\bryan\Projects\NoName\tests\NoName.Diagnostics.Core.Tests\NoName.Diagnostics.Core.Tests.csproj' -f net8.0 '-p:RestorePackagesPath=\\wsl.localhost\Ubuntu\home\bryan\Projects\NoName\.cache\nuget\packages' -- RunConfiguration.TreatNoTestsAsError=true
+```
+
+.NET Framework won't load assemblies from a UNC path, so the net48 test host finds no tests there: `dotnet test` prints "No test is available" and still exits 0 unless `RunConfiguration.TreatNoTestsAsError=true` is set (CI sets it). To run net48 from WSL, build it with `-f net48`, copy `tests/NoName.Diagnostics.Core.Tests/bin.win/Debug/net48/` to a folder on a local Windows drive, and run `dotnet.exe test <that folder>\NoName.Diagnostics.Core.Tests.dll -- RunConfiguration.TreatNoTestsAsError=true`.
 
 The VSIX builds only with Windows MSBuild (Visual Studio 2026 Community, which has the extension workload). It runs fine from WSL against the UNC path, and restores NuGet packages on the Windows side:
 
@@ -89,11 +100,11 @@ The installer log is the newest `/mnt/c/Users/bryan/AppData/Local/Temp/dd_VSIXIn
 
 **Build plumbing:** `Directory.Build.props` gives Windows builds `obj.win/` and `bin.win/` so WSL `dotnet` and Windows MSBuild don't overwrite each other's restore output. It excludes both OS's output folders from compile items, and disables SourceLink.
 
-**CI** (`.github/workflows/ci.yml`) tests and measures only the Core library on Ubuntu with .NET 8. `scripts/coverage_gate.py` enforces 95% line coverage, then `actions/upload-code-coverage` feeds the repository's coverage rule. Actions are pinned to full commit SHAs.
+**CI** (`.github/workflows/ci.yml`) tests and measures only the Core library and the coverage gate, on Ubuntu with .NET 8, against GitHub's merge commit for pull requests. `scripts/coverage_gate.py` enforces 95% line coverage from coverlet's exact line counts. A second job, "Core tests (Windows)", runs the same tests on windows-latest without coverage, on both net8.0 and net48 (SSMS loads the library on .NET Framework 4.8), so Windows-only paths (such as `Prune`'s file-in-use handling) run in CI; it isn't a required check. Linux and WSL run net8.0 only. There's no coverage upload: GitHub Code Quality isn't available for this personal-account repository. Actions are pinned to full commit SHAs.
 
 ## Repository rules
 
-- GitHub `bankielewicz/SSMS-NoName` is public. Its `main` ruleset has no bypass for anyone: pull requests only, no force-push or deletion, code-quality findings at "errors" block, and line coverage must be at least 95%. Branch from `origin/main` and open a pull request; never plan a force-push to `main`.
+- GitHub `bankielewicz/SSMS-NoName` is public. Its `main` ruleset has no bypass for anyone: pull requests only, no force-push or deletion, and the CI check "Core tests and coverage" must pass. Its code-quality and 95% coverage rules receive no data while Code Quality is unavailable, so the CI check is what enforces coverage. Never weaken a gate to get a pull request through: no coverage exclusions, no skips that hide a test that didn't run, no mocks added only to hit lines, no lowered minimum. A test the environment can't exercise (for example one that needs a non-root user, run as root) is reported as skipped with its reason, never as passed. Branch from `origin/main` and open a pull request; never plan a force-push to `main`.
 - Commit as `Bryan Ankielewicz <121247296+bankielewicz@users.noreply.github.com>`, which is set in the repo-local git config. The machine's global identity ("DevForgeAI CI/CD Engineer") is wrong here, and other addresses may be credited to the wrong GitHub account. Check `git config user.email` before committing.
 - `Specs-main/` is a checkout of the DevForgeAI framework (`bankielewicz/Specs`) and is git-ignored. Framework changes belong there, never in this repo. `github.com/bankielewicz/SSMS` holds an earlier Codex attempt that the owner rejected; treat it as background reading only.
 - When Claude Code's sandbox is on, it mounts placeholder dotfiles at the repo root (`.bashrc`, `.gitmodules`, `.mcp.json` and others), and `.git/config` is read-only. Stage explicit paths, never `git add -A`. Use absolute paths instead of `cd` into subfolders.

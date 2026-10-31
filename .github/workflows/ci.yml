@@ -1,0 +1,89 @@
+name: CI
+
+# Tests and measures the parts of NoName that can run outside SSMS: the NoName.Diagnostics.Core
+# library and the coverage gate script. The VSIX runs only inside SSMS 22 and is checked by the
+# diagnostic run instead (docs/specs/noname/feasibility-spike.md). A second job runs the same
+# tests on Windows, on .NET 8 and on .NET Framework 4.8 (the runtime SSMS loads the library on),
+# where the IOException branch of DiagnosticLog.Prune can also be exercised.
+#
+# scripts/coverage_gate.py fails the job below 95% line coverage. GitHub's Code Quality coverage
+# upload isn't used: Code Quality isn't available for this personal-account repository.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  # A new push to a pull request cancels its older run. Every other run (a push to main, a manual
+  # run) is keyed by its run id, so none cancels another: a manual run must not cancel the push
+  # run for the same commit.
+  group: ci-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  core:
+    # This exact name is the required status check in the main ruleset. Renaming the job, or
+    # adding paths filters to the triggers (a workflow that doesn't run never reports the
+    # check), would block or ungate every pull request.
+    name: Core tests and coverage
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      DOTNET_NOLOGO: "1"
+      DOTNET_CLI_TELEMETRY_OPTOUT: "1"
+    steps:
+      # For a pull request this is GitHub's merge commit, so CI tests what main would become.
+      - name: Check out the commit under test
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Test the coverage gate
+        run: python3 -m unittest discover -s tests/scripts
+
+      - name: Set up .NET 8
+        uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Test NoName.Diagnostics.Core with coverage
+        run: >-
+          dotnet test tests/NoName.Diagnostics.Core.Tests/NoName.Diagnostics.Core.Tests.csproj
+          --settings tests/coverage.runsettings
+          --collect "XPlat Code Coverage"
+          --results-directory TestResults
+
+      - name: Check line coverage (95% minimum)
+        run: python3 scripts/coverage_gate.py TestResults --minimum 95
+
+  # The same tests on Windows: the test project targets net8.0 and, on Windows only, net48, so
+  # one dotnet test runs both. No coverage collection and no gate here: coverage is measured on
+  # the Ubuntu job above.
+  core-windows:
+    name: Core tests (Windows)
+    runs-on: windows-latest
+    timeout-minutes: 15
+    env:
+      DOTNET_NOLOGO: "1"
+      DOTNET_CLI_TELEMETRY_OPTOUT: "1"
+    steps:
+      - name: Check out the commit under test
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up .NET 8
+        uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          dotnet-version: 8.0.x
+
+      # A target whose test adapter fails to load reports "No test is available" and still passes.
+      # TreatNoTestsAsError makes that a failure, so net48 can't pass by running nothing.
+      - name: Test NoName.Diagnostics.Core (net8.0 and net48)
+        run: dotnet test tests/NoName.Diagnostics.Core.Tests/NoName.Diagnostics.Core.Tests.csproj -- RunConfiguration.TreatNoTestsAsError=true
