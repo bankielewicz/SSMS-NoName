@@ -21,3 +21,6 @@ obj.win/
 *.vsix
 TestResults/
 coverage.cobertura.xml
+
+# Python bytecode from running the coverage gate and its tests
+__pycache__/

@@ -54,7 +54,7 @@ scripts/wsl-dotnet.sh test tests/NoName.Diagnostics.Core.Tests/NoName.Diagnostic
 
 # Coverage plus the same 95% line-coverage gate CI uses (pick a new folder each run; don't rm first)
 scripts/wsl-dotnet.sh test tests/NoName.Diagnostics.Core.Tests/NoName.Diagnostics.Core.Tests.csproj --settings tests/coverage.runsettings --collect "XPlat Code Coverage" --results-directory .cache/coverage-run-3
-python3 scripts/coverage_gate.py .cache/coverage-run-3 .cache/coverage-run-3.xml --minimum 95
+python3 scripts/coverage_gate.py .cache/coverage-run-3 --minimum 95
 
 # The coverage gate's own tests (stdlib unittest, run first in CI)
 python3 -m unittest discover -s tests/scripts

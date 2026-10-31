@@ -18,8 +18,10 @@ permissions:
   contents: read
 
 concurrency:
-  # A new push to a pull request cancels its older run; every push to main gets its own run.
-  group: ci-${{ github.event.pull_request.number || github.sha }}
+  # A new push to a pull request cancels its older run. Every other run (a push to main, a manual
+  # run) is keyed by its run id, so none cancels another: a manual run must not cancel the push
+  # run for the same commit.
+  group: ci-${{ github.event.pull_request.number || github.run_id }}
   cancel-in-progress: true
 
 jobs:
@@ -53,4 +55,4 @@ jobs:
           --results-directory TestResults
 
       - name: Check line coverage (95% minimum)
-        run: python3 scripts/coverage_gate.py TestResults coverage.cobertura.xml --minimum 95
+        run: python3 scripts/coverage_gate.py TestResults --minimum 95
