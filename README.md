@@ -1,6 +1,6 @@
 # NoName
 
-NoName (a working name) is a planned SQL Server Management Studio (SSMS) 22 extension suite: DBA tools built around a prompt builder that turns SQL Server context into an AI prompt, with identities, secrets, infrastructure names and selected data redacted locally first. It is for DBAs and developers whose organizations don't let AI tools connect to databases directly. It is meant to work whether or not SSMS's Copilot/AI component is installed.
+NoName (a working name) is a planned SQL Server Management Studio (SSMS) 22 extension suite for one SQL Server instance: tools built on the instance's Query Store, Extended Events, error log, PerfMon counters and DMVs, with optional history kept on the instance, around a prompt builder that turns SQL Server context into an AI prompt, with identities, secrets, infrastructure names and selected data redacted locally first. It is for DBAs and developers whose organizations don't let AI tools connect to databases directly. It is meant to work whether or not SSMS's Copilot/AI component is installed.
 
 Unreleased. Today the repository holds only **NoName Diagnostics**, a test-bench extension that will probe which SSMS APIs the suite can use and log every call, result, error and click. Microsoft doesn't support third-party SSMS extensions, so the probes are meant to be rerun after every SSMS update.
 
@@ -49,7 +49,7 @@ Unreleased. Today the repository holds only **NoName Diagnostics**, a test-bench
 | `NoName.Diagnostics.Core` (session log, sanitizer, probe runner; netstandard2.0) | Implemented, with unit tests |
 | `NoName.Diagnostics.Vsix` 0.1.0 | Loads in SSMS 22.11.3 in the background and logs clicks on its three commands; no probes yet |
 | Diagnostic probes (OS, SQL, editor, Object Explorer, results grid) | Specified in the feasibility spike; not built |
-| The suite: prompt builder and DBA tools | Brainstormed (BRN-001); the design, PRD and architecture are next |
+| The suite: prompt builder and single-instance DBA tools | Brainstormed (BRN-001 version 2); the design, PRD and architecture are next |
 
 ## Documentation
 

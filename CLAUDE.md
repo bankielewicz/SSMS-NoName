@@ -4,13 +4,22 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-NoName (working name) is an SSMS 22 extension that builds AI prompts locally from SQL Server context, with per-user redaction of identities, secrets, infrastructure names and selected data. Users copy the prompt into whatever AI their organization allows. It must work whether or not SSMS's Copilot/AI component is installed; an MCP channel is optional and comes later. It is for the owner first, then an open-source release.
+NoName is a slug, not the product name (that's still open, Q-NN-001). It is an SSMS 22 extension suite for DBAs working on **one SQL Server instance**: tools built on the instance's own data (Query Store, Extended Events, the SQL error log, PerfMon counters, DMVs), with an optional history database on the instance filled by Agent jobs, around a hub that builds AI prompts locally with per-user redaction of identities, secrets, infrastructure names and selected data. Users copy the prompt into whatever AI their organization allows. It must work whether or not SSMS's Copilot/AI component is installed, stay light on the user's PC (no lag in SSMS), and look polished. An MCP channel is optional and comes later. It is for the owner first, then an open-source release.
 
 The code today is the **diagnostic extension** (NoName Diagnostics). It probes the OS, SQL and GUI APIs the product needs inside SSMS and logs every call, result, error and user action. It doubles as an SSMS-update canary: rerun it after each SSMS update to see what broke. The product itself isn't built yet.
 
 Read before changing direction or scope:
+- `docs/specs/brainstorm/BRN-001.md`: the current brainstorm (version 2, converged). Its version 2 records the owner's single-instance redirection in his words; its promoted ideas are what the design and the PRD build on. Every capability is classed A (proven in SSMS), B (waits on a named diagnostic probe) or C (outside SSMS).
 - `docs/specs/noname/brainstorming.md` (IDEA-NN-001): confirmed owner inputs (`INPUT-NN-*`), evidence, constraints (`C-*`) and open questions (`Q-NN-*`).
 - `docs/specs/noname/feasibility-spike.md` (RES-NN-001): research questions, probe catalog (`PRB-*`), install/run procedure and log-privacy rules.
+
+## Where the planning stands
+
+- Done: BRN-001 version 2. The first design canvas ("SQL Server Health Dashboards") was judged too much of an enterprise monitoring platform; the owner asked for a new single-instance canvas, iterated in Claude Design until it is impressive.
+- Next: `/devforgeai:ui BRN-001` (a create run: it proposes flows and briefs for the owner to confirm, then draws the new canvas and records it as DSN-001), then `/devforgeai:prd BRN-001`.
+- In parallel: the diagnostic probes (`PRB-*` in RES-NN-001 and the class B probes in BRN-001), which decide which tools are buildable. Only P1 is proven: the VSIX loads and its menu commands fire.
+- Open: GitHub issue #4 (the sanitizer logs connection-string key names verbatim). Not yet done: recording the owner's newer inputs as `INPUT-NN-015` onward in IDEA-NN-001; BRN-001 quotes them meanwhile.
+- Research for the design lives outside the repository: third-party repositories in the git-ignored `tmp/` are read for ideas only, never copied (two of them aren't MIT: `local-llm-chat-ssms` is GPL-2.0 and SqlPulse has no licence).
 
 ## Workflow: DevForgeAI, TDD, then QA with /code-review
 
