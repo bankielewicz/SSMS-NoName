@@ -53,6 +53,6 @@ Unreleased. Today the repository holds only **NoName Diagnostics**, a test-bench
 
 ## Documentation
 
-- [BRN-001, the suite brainstorm](docs/specs/brainstorm/BRN-001.md): the problems, the 37 ideas with their dispositions, and the assumptions each tool depends on.
+- [BRN-001, the suite brainstorm](docs/specs/brainstorm/BRN-001.md): the problems, the ideas with their dispositions, and the assumptions each tool depends on.
 - [IDEA-NN-001, the first brainstorm](docs/specs/noname/brainstorming.md): owner inputs, evidence about SSMS 22, constraints and open questions.
 - [RES-NN-001, the feasibility spike](docs/specs/noname/feasibility-spike.md): the diagnostic extension's research questions, probe catalog and log-privacy rules.

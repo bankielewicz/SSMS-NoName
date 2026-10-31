@@ -13,7 +13,9 @@ Read before changing direction or scope:
 - `docs/specs/noname/brainstorming.md` (IDEA-NN-001): confirmed owner inputs (`INPUT-NN-*`), evidence, constraints (`C-*`) and open questions (`Q-NN-*`).
 - `docs/specs/noname/feasibility-spike.md` (RES-NN-001): research questions, probe catalog (`PRB-*`), install/run procedure and log-privacy rules.
 
-## Where the planning stands
+## Where the planning stands (as of 2026-10-31)
+
+Check each item against the documents' versions and `gh pr list` before relying on it, and update this section when a planning step completes.
 
 - Done: BRN-001 version 2. The first design canvas ("SQL Server Health Dashboards") was judged too much of an enterprise monitoring platform; the owner asked for a new single-instance canvas, iterated in Claude Design until it is impressive.
 - Next: `/devforgeai:ui BRN-001` (a create run: it proposes flows and briefs for the owner to confirm, then draws the new canvas and records it as DSN-001), then `/devforgeai:prd BRN-001`.
@@ -27,7 +29,7 @@ This project follows **bankielewicz/DevForgeAI**, the `devforgeai@devforgeai` pl
 
 - **Planning chain:** `devforgeai:brainstorm` → `ui` → `prd` → `architecture` → `context` → `epic`. They write:
   - `docs/specs/brainstorm/BRN-NNN.md`
-  - `docs/specs/design/DSN-NNN.md`, from screens designed in Claude Design; that's the mockup step in INPUT-NN-014
+  - `docs/specs/design/DSN-NNN.md`, where `ui` proposes the flows and a brief for each, draws the canvas in Claude Design through the Artifact tool once the owner confirms them, and records the boards the owner iterated on; that's the mockup step in INPUT-NN-014
   - `docs/specs/prd/PRD-NNN.md`
   - `docs/specs/arch/ARCH-NNN.md`, with ADRs in `docs/specs/adr/`
   - `docs/specs/context/`
