@@ -55,6 +55,9 @@ scripts/wsl-dotnet.sh test tests/NoName.Diagnostics.Core.Tests/NoName.Diagnostic
 # Coverage plus the same 95% line-coverage gate CI uses (pick a new folder each run; don't rm first)
 scripts/wsl-dotnet.sh test tests/NoName.Diagnostics.Core.Tests/NoName.Diagnostics.Core.Tests.csproj --settings tests/coverage.runsettings --collect "XPlat Code Coverage" --results-directory .cache/coverage-run-3
 python3 scripts/coverage_gate.py .cache/coverage-run-3 .cache/coverage-run-3.xml --minimum 95
+
+# The coverage gate's own tests (stdlib unittest, run first in CI)
+python3 -m unittest discover -s tests/scripts
 ```
 
 The VSIX builds only with Windows MSBuild (Visual Studio 2026 Community, which has the extension workload). It runs fine from WSL against the UNC path, and restores NuGet packages on the Windows side:
@@ -89,11 +92,11 @@ The installer log is the newest `/mnt/c/Users/bryan/AppData/Local/Temp/dd_VSIXIn
 
 **Build plumbing:** `Directory.Build.props` gives Windows builds `obj.win/` and `bin.win/` so WSL `dotnet` and Windows MSBuild don't overwrite each other's restore output. It excludes both OS's output folders from compile items, and disables SourceLink.
 
-**CI** (`.github/workflows/ci.yml`) tests and measures only the Core library on Ubuntu with .NET 8. `scripts/coverage_gate.py` enforces 95% line coverage, then `actions/upload-code-coverage` feeds the repository's coverage rule. Actions are pinned to full commit SHAs.
+**CI** (`.github/workflows/ci.yml`) tests and measures only the Core library and the coverage gate, on Ubuntu with .NET 8, against GitHub's merge commit for pull requests. `scripts/coverage_gate.py` enforces 95% line coverage from coverlet's exact line counts. There's no coverage upload: GitHub Code Quality isn't available for this personal-account repository. Actions are pinned to full commit SHAs.
 
 ## Repository rules
 
-- GitHub `bankielewicz/SSMS-NoName` is public. Its `main` ruleset has no bypass for anyone: pull requests only, no force-push or deletion, code-quality findings at "errors" block, and line coverage must be at least 95%. Branch from `origin/main` and open a pull request; never plan a force-push to `main`.
+- GitHub `bankielewicz/SSMS-NoName` is public. Its `main` ruleset has no bypass for anyone: pull requests only, no force-push or deletion, and the CI check "Core tests and coverage" must pass. Its code-quality and 95% coverage rules receive no data while Code Quality is unavailable, so the CI check is what enforces coverage. Never weaken a gate to get a pull request through: no coverage exclusions, skips, mocks added only to hit lines, or a lowered minimum. Branch from `origin/main` and open a pull request; never plan a force-push to `main`.
 - Commit as `Bryan Ankielewicz <121247296+bankielewicz@users.noreply.github.com>`, which is set in the repo-local git config. The machine's global identity ("DevForgeAI CI/CD Engineer") is wrong here, and other addresses may be credited to the wrong GitHub account. Check `git config user.email` before committing.
 - `Specs-main/` is a checkout of the DevForgeAI framework (`bankielewicz/Specs`) and is git-ignored. Framework changes belong there, never in this repo. `github.com/bankielewicz/SSMS` holds an earlier Codex attempt that the owner rejected; treat it as background reading only.
 - When Claude Code's sandbox is on, it mounts placeholder dotfiles at the repo root (`.bashrc`, `.gitmodules`, `.mcp.json` and others), and `.git/config` is read-only. Stage explicit paths, never `git add -A`. Use absolute paths instead of `cd` into subfolders.
