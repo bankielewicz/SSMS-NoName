@@ -5,8 +5,8 @@ Finds the single coverage.cobertura.xml under RESULTS_DIR, prints the overall li
 and every class below 100% with its missed lines, and exits 1 when the line coverage is below
 --minimum. The rate comes from the exact covered and valid line counts, so CI and a local run
 give the same verdict. A report that can't be used exits 2, so it can't be mistaken for low
-coverage: none or several reports, one that isn't XML or has no usable line counts, or one that
-measured no lines.
+coverage: none or several reports, one that isn't XML, has no usable line counts or has a class
+without a usable line-rate, or one that measured no lines.
 Tests: tests/scripts/test_coverage_gate.py.
 
 Usage: coverage_gate.py RESULTS_DIR --minimum PERCENT
@@ -56,7 +56,11 @@ def main(argv=None):
 
     gaps = []
     for cls in root.iter("class"):
-        rate = float(cls.get("line-rate")) * 100
+        try:
+            rate = float(cls.get("line-rate")) * 100
+        except (TypeError, ValueError):
+            fail(f"class {cls.get('name')} has no usable line-rate: {reports[0]}")
+            return 2
         # Only the class's own <lines>: each line also appears under its method.
         lines = cls.find("lines")
         missed = [] if lines is None else [line.get("number") for line in lines.iter("line") if line.get("hits") == "0"]
@@ -88,7 +92,7 @@ def write_job_summary(line_rate, shown, covered, valid, minimum, gaps):
         verdict = "meets" if line_rate >= minimum else "is below"
         with open(summary, "a", encoding="utf-8") as f:
             f.write("### NoName.Diagnostics.Core coverage\n\n")
-            f.write(f"Line coverage **{shown:.2f}%** ({covered} of {valid} lines) {verdict} the {minimum:.0f}% minimum.\n\n")
+            f.write(f"Line coverage **{shown:.2f}%** ({covered} of {valid} lines) {verdict} the {minimum:.2f}% minimum.\n\n")
             if gaps:
                 f.write("| Coverage | Class | Missed lines |\n| ---: | --- | --- |\n")
                 for rate, _, name, missed in sorted(gaps):

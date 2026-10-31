@@ -132,7 +132,7 @@ class CoverageGateTests(unittest.TestCase):
         text = self.summary.read_text(encoding="utf-8")
         self.assertTrue(text.startswith("earlier step\n"), "the summary is appended to, not replaced")
         self.assertIn("### NoName.Diagnostics.Core coverage\n\n", text)
-        self.assertIn("Line coverage **62.50%** (5 of 8 lines) is below the 95% minimum.\n", text)
+        self.assertIn("Line coverage **62.50%** (5 of 8 lines) is below the 95.00% minimum.\n", text)
         self.assertIn(
             "| Coverage | Class | Missed lines |\n| ---: | --- | --- |\n"
             "| 50.0% | `Probe` | 11, 13 |\n| 75.0% | `Json` | 13 |\n",
@@ -147,8 +147,16 @@ class CoverageGateTests(unittest.TestCase):
         self.assertEqual(code, 0)
         self.assertNotIn("::error", out)
         text = self.summary.read_text(encoding="utf-8")
-        self.assertIn("Line coverage **100.00%** (2 of 2 lines) meets the 95% minimum.\n", text)
+        self.assertIn("Line coverage **100.00%** (2 of 2 lines) meets the 95.00% minimum.\n", text)
         self.assertNotIn("| Coverage |", text)
+
+    def test_summary_shows_a_fractional_minimum_as_given(self):
+        self.as_github_actions()
+        self.add_report(report("0.95", 95, 100, [covered_class("Probe", [1])]))
+        code, out, err = self.run_gate(minimum="94.5")
+        self.assertEqual(code, 0)
+        self.assertIn("Line coverage 95.00% (95 of 100 lines); minimum 94.50%\n", out)
+        self.assertIn("meets the 94.50% minimum.\n", self.summary.read_text(encoding="utf-8"))
 
     def test_outside_github_there_is_no_summary_and_the_error_goes_to_stderr(self):
         self.add_report(report("0.5", 2, 4, [covered_class("Probe", [5, 0, 7, 0])]))
@@ -191,22 +199,33 @@ class CoverageGateTests(unittest.TestCase):
         ]
         for name, xml in cases:
             with self.subTest(name=name, xml=xml[:200]):
-                self.setUp_results()
+                self.fresh_results()
                 self.add_report(xml)
                 code, out, err = self.run_gate()
                 self.assertEqual(code, 2)
                 self.assertIn(f"no usable {name} count", err)
 
+    def test_class_without_a_usable_line_rate_is_refused(self):
+        for attribute in ("", ' line-rate="fast"', ' line-rate=""'):
+            with self.subTest(attribute=attribute):
+                self.fresh_results()
+                odd = f'    <class name="Odd" filename="Odd.cs"{attribute} branch-rate="1" complexity="1"><methods /></class>\n'
+                self.add_report(report("1", 2, 2, [covered_class("Probe", [3, 4]), odd]))
+                code, out, err = self.run_gate()
+                self.assertEqual(code, 2)
+                path = self.results / "run-1" / "coverage.cobertura.xml"
+                self.assertEqual(err, f"error: class Odd has no usable line-rate: {path}\n")
+
     def test_report_that_is_not_xml_is_refused(self):
         for text in ("", "<coverage lines-valid=", "not xml at all"):
             with self.subTest(text=text):
-                self.setUp_results()
+                self.fresh_results()
                 self.add_report(text)
                 code, out, err = self.run_gate()
                 self.assertEqual(code, 2)
                 self.assertIn("could not parse", err)
 
-    def setUp_results(self):
+    def fresh_results(self):
         """A fresh results folder, for tests that try several reports in turn."""
         if self.results.exists():
             shutil.rmtree(self.results)
