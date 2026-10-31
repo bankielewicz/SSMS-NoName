@@ -58,9 +58,12 @@ jobs:
 
       - name: Upload coverage to GitHub
         # Upload even when the check above fails, so the pull request shows what's missing.
+        # The upload returns HTTP 404 until Code Quality is enabled for the repository, so it only
+        # warns; the 95% gate above is what fails the job.
         if: ${{ !cancelled() && steps.coverage.outputs.report != '' }}
         uses: actions/upload-code-coverage@2b21a77928be8d5168c2b9581a67f2adbebacc52 # v1.4.4
         with:
           file: ${{ steps.coverage.outputs.report }}
           language: C#
           label: code-coverage/core
+          fail-on-error: false
