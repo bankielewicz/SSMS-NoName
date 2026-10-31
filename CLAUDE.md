@@ -20,8 +20,6 @@ Derive the current state from the repository, not from memory:
 - What a capability waits on: its class in BRN-001 (A proven, B waits on a named probe, C outside SSMS); a class B capability becomes buildable only when its probe passes in NoName Diagnostics.
 - Open work: `gh pr list` and `gh issue list` on `bankielewicz/SSMS-NoName`.
 
-Snapshot, 2026-10-31 (update it when a planning step completes): BRN-001 version 2 is converged, with no design document yet. The first canvas ("SQL Server Health Dashboards") was judged too much of an enterprise monitoring platform. The next step is a create run of `/devforgeai:ui BRN-001` for a new single-instance canvas, iterated in Claude Design until it is impressive, then `/devforgeai:prd BRN-001`.
-
 Research for the design lives outside the repository: third-party repositories in the git-ignored `tmp/` are read for ideas only, never copied. Two of them aren't MIT: `local-llm-chat-ssms` is GPL-2.0, and SqlPulse has no licence.
 
 ## Workflow: DevForgeAI, TDD, then QA with /code-review
