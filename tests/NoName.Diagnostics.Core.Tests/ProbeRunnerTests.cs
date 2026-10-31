@@ -317,7 +317,7 @@ namespace NoName.Diagnostics.Core.Tests
             using (var reader = new StreamReader(stream))
             {
                 return reader.ReadToEnd()
-                    .Split('\n', StringSplitOptions.RemoveEmptyEntries)
+                    .Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries)
                     .Select(l => JsonDocument.Parse(l).RootElement.Clone())
                     .ToList();
             }

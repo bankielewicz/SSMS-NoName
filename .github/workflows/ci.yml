@@ -3,7 +3,8 @@ name: CI
 # Tests and measures the parts of NoName that can run outside SSMS: the NoName.Diagnostics.Core
 # library and the coverage gate script. The VSIX runs only inside SSMS 22 and is checked by the
 # diagnostic run instead (docs/specs/noname/feasibility-spike.md). A second job runs the same
-# tests on Windows, where the IOException branch of DiagnosticLog.Prune can be exercised.
+# tests on Windows, on .NET 8 and on .NET Framework 4.8 (the runtime SSMS loads the library on),
+# where the IOException branch of DiagnosticLog.Prune can also be exercised.
 #
 # scripts/coverage_gate.py fails the job below 95% line coverage. GitHub's Code Quality coverage
 # upload isn't used: Code Quality isn't available for this personal-account repository.
@@ -61,7 +62,8 @@ jobs:
       - name: Check line coverage (95% minimum)
         run: python3 scripts/coverage_gate.py TestResults --minimum 95
 
-  # The same tests on Windows. No coverage collection and no gate here: coverage is measured on
+  # The same tests on Windows: the test project targets net8.0 and, on Windows only, net48, so
+  # one dotnet test runs both. No coverage collection and no gate here: coverage is measured on
   # the Ubuntu job above.
   core-windows:
     name: Core tests (Windows)
@@ -81,5 +83,7 @@ jobs:
         with:
           dotnet-version: 8.0.x
 
-      - name: Test NoName.Diagnostics.Core
-        run: dotnet test tests/NoName.Diagnostics.Core.Tests/NoName.Diagnostics.Core.Tests.csproj
+      # A target whose test adapter fails to load reports "No test is available" and still passes.
+      # TreatNoTestsAsError makes that a failure, so net48 can't pass by running nothing.
+      - name: Test NoName.Diagnostics.Core (net8.0 and net48)
+        run: dotnet test tests/NoName.Diagnostics.Core.Tests/NoName.Diagnostics.Core.Tests.csproj -- RunConfiguration.TreatNoTestsAsError=true

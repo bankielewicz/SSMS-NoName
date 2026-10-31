@@ -1,7 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <!-- SSMS loads the library on .NET Framework 4.8, so Windows builds also run the tests on net48.
+         Linux and WSL (and the Ubuntu CI job) build net8.0 only. -->
+    <TargetFrameworks>net8.0</TargetFrameworks>
+    <TargetFrameworks Condition="'$(OS)' == 'Windows_NT'">net8.0;net48</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <IsPackable>false</IsPackable>
     <Nullable>disable</Nullable>
@@ -12,6 +15,12 @@
     <PackageReference Include="xunit" Version="2.9.3" />
     <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5" />
     <PackageReference Include="coverlet.collector" Version="10.1.0" />
+  </ItemGroup>
+
+  <!-- The tests use JsonDocument, which net8.0 has built in and net48 gets from this package
+       (8.0.x targets netstandard2.0 and net462). -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
+    <PackageReference Include="System.Text.Json" Version="8.0.6" />
   </ItemGroup>
 
   <ItemGroup>

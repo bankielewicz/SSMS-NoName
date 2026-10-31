@@ -60,6 +60,14 @@ python3 scripts/coverage_gate.py .cache/coverage-run-3 --minimum 95
 python3 -m unittest discover -s tests/scripts
 ```
 
+The commands above run net8.0 only. Any run with Windows dotnet (the CI Windows job, or `dotnet.exe` from WSL) runs net8.0 and net48, because the test project adds net48 only when `$(OS)` is Windows. From WSL, restore from the repo's cache so no packages land in the Windows profile:
+
+```sh
+"/mnt/c/Program Files/dotnet/dotnet.exe" test '\\wsl.localhost\Ubuntu\home\bryan\Projects\NoName\tests\NoName.Diagnostics.Core.Tests\NoName.Diagnostics.Core.Tests.csproj' -f net8.0 '-p:RestorePackagesPath=\\wsl.localhost\Ubuntu\home\bryan\Projects\NoName\.cache\nuget\packages' -- RunConfiguration.TreatNoTestsAsError=true
+```
+
+.NET Framework won't load assemblies from a UNC path, so the net48 test host finds no tests there: `dotnet test` prints "No test is available" and still exits 0 unless `RunConfiguration.TreatNoTestsAsError=true` is set (CI sets it). To run net48 from WSL, build it with `-f net48`, copy `tests/NoName.Diagnostics.Core.Tests/bin.win/Debug/net48/` to a folder on a local Windows drive, and run `dotnet.exe test <that folder>\NoName.Diagnostics.Core.Tests.dll -- RunConfiguration.TreatNoTestsAsError=true`.
+
 The VSIX builds only with Windows MSBuild (Visual Studio 2026 Community, which has the extension workload). It runs fine from WSL against the UNC path, and restores NuGet packages on the Windows side:
 
 ```sh
@@ -92,7 +100,7 @@ The installer log is the newest `/mnt/c/Users/bryan/AppData/Local/Temp/dd_VSIXIn
 
 **Build plumbing:** `Directory.Build.props` gives Windows builds `obj.win/` and `bin.win/` so WSL `dotnet` and Windows MSBuild don't overwrite each other's restore output. It excludes both OS's output folders from compile items, and disables SourceLink.
 
-**CI** (`.github/workflows/ci.yml`) tests and measures only the Core library and the coverage gate, on Ubuntu with .NET 8, against GitHub's merge commit for pull requests. `scripts/coverage_gate.py` enforces 95% line coverage from coverlet's exact line counts. A second job, "Core tests (Windows)", runs the same tests on windows-latest without coverage, so Windows-only paths (such as `Prune`'s file-in-use handling) run in CI; it isn't a required check. There's no coverage upload: GitHub Code Quality isn't available for this personal-account repository. Actions are pinned to full commit SHAs.
+**CI** (`.github/workflows/ci.yml`) tests and measures only the Core library and the coverage gate, on Ubuntu with .NET 8, against GitHub's merge commit for pull requests. `scripts/coverage_gate.py` enforces 95% line coverage from coverlet's exact line counts. A second job, "Core tests (Windows)", runs the same tests on windows-latest without coverage, on both net8.0 and net48 (SSMS loads the library on .NET Framework 4.8), so Windows-only paths (such as `Prune`'s file-in-use handling) run in CI; it isn't a required check. Linux and WSL run net8.0 only. There's no coverage upload: GitHub Code Quality isn't available for this personal-account repository. Actions are pinned to full commit SHAs.
 
 ## Repository rules
 

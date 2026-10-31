@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text.Json;
 using System.Threading.Tasks;
 using NoName.Diagnostics.Core;
@@ -212,7 +213,7 @@ namespace NoName.Diagnostics.Core.Tests
             File.WriteAllText(oldest, "{}");
             File.WriteAllText(Path.Combine(_dir, "session-20261030-090000-x.jsonl"), "{}");
 
-            if (OperatingSystem.IsWindows())
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 // A file another handle holds open without sharing can't be deleted: File.Delete throws IOException.
                 _output.WriteLine("Windows: the oldest session file is held open with FileShare.None, so deleting it throws IOException.");
@@ -224,6 +225,7 @@ namespace NoName.Diagnostics.Core.Tests
                 return;
             }
 
+#if NET8_0_OR_GREATER
             // A read-only directory makes File.Delete throw UnauthorizedAccessException.
             _output.WriteLine("Unix: user '" + Environment.UserName + "' deleting in a read-only directory, which throws UnauthorizedAccessException.");
             File.SetUnixFileMode(_dir, UnixFileMode.UserRead | UnixFileMode.UserExecute);
@@ -236,6 +238,11 @@ namespace NoName.Diagnostics.Core.Tests
             {
                 File.SetUnixFileMode(_dir, UnixFileMode.UserRead | UnixFileMode.UserWrite | UnixFileMode.UserExecute);
             }
+#else
+            // File.SetUnixFileMode needs .NET 7+. The net48 target is built and run only on Windows, where
+            // the branch above always returns. If it ever ran elsewhere, fail instead of passing untested.
+            Assert.Fail("net48 runs only on Windows, where the Windows branch above runs.");
+#endif
         }
 
         private sealed class ThrowingToString

@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.InteropServices;
 using Xunit;
 
 namespace NoName.Diagnostics.Core.Tests
@@ -12,8 +13,12 @@ namespace NoName.Diagnostics.Core.Tests
     {
         public NotAsRootFactAttribute()
         {
-            if (!OperatingSystem.IsWindows() && Environment.IsPrivilegedProcess)
+#if NET8_0_OR_GREATER
+            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && Environment.IsPrivilegedProcess)
                 Skip = "Running as root: root ignores directory permissions, so a delete can't be made to fail.";
+#endif
+            // Environment.IsPrivilegedProcess needs .NET 6+. The net48 target is built and run only on
+            // Windows, where a test is never skipped for being root, so nothing is lost without it.
         }
     }
 }
