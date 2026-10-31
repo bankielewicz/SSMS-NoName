@@ -1,0 +1,100 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## What this is
+
+NoName (working name) is an SSMS 22 extension that builds AI prompts locally from SQL Server context, with per-user redaction of identities, secrets, infrastructure names and selected data. Users copy the prompt into whatever AI their organization allows. It must work whether or not SSMS's Copilot/AI component is installed; an MCP channel is optional and comes later. It is for the owner first, then an open-source release.
+
+The code today is the **diagnostic extension** (NoName Diagnostics). It probes the OS, SQL and GUI APIs the product needs inside SSMS and logs every call, result, error and user action. It doubles as an SSMS-update canary: rerun it after each SSMS update to see what broke. The product itself isn't built yet.
+
+Read before changing direction or scope:
+- `docs/specs/noname/brainstorming.md` (IDEA-NN-001): confirmed owner inputs (`INPUT-NN-*`), evidence, constraints (`C-*`) and open questions (`Q-NN-*`).
+- `docs/specs/noname/feasibility-spike.md` (RES-NN-001): research questions, probe catalog (`PRB-*`), install/run procedure and log-privacy rules.
+
+## Workflow: DevForgeAI, TDD, then QA with /code-review
+
+This project follows **bankielewicz/DevForgeAI**, the `devforgeai@devforgeai` plugin (0.31.x), which the owner develops. `devforgeai@devforgeai-local` (bankielewicz/Specs) is installed only for comparison. Its skills share the `devforgeai:` prefix, so for this project use only the skills named below.
+
+- **Planning chain:** `devforgeai:brainstorm` → `ui` → `prd` → `architecture` → `context` → `epic`. They write:
+  - `docs/specs/brainstorm/BRN-NNN.md`
+  - `docs/specs/design/DSN-NNN.md`, from screens designed in Claude Design; that's the mockup step in INPUT-NN-014
+  - `docs/specs/prd/PRD-NNN.md`
+  - `docs/specs/arch/ARCH-NNN.md`, with ADRs in `docs/specs/adr/`
+  - `docs/specs/context/`
+  - `docs/specs/epic/EPIC-NNN.md`
+- **Check before deciding:** before proposing or changing behaviour, run `devforgeai:spec-lookup` to cite what's already decided. Anything it doesn't find is the owner's decision to ask about.
+- **Earlier documents:** `docs/specs/noname/brainstorming.md` (IDEA-NN-001) and `feasibility-spike.md` (RES-NN-001) were written with the Specs templates before the switch. They feed the DevForgeAI chain and aren't replaced. When either changes, bump `document_version`, add a superseding entity to their register, and validate:
+  ```sh
+  python3 "$(ls -d ~/.claude/plugins/cache/devforgeai-local/devforgeai/*/skills/workflow/scripts/validate_templates.py | head -1)" --provenance docs/specs/noname/provenance.json
+  ```
+- **TDD** (DevForgeAI 0.31 has no implement skill yet, so this is the convention):
+  1. Write the test first, against a stub that compiles and throws `NotImplementedException`.
+  2. The red run must fail on behaviour, not on build or setup errors.
+  3. Implement until it's green.
+
+  Tests added for code that already exists are characterization tests and pass first time; say so in the commit message.
+- **QA and merging:**
+  - The working session never labels its own pull request.
+  - An independent QA session, or the owner, runs `/code-review` on the pull request (`/code-review <PR#>`) and records the verdict as a PR comment plus the `merge-approved` or `qa-failed` label. A `qa-failed` verdict sends the PR back; fix its findings test-first.
+  - `devforgeai:git` commits, pushes and opens the pull request. It merges only when the label is `merge-approved`, CI is green and the owner confirms.
+- **Other skills:** `devforgeai:documents-updater` refreshes the README and CHANGELOG; run `devforgeai:precompact` before `/compact`.
+- **The VSIX can't be unit-tested.** Its evidence is a diagnostic run inside SSMS 22, read back from the logs.
+
+## Commands
+
+Run from the repo root. `scripts/wsl-dotnet.sh` wraps `dotnet` so NuGet and CLI state stay in the repo's ignored `.cache/` and `$TMPDIR` rather than `$HOME`.
+
+```sh
+# Core library tests (net8.0 test project, netstandard2.0 library)
+scripts/wsl-dotnet.sh test tests/NoName.Diagnostics.Core.Tests/NoName.Diagnostics.Core.Tests.csproj
+
+# One test, or one class
+scripts/wsl-dotnet.sh test tests/NoName.Diagnostics.Core.Tests/NoName.Diagnostics.Core.Tests.csproj --filter "FullyQualifiedName~ProbeRunnerTests.Probe_that_hangs_times_out"
+
+# Coverage plus the same 95% line-coverage gate CI uses (pick a new folder each run; don't rm first)
+scripts/wsl-dotnet.sh test tests/NoName.Diagnostics.Core.Tests/NoName.Diagnostics.Core.Tests.csproj --settings tests/coverage.runsettings --collect "XPlat Code Coverage" --results-directory .cache/coverage-run-3
+python3 scripts/coverage_gate.py .cache/coverage-run-3 .cache/coverage-run-3.xml --minimum 95
+```
+
+The VSIX builds only with Windows MSBuild (Visual Studio 2026 Community, which has the extension workload). It runs fine from WSL against the UNC path, and restores NuGet packages on the Windows side:
+
+```sh
+"/mnt/c/Program Files/Microsoft Visual Studio/18/Community/MSBuild/Current/Bin/MSBuild.exe" '\\wsl.localhost\Ubuntu\home\bryan\Projects\NoName\src\NoName.Diagnostics.Vsix\NoName.Diagnostics.Vsix.csproj' -restore -p:Configuration=Debug -nologo -v:minimal
+```
+
+The output is `src/NoName.Diagnostics.Vsix/bin.win/Debug/NoName.Diagnostics.vsix`. To install it, SSMS must be closed; always use SSMS 22's own installer and its instance ID, so the package can't land in SSMS 21 or Visual Studio 2026:
+
+```sh
+"/mnt/f/Program Files/Microsoft SQL Server Management Studio 22/Release/Common7/IDE/VSIXInstaller.exe" /quiet /instanceIds:dd3b7a98 '\\wsl.localhost\Ubuntu\home\bryan\Projects\NoName\src\NoName.Diagnostics.Vsix\bin.win\Debug\NoName.Diagnostics.vsix'
+# uninstall: same installer, /instanceIds:dd3b7a98 /uninstall:NoName.Diagnostics.6B1E5C8A-3F7D-4E2B-9A61-0C4D2E8F7B13
+```
+
+The installer log is the newest `/mnt/c/Users/bryan/AppData/Local/Temp/dd_VSIXInstaller_*.log`. Diagnostic session logs are in `/mnt/c/Users/bryan/AppData/Local/NoName/Diagnostics/logs/*.jsonl`, and SSMS's load errors are in `/mnt/c/Users/bryan/AppData/Roaming/Microsoft/SSMS/22.0_dd3b7a98/ActivityLog.xml` when the owner starts SSMS with `/log`.
+
+## Architecture
+
+**`src/NoName.Diagnostics.Core`** (netstandard2.0, no SSMS references, `TreatWarningsAsErrors`):
+- `DiagnosticLog` writes one JSON Lines file per session, flushed per line so a host crash keeps everything before it. It writes a `session/start` and `session/end` line, prunes to the newest sessions, and its `LineWritten` event feeds live viewers.
+- `Sanitizer` is the privacy boundary. By default values are logged as their shape (length and a SHA-256 prefix); verbose mode logs values. Connection-string secrets are never logged, verbose or not.
+- `ProbeRunner` runs an `IProbe`; each API call goes through `ProbeContext.Step`/`StepAsync`, which records the call and outcome, then lets the probe continue. Exceptions, hangs (time limit) and cancellation become `ProbeStatus` results. `RunAllAsync` logs a `run.summary` line with each probe's status (the canary view).
+- `Json` is a dependency-free writer, because SSMS loads its own System.Text.Json.
+
+**`src/NoName.Diagnostics.Vsix`** is a classic VSSDK project (.NET Framework 4.8, `Microsoft.VisualStudio.SDK` 17.14.40265, `Microsoft.VSSDK.BuildTools` 17.14.2120). This is the same setup as the shipping SSMS 22 extension StatisticsParser (MIT), which the spike used as a reference.
+- The manifest targets `Microsoft.VisualStudio.Ssms` [22.0,23.0) on amd64, installed per user.
+- The package loads in the background on `ShellInitialized`. Loading only opens the log and records the host; probes run on explicit clicks.
+- Commands sit in the Tools menu and in SSMS's query-window context menu (`{33F13AC3-80BB-4ECB-85BC-225435603A5E}`:`0x0050`, plus `IDM_VS_CTXT_CODEWIN`). `PackageIds.cs` must match the symbols in `VSCommandTable.vsct`.
+- **Late binding is a rule.** Every SSMS or Copilot type (SqlWorkbench.Interfaces, SQLEditors, GridControl, the brokered `SqlEditor.BrokeredContracts`) is loaded by name at runtime, never as a compile-time reference. The same VSIX then runs with or without the AI component (C-08) and logs "type not found" instead of failing to load. These internal APIs change between SSMS 22 updates; 22.6 changed the brokered methods' signatures.
+- SSMS redirects every `Microsoft.SqlServer.TransactSql.ScriptDom` version up to 18.0 to its bundled 18.0.115, so in-process parsing always uses SSMS's copy.
+
+**Build plumbing:** `Directory.Build.props` gives Windows builds `obj.win/` and `bin.win/` so WSL `dotnet` and Windows MSBuild don't overwrite each other's restore output. It excludes both OS's output folders from compile items, and disables SourceLink.
+
+**CI** (`.github/workflows/ci.yml`) tests and measures only the Core library on Ubuntu with .NET 8. `scripts/coverage_gate.py` enforces 95% line coverage, then `actions/upload-code-coverage` feeds the repository's coverage rule. Actions are pinned to full commit SHAs.
+
+## Repository rules
+
+- GitHub `bankielewicz/SSMS-NoName` is public. Its `main` ruleset has no bypass for anyone: pull requests only, no force-push or deletion, code-quality findings at "errors" block, and line coverage must be at least 95%. Branch from `origin/main` and open a pull request; never plan a force-push to `main`.
+- Commit as `Bryan Ankielewicz <121247296+bankielewicz@users.noreply.github.com>`, which is set in the repo-local git config. The machine's global identity ("DevForgeAI CI/CD Engineer") is wrong here, and other addresses may be credited to the wrong GitHub account. Check `git config user.email` before committing.
+- `Specs-main/` is a checkout of the DevForgeAI framework (`bankielewicz/Specs`) and is git-ignored. Framework changes belong there, never in this repo. `github.com/bankielewicz/SSMS` holds an earlier Codex attempt that the owner rejected; treat it as background reading only.
+- When Claude Code's sandbox is on, it mounts placeholder dotfiles at the repo root (`.bashrc`, `.gitmodules`, `.mcp.json` and others), and `.git/config` is read-only. Stage explicit paths, never `git add -A`. Use absolute paths instead of `cd` into subfolders.
+- The Write tool turns `\u2028`/`\u2029` escapes into raw characters, which breaks C# string literals. Write them as `(char)0x2028`.
