@@ -4,6 +4,9 @@
 # Codex marketplace pointer left from plugin setup; not part of this project
 /.agents/
 
+# Third-party GitHub repositories Bryan downloaded for research only; never copied from
+/tmp/
+
 # Claude Code session configuration
 /.claude/
 
