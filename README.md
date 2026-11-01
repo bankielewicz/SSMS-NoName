@@ -49,10 +49,11 @@ Unreleased. Today the repository holds only **NoName Diagnostics**, a test-bench
 | `NoName.Diagnostics.Core` (session log, sanitizer, probe runner; netstandard2.0) | Implemented, with unit tests |
 | `NoName.Diagnostics.Vsix` 0.1.0 | Loads in SSMS 22.11.3 in the background and logs clicks on its three commands; no probes yet |
 | Diagnostic probes (OS, SQL, editor, Object Explorer, results grid) | Specified in the feasibility spike; not built |
-| The suite: prompt builder and single-instance DBA tools | Brainstormed (BRN-001 version 2); the design, PRD and architecture are next |
+| The suite: prompt builder and single-instance DBA tools | Brainstormed (BRN-001 version 2) and designed in draft (DSN-001: eleven screens in four flows); the PRD and architecture are next |
 
 ## Documentation
 
 - [BRN-001, the suite brainstorm](docs/specs/brainstorm/BRN-001.md): the problems, the ideas with their dispositions, and the assumptions each tool depends on.
-- [IDEA-NN-001, the first brainstorm](docs/specs/noname/brainstorming.md): owner inputs, evidence about SSMS 22, constraints and open questions.
+- [DSN-001, the release design](docs/specs/design/DSN-001.md): the screens drawn so far (the instance window, Query Store, incident evidence and the prompt hub), the ideas each shows, and the ideas still waiting for a screen. The board files are in [docs/specs/design/DSN-001/boards/](docs/specs/design/DSN-001/boards/).
+- [IDEA-NN-001, the first brainstorm](docs/specs/noname/brainstorming.md): owner inputs, including the decisions made during the design step, evidence about SSMS 22, constraints and open questions.
 - [RES-NN-001, the feasibility spike](docs/specs/noname/feasibility-spike.md): the diagnostic extension's research questions, probe catalog and log-privacy rules.

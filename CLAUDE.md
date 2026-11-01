@@ -10,7 +10,8 @@ The code today is the **diagnostic extension** (NoName Diagnostics). It probes t
 
 Read before changing direction or scope:
 - `docs/specs/brainstorm/BRN-001.md`: the current brainstorm (version 2, converged). Its version 2 records the owner's single-instance redirection in his words; its promoted ideas are what the design and the PRD build on. Every capability is classed A (proven in SSMS), B (waits on a named diagnostic probe) or C (outside SSMS).
-- `docs/specs/noname/brainstorming.md` (IDEA-NN-001): confirmed owner inputs (`INPUT-NN-*`), evidence, constraints (`C-*`) and open questions (`Q-NN-*`).
+- `docs/specs/design/DSN-001.md`: the release design (draft), the boards drawn in Claude Design and imported into `docs/specs/design/DSN-001/boards/`, each mapped to its flow and the promoted ideas it shows; its open markers are the promoted ideas no board shows yet. Its canvas link is in the document; change the boards on the canvas and import them with `/devforgeai:ui BRN-001`, never by editing the copy.
+- `docs/specs/noname/brainstorming.md` (IDEA-NN-001): confirmed owner inputs (`INPUT-NN-*`, including the design step's decisions on motion, look, example data, themes and charts), evidence, constraints (`C-*`) and open questions (`Q-NN-*`).
 - `docs/specs/noname/feasibility-spike.md` (RES-NN-001): research questions, probe catalog (`PRB-*`), install/run procedure and log-privacy rules.
 
 ## Finding where the planning stands
