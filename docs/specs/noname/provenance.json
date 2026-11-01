@@ -370,6 +370,96 @@
       "locator": "source/StatisticsParser.Vsix: source.extension.vsixmanifest, StatisticsParser.Vsix.csproj, VSCommandTable.vsct, Capture/ContractTypes.cs, Capture/MessagesBrokeredClient.cs, Capture/MessagesTabReader.cs",
       "availability": "available",
       "owner": "Brent Ozar Unlimited (MIT licence)"
+    },
+    {
+      "entity_id": "E-INPUT-NN-015",
+      "kind": "source",
+      "uri": "brainstorming.md",
+      "revision": "unversioned",
+      "locator": "input-nn-015",
+      "availability": "available",
+      "owner": "Bryan Ankielewicz (product owner)"
+    },
+    {
+      "entity_id": "E-INPUT-NN-016",
+      "kind": "source",
+      "uri": "brainstorming.md",
+      "revision": "unversioned",
+      "locator": "input-nn-016",
+      "availability": "available",
+      "owner": "Bryan Ankielewicz (product owner)"
+    },
+    {
+      "entity_id": "E-INPUT-NN-017",
+      "kind": "source",
+      "uri": "brainstorming.md",
+      "revision": "unversioned",
+      "locator": "input-nn-017",
+      "availability": "available",
+      "owner": "Bryan Ankielewicz (product owner)"
+    },
+    {
+      "entity_id": "E-INPUT-NN-018",
+      "kind": "source",
+      "uri": "brainstorming.md",
+      "revision": "unversioned",
+      "locator": "input-nn-018",
+      "availability": "available",
+      "owner": "Bryan Ankielewicz (product owner)"
+    },
+    {
+      "entity_id": "E-INPUT-NN-019",
+      "kind": "source",
+      "uri": "brainstorming.md",
+      "revision": "unversioned",
+      "locator": "input-nn-019",
+      "availability": "available",
+      "owner": "Bryan Ankielewicz (product owner)"
+    },
+    {
+      "entity_id": "E-INPUT-NN-020",
+      "kind": "source",
+      "uri": "brainstorming.md",
+      "revision": "unversioned",
+      "locator": "input-nn-020",
+      "availability": "available",
+      "owner": "Bryan Ankielewicz (product owner)"
+    },
+    {
+      "entity_id": "E-INPUT-NN-021",
+      "kind": "source",
+      "uri": "brainstorming.md",
+      "revision": "unversioned",
+      "locator": "input-nn-021",
+      "availability": "available",
+      "owner": "Bryan Ankielewicz (product owner)"
+    },
+    {
+      "entity_id": "E-INPUT-NN-022",
+      "kind": "source",
+      "uri": "brainstorming.md",
+      "revision": "unversioned",
+      "locator": "input-nn-022",
+      "availability": "available",
+      "owner": "Bryan Ankielewicz (product owner)"
+    },
+    {
+      "entity_id": "E-DOC-IDEA-NN-001-V0.4.0",
+      "kind": "document",
+      "uri": "brainstorming.md",
+      "revision": "unversioned",
+      "locator": "whole-document",
+      "availability": "available",
+      "owner": "Bryan Ankielewicz (product owner)"
+    },
+    {
+      "entity_id": "E-DOC-RES-NN-001-V0.2.0",
+      "kind": "document",
+      "uri": "feasibility-spike.md",
+      "revision": "unversioned",
+      "locator": "whole-document",
+      "availability": "available",
+      "owner": "Bryan Ankielewicz (product owner)"
     }
   ],
   "links": [
@@ -922,6 +1012,162 @@
       "activity": "adapted",
       "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
       "recorded_at": "2026-10-30T12:49:29Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0047",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.0",
+      "relation": "supersedes",
+      "object_id": "E-DOC-IDEA-NN-001-V0.3.0",
+      "rationale": "Version 0.4.0 adds INPUT-NN-015 to INPUT-NN-022 from the DSN-001 design step.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-01T23:19:10Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0048",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.0",
+      "relation": "generated_from",
+      "object_id": "E-TPL-BRAINSTORMING-2.0.0",
+      "rationale": "Same template as earlier versions.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-01T23:19:10Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0049",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.0",
+      "relation": "derived_from",
+      "object_id": "E-INPUT-NN-015",
+      "rationale": "INPUT-NN-015: the engine flow map, its motion rules and its static fallback.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-01T23:19:10Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0050",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.0",
+      "relation": "derived_from",
+      "object_id": "E-INPUT-NN-016",
+      "rationale": "INPUT-NN-016: the look (VS 2026 shell, Segoe UI 9 pt, flat surfaces, square corners) and the frame.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-01T23:19:10Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0051",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.0",
+      "relation": "derived_from",
+      "object_id": "E-INPUT-NN-017",
+      "rationale": "INPUT-NN-017: example data is unmistakably fictional.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-01T23:19:10Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0052",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.0",
+      "relation": "derived_from",
+      "object_id": "E-INPUT-NN-018",
+      "rationale": "INPUT-NN-018: Light and Dark themes plus the tinted themes, checked on Cool Breeze; blue was a drafting error.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-01T23:19:10Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0053",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.0",
+      "relation": "derived_from",
+      "object_id": "E-INPUT-NN-019",
+      "rationale": "INPUT-NN-019: the enable-history dialog, after the MVP.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-01T23:19:10Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0054",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.0",
+      "relation": "derived_from",
+      "object_id": "E-INPUT-NN-020",
+      "rationale": "INPUT-NN-020: chart and interaction rules, and the forms for boards not drawn yet.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-01T23:19:10Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0055",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.0",
+      "relation": "derived_from",
+      "object_id": "E-INPUT-NN-021",
+      "rationale": "INPUT-NN-021: the permission-missing state and the light-by-design states.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-01T23:19:10Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0056",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.0",
+      "relation": "derived_from",
+      "object_id": "E-INPUT-NN-022",
+      "rationale": "INPUT-NN-022: thresholds as placeholders and the host OS layer, left to the PRD interview.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-01T23:19:10Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0057",
+      "subject_id": "E-DOC-RES-NN-001-V0.2.0",
+      "relation": "supersedes",
+      "object_id": "E-DOC-RES-NN-001-V0.1.0",
+      "rationale": "Version 0.2.0 adds the proposed probe PRB-UI-03.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-01T23:19:10Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0058",
+      "subject_id": "E-DOC-RES-NN-001-V0.2.0",
+      "relation": "generated_from",
+      "object_id": "E-TPL-RESEARCH-BRIEF-2.0.0",
+      "rationale": "Same template as version 0.1.0.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-01T23:19:10Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0059",
+      "subject_id": "E-DOC-RES-NN-001-V0.2.0",
+      "relation": "derived_from",
+      "object_id": "E-INPUT-NN-015",
+      "rationale": "PRB-UI-03 tests the flow map's motion that INPUT-NN-015 makes conditional on a probe.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-01T23:19:10Z",
       "verification": "unverified",
       "verified_at": null
     }

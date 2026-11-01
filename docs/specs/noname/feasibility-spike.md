@@ -4,18 +4,18 @@ template_type: "research-brief"
 template_source: "https://github.com/bankielewicz/Specs/blob/c36d38957cf8c90864dd02f18acd6e48f700ae12/docs/templates/discovery/research-brief.template.md"
 template_revision: "c36d38957cf8c90864dd02f18acd6e48f700ae12"
 provenance_register: "provenance.json"
-provenance_links: ["LINK-NN-0031", "LINK-NN-0032", "LINK-NN-0033", "LINK-NN-0034", "LINK-NN-0035", "LINK-NN-0036", "LINK-NN-0037", "LINK-NN-0038", "LINK-NN-0039", "LINK-NN-0040"]
+provenance_links: ["LINK-NN-0031", "LINK-NN-0032", "LINK-NN-0033", "LINK-NN-0034", "LINK-NN-0035", "LINK-NN-0036", "LINK-NN-0037", "LINK-NN-0038", "LINK-NN-0039", "LINK-NN-0040", "LINK-NN-0057", "LINK-NN-0058", "LINK-NN-0059"]
 document_id: "RES-NN-001"
-document_version: "0.1.0"
+document_version: "0.2.0"
 project_id: "NONAME"
 status: "draft"
 owner: "Bryan Ankielewicz (product owner)"
 created: "2026-10-30"
-updated: "2026-10-30"
-source_of_truth: ["INPUT-NN-009", "INPUT-NN-010", "INPUT-NN-011", "INPUT-NN-012", "INPUT-NN-013", "INPUT-NN-014"]
+updated: "2026-11-01"
+source_of_truth: ["INPUT-NN-009", "INPUT-NN-010", "INPUT-NN-011", "INPUT-NN-012", "INPUT-NN-013", "INPUT-NN-014", "INPUT-NN-015"]
 related_documents: ["IDEA-NN-001"]
 depends_on: ["IDEA-NN-001"]
-supersedes: []
+supersedes: ["RES-NN-001@0.1.0"]
 assumptions: ["ASM-NN-002", "ASM-NN-004"]
 open_questions: ["Q-NN-011", "Q-NN-012", "Q-NN-013", "Q-NN-014"]
 ---
@@ -127,6 +127,14 @@ These were recorded on 2026-10-30. Speaker: Bryan Ankielewicz, product owner.
 | PRB-BRK-01 | Brokered | Proxies for `ISqlEditorServiceBrokered` and `IQueryEditorTabDataServiceBrokered` | Contracts DLL path and version; success, null or exception per service; AI component present | Recorded for both installs (RQ-10) |
 | PRB-E2E-01 | Prompt | Selection → fixed sample template → clipboard (INPUT-NN-012) | Template ID; prompt length; clipboard verified | Prompt on the clipboard |
 
+### Proposed probes
+
+Proposed, not yet in the catalog above: a proposed probe is not built or run until the owner moves it into the catalog. BRN-001 version 2 also names probes proposed in other documents (PRB-UI-02 among them); whether those join this catalog is an open question in BRN-001 section 7, so they are not listed here.
+
+| Probe ID | Area | What it calls | What it logs | Pass oracle |
+| --- | --- | --- | --- | --- |
+| PRB-UI-03 | GUI | A tool window holding an animated flow map of about 20 nodes, one frame-capped render loop at 30 fps or lower, easing values between samples taken every 5 s; then the window hidden, collapsed and minimized, and SSMS's main window deactivated (INPUT-NN-015) | UI-thread responsiveness while the map is visible, from ActivityLog and PerfView as BRN-001's ASM-25 says; render-loop and CPU activity while it is hidden | SSMS's UI thread stays responsive while the map is visible, and the map costs nothing while it is hidden. The Overview's flow-map motion ships only if this passes; otherwise the static map is the Overview (INPUT-NN-015) |
+
 ### Event capture
 
 - **EVT-CMD:** every command run through menus, toolbars or shortcuts, captured before and after execution (`CommandEvents`). Logs the command GUID, ID and name.
@@ -209,6 +217,7 @@ The diagnostic hasn't run, so every RQ is `not_run`. Static inspection supplied 
 | --- | --- | --- | --- |
 | RES-NN-001 | LINK-NN-0031 | Research-brief template 2.0.0 at `c36d389` | The bundled copy's hash matched the template map |
 | INPUT-NN-010 to INPUT-NN-014 | LINK-NN-0032 to LINK-NN-0036 | Owner statements, 2026-10-30 | Recorded from the conversation |
+| RES-NN-001 v0.2.0 | LINK-NN-0057 to LINK-NN-0059 | v0.1.0; INPUT-NN-015 (recorded in IDEA-NN-001) | Adds the proposed probe PRB-UI-03 only; no other section changed |
 | Inputs and build design | LINK-NN-0037 to LINK-NN-0040 | IDEA-NN-001 v0.2.0; local inspection; community manifests; StatisticsParser source | Third-party repositories are pinned to the commits read on 2026-10-30 |
 
 ## Open questions

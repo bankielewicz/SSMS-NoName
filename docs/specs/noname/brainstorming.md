@@ -4,18 +4,18 @@ template_type: "brainstorming"
 template_source: "https://github.com/bankielewicz/Specs/blob/c36d38957cf8c90864dd02f18acd6e48f700ae12/docs/templates/discovery/brainstorming.template.md"
 template_revision: "c36d38957cf8c90864dd02f18acd6e48f700ae12"
 provenance_register: "provenance.json"
-provenance_links: ["LINK-NN-0001", "LINK-NN-0002", "LINK-NN-0003", "LINK-NN-0004", "LINK-NN-0005", "LINK-NN-0006", "LINK-NN-0007", "LINK-NN-0008", "LINK-NN-0009", "LINK-NN-0010", "LINK-NN-0011", "LINK-NN-0012", "LINK-NN-0013", "LINK-NN-0014", "LINK-NN-0015", "LINK-NN-0016", "LINK-NN-0017", "LINK-NN-0018", "LINK-NN-0019", "LINK-NN-0020", "LINK-NN-0021", "LINK-NN-0022", "LINK-NN-0023", "LINK-NN-0024", "LINK-NN-0025", "LINK-NN-0026", "LINK-NN-0027", "LINK-NN-0028", "LINK-NN-0029", "LINK-NN-0030", "LINK-NN-0041", "LINK-NN-0042", "LINK-NN-0043", "LINK-NN-0044", "LINK-NN-0045", "LINK-NN-0046"]
+provenance_links: ["LINK-NN-0001", "LINK-NN-0002", "LINK-NN-0003", "LINK-NN-0004", "LINK-NN-0005", "LINK-NN-0006", "LINK-NN-0007", "LINK-NN-0008", "LINK-NN-0009", "LINK-NN-0010", "LINK-NN-0011", "LINK-NN-0012", "LINK-NN-0013", "LINK-NN-0014", "LINK-NN-0015", "LINK-NN-0016", "LINK-NN-0017", "LINK-NN-0018", "LINK-NN-0019", "LINK-NN-0020", "LINK-NN-0021", "LINK-NN-0022", "LINK-NN-0023", "LINK-NN-0024", "LINK-NN-0025", "LINK-NN-0026", "LINK-NN-0027", "LINK-NN-0028", "LINK-NN-0029", "LINK-NN-0030", "LINK-NN-0041", "LINK-NN-0042", "LINK-NN-0043", "LINK-NN-0044", "LINK-NN-0045", "LINK-NN-0046", "LINK-NN-0047", "LINK-NN-0048", "LINK-NN-0049", "LINK-NN-0050", "LINK-NN-0051", "LINK-NN-0052", "LINK-NN-0053", "LINK-NN-0054", "LINK-NN-0055", "LINK-NN-0056"]
 document_id: "IDEA-NN-001"
-document_version: "0.3.0"
+document_version: "0.4.0"
 project_id: "NONAME"
 status: "draft"
 owner: "Bryan Ankielewicz (product owner)"
 created: "2026-10-29"
-updated: "2026-10-30"
-source_of_truth: ["INPUT-NN-001", "INPUT-NN-002", "INPUT-NN-003", "INPUT-NN-004", "INPUT-NN-005", "INPUT-NN-006", "INPUT-NN-007", "INPUT-NN-008", "INPUT-NN-009", "INPUT-NN-010", "INPUT-NN-012", "INPUT-NN-013", "INPUT-NN-014"]
+updated: "2026-11-01"
+source_of_truth: ["INPUT-NN-001", "INPUT-NN-002", "INPUT-NN-003", "INPUT-NN-004", "INPUT-NN-005", "INPUT-NN-006", "INPUT-NN-007", "INPUT-NN-008", "INPUT-NN-009", "INPUT-NN-010", "INPUT-NN-012", "INPUT-NN-013", "INPUT-NN-014", "INPUT-NN-015", "INPUT-NN-016", "INPUT-NN-017", "INPUT-NN-018", "INPUT-NN-019", "INPUT-NN-020", "INPUT-NN-021", "INPUT-NN-022"]
 related_documents: ["RES-NN-001"]
 depends_on: []
-supersedes: ["IDEA-NN-001@0.2.0"]
+supersedes: ["IDEA-NN-001@0.3.0"]
 assumptions: ["ASM-NN-001", "ASM-NN-002", "ASM-NN-003"]
 open_questions: ["Q-NN-001", "Q-NN-002", "Q-NN-003", "Q-NN-004", "Q-NN-005", "Q-NN-006", "Q-NN-008", "Q-NN-009", "Q-NN-011"]
 ---
@@ -50,11 +50,37 @@ These are recorded from the owner's statements in Claude Code sessions on 2026-1
 
 <a id="input-nn-009"></a>**INPUT-NN-009** (2026-10-30), after a reviewer noted that the grid-data route might depend on Copilot: "The goal is to create a SSMS extension which will work with both copilot/ai components installed or not."
 
+INPUT-NN-015 to INPUT-NN-022 were recorded on 2026-11-01 from the owner's written decisions during the design step that produced [DSN-001](../design/DSN-001.md), dated 2026-10-31 and 2026-11-01. Each is the owner's decision; a sentence after a quotation says where it applies.
+
+<a id="input-nn-015"></a>**INPUT-NN-015** (2026-10-31 and 2026-11-01), the engine flow map and its motion: "an animated "engine flow map" as one of the three directions for the instance-window key screen (Overview). It is not a new idea and not an MVP commitment; it enters the PRD conditional on a probe." Motion: "continuous motion only in this direction. The other two directions animate state changes only (150 to 300 ms on threshold crossings and value changes). No flashing anywhere: a critical state is a steady colour plus an icon, readable without colour and without motion." and "motion interpolates between samples instead of polling faster; one frame-capped render loop per window (30 fps or lower, Timeline.DesiredFrameRate), stopped when the tool window is hidden, collapsed or minimized or when SSMS's main window is deactivated, and kept running while the window is visible and the editor has focus; honour the Windows animation setting (SystemParameters.ClientAreaAnimation) and remote sessions (SystemParameters.IsRemoteSession); drop to the static version on render tier 0 (RenderCapability.Tier)." On 2026-11-01: "Continuous flashing stays out because the Visual Studio shell never flashes and a DBA mid-query does not want a loop pulling attention"; "the pipes-and-dots look, which stays out"; and, choosing the flow map as the Overview, "static A is the shipped Overview if the flow-map probe fails". The probe is PRB-UI-03 in [RES-NN-001](feasibility-spike.md#proposed-probes).
+
+<a id="input-nn-016"></a>**INPUT-NN-016** (2026-10-31 and 2026-11-01), the look: "Visual Studio 2022 shell look. Segoe UI 9 pt. Flat surfaces with 1 px borders; no cards, rounded panels or drop shadows. Dense grid rows of about 22 px. 16 px monoline icons in the Visual Studio image style. Every colour from the shell's theme tokens in light, dark and blue. Test: if a board would look at home in a browser dashboard, it is wrong." The frame: "a tool window shown as a tab in SSMS's document well, the place Activity Monitor opens." Corrections on 2026-11-01: "Visual Studio 2022" became "Visual Studio 2026 shell look, as SSMS 22 shows it" with the owner's "yes", after SSMS 22.11 was found to load Visual Studio shell assemblies 18.11 (Visual Studio 2026); "Bar ends: square. The Style line meant no rounded corners on any element, bars and chips included"; and "Segoe UI 9 pt: resolved, not unverified. The Visual Studio shell's Environment Font defaults to "Automatic", which is the Windows message font: Segoe UI 9 pt on Windows 10 and 11." The themes are INPUT-NN-018.
+
+<a id="input-nn-017"></a>**INPUT-NN-017** (2026-11-01), example data: "Example data is unmistakably fictional: CONTOSO or FABRIKAM logins, AdventureWorks databases, a server name such as SQL-SAMPLE-01; never a name that could belong to a real estate." The owner gave the reason that this product's point is redacting such names, so example names must not read like a real estate. It applies to every board and every brief.
+
+<a id="input-nn-018"></a>**INPUT-NN-018** (2026-11-01), themes: ""blue" in my earlier notes was a drafting error, not a requirement; SSMS 22 has no Blue theme. The must-have line becomes: the shell's Light and Dark themes, plus its tinted themes, which follow because every colour is a shell token; checked on Cool Breeze as the tint nearest the old Blue. Cool Slate stays in the tweaks and is not a requirement."
+
+<a id="input-nn-019"></a>**INPUT-NN-019** (2026-11-01), the enable-history dialog, after the MVP: "IDEA-39's screen is an enable-history dialog that shows the database and Agent jobs it would create, the permission it needs and the script, unexecuted, on the same installer pattern as IDEA-32. BRN-001 names only the database and the jobs, not a UI; IDEA-39 stays no board yet either way, and the PRD puts the dialog in a release after the MVP."
+
+<a id="input-nn-020"></a>**INPUT-NN-020** (2026-11-01), charts and interaction: "status is never carried by colour alone, so status fills may use the shell's tokens; every status shows icon plus word; magnitude uses one hue." "Text never wears the data colour." One tile component for the Overview tiles and the strip that persists on every tab: "label; value; signed delta against the named 7-day baseline; 12-point trend with the brushed segment in the accent; status as a stroke plus icon plus word, never a fill", with the strip "on every tab, identical". Interaction: "Hover layer and table twins are PRD interaction requirements, not board changes: crosshair plus tooltip on lines, per-mark tooltip on bars, a table view for every chart, every value reachable without hovering." Forms for the boards not drawn yet:
+- IDEA-45: "small multiples, one counter per chart, one axis each, deltas from two samples, the counter picker as the single filter row above the charts, the shared brush shading every chart."
+- IDEA-48: "a table (collector, last run, duration, gap), with gaps drawn as marked spans on the shared event lane so a blank stretch reads as "not collected"."
+- IDEA-28: "job runs as lanes on the shared time axis, one hue, failures as icon plus word, overlaps visible by position, never by colour."
+- IDEA-23: "the error-log form again, a density histogram over an event grid, severity as status fills with the legend in ink."
+- IDEA-24: "ranked horizontal bars, one hue, largest first, with the generated script beside the selected row."
+- IDEA-12: "the diagnostics log as a grid with a status column of icon plus word, and the run summary (the canary view) as a status table, no chart."
+- "The guard dialogs and the editor tools are forms and dialogs, not charts."
+
+<a id="input-nn-021"></a>**INPUT-NN-021** (2026-10-31), the instance window's states: "(c) permission missing, for a login without VIEW SERVER STATE, showing what still works; record it as my input for the PRD interview." With it, the light-by-design states the owner asked to see drawn: "visible sample age on every panel, no spinner-heavy loading, the first paint shows cached or partial data rather than an empty frame."
+
+<a id="input-nn-022"></a>**INPUT-NN-022** (2026-11-01), left to the PRD interview: the Overview's thresholds table carries example defaults; "Mark them as placeholders for the PRD interview, not requirements, so DSN-001 records no threshold nobody decided." And "the Windows operating-system layer (CPU, memory and disk of the host), which is a PRD-interview question, not a brief change now."
+
 ### Sources
 
 | Input | Reference and version | What it establishes | Reliability / missing context |
 | --- | --- | --- | --- |
 | Owner input | INPUT-NN-001 to INPUT-NN-007 above | Product direction, defaults and audience | Statements in conversation; no other written record |
+| Owner input | INPUT-NN-015 to INPUT-NN-022 above | Design-step decisions for DSN-001 and the PRD interview: motion, look, example data, themes, the enable-history dialog, charts and interaction, states, items left to the PRD | The owner's written decisions of 2026-10-31 and 2026-11-01; their working copies stay outside the repository |
 | [SSMS FAQ](https://learn.microsoft.com/en-us/ssms/faq) | Docs commit `209c900`, page date 2026-05-29 | Third-party extensions aren't supported but aren't blocked | Primary source, read 2026-10-29 |
 | [SSMS 22 release notes](https://learn.microsoft.com/en-us/ssms/release-notes-22) | Docs commit `6c459d2`, updated 2026-10-29 | 22.11.3 is current (2026-10-29) on Visual Studio 18.11.3; Copilot Agent Mode became generally available in 22.10.2 | Primary source; the notes never mention extensions |
 | [MCP servers in SSMS](https://learn.microsoft.com/en-us/ssms/github-copilot/mcp-servers) | Docs commit `3bbe907`, page date 2026-09-28 | Users can add MCP servers (local or HTTP) from 22.7; administrators can turn off Agent mode and MCP, or allow-list servers | Primary source |
@@ -205,7 +231,7 @@ These are proposals for review, not approved requirements.
 | --- | --- | --- | --- | --- |
 | Continue (proposed) | OPT-04 now; OPT-05 later | INPUT-NN-003 to INPUT-NN-007; E-01 to E-08 | Bryan; pending (proposed 2026-10-29) | Feasibility spike packet `docs/specs/noname/feasibility-spike.md` for EXP-NN-001, written once the owner approves installing a throwaway VSIX (Q-NN-010). The spike runs on installs with and without the AI component (C-08, Q-NN-011). The engine prototype (EXP-NN-003) can start in WSL meanwhile. Then a PRD |
 
-Confirmed needs INPUT-NN-003 to INPUT-NN-007, INPUT-NN-009 and INPUT-NN-012 carry into the PRD. Hypotheses E-09 to E-11 stay with their experiments. The spike packet now exists as [RES-NN-001](feasibility-spike.md), written as a diagnostic extension (INPUT-NN-010, INPUT-NN-011). At the design stage, mockups are prepared through DevForgeAI's design workflow with the Claude Design handoff, so the product looks good enough that people need to use it (INPUT-NN-014).
+Confirmed needs INPUT-NN-003 to INPUT-NN-007, INPUT-NN-009 and INPUT-NN-012 carry into the PRD. Hypotheses E-09 to E-11 stay with their experiments. The spike packet now exists as [RES-NN-001](feasibility-spike.md), written as a diagnostic extension (INPUT-NN-010, INPUT-NN-011). At the design stage, mockups are prepared through DevForgeAI's design workflow with the Claude Design handoff, so the product looks good enough that people need to use it (INPUT-NN-014). That design step produced [DSN-001](../design/DSN-001.md); the owner's decisions made during it, INPUT-NN-015 to INPUT-NN-022, carry into the PRD with the others.
 
 ## Optional enterprise extension
 
@@ -219,6 +245,7 @@ Confirmed needs INPUT-NN-003 to INPUT-NN-007, INPUT-NN-009 and INPUT-NN-012 carr
 | INPUT-NN-001 to INPUT-NN-007 | LINK-NN-0002 to LINK-NN-0008 | Owner statements, 2026-10-29 | Recorded from the conversation; there is no separate durable record |
 | E-01 to E-08, C-01 to C-05 | LINK-NN-0009 to LINK-NN-0017 | Web sources listed in Inputs | Microsoft pages are pinned to their docs commits; other pages are unversioned; the Q&A and redaction-tool pages are known from search summaries only |
 | INPUT-NN-002 background | LINK-NN-0018 | `bankielewicz/SSMS` at `29e1755` | Read as background; nothing derived from it |
+| IDEA-NN-001 v0.4.0 | LINK-NN-0047 to LINK-NN-0056 | v0.3.0; INPUT-NN-015 to INPUT-NN-022 | Recorded from the owner's written decisions during the DSN-001 design step; no other section changed |
 | IDEA-NN-001 v0.3.0 | LINK-NN-0041 to LINK-NN-0046 | v0.2.0; INPUT-NN-010, INPUT-NN-012, INPUT-NN-013 and INPUT-NN-014 (recorded in RES-NN-001) | Q-NN-007 and Q-NN-010 answered; spike packet linked; prompt best practices and design-stage mockups added |
 | IDEA-NN-001 v0.2.0 | LINK-NN-0019 to LINK-NN-0030 | v0.1.0, INPUT-NN-008, INPUT-NN-009, the local SSMS 22 files and the vswhere output | Local files are pinned by SHA-256; the vswhere output is unversioned. Sections unchanged since v0.1.0 keep links LINK-NN-0002 to LINK-NN-0018 |
 
