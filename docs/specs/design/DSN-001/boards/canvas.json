@@ -1,0 +1,238 @@
+{
+  "v": 3,
+  "attachments": {},
+  "boards": {
+    "Main.dc.html": {
+      "h": 924,
+      "is_interactive": true,
+      "title": "Flow 1 · Overview · A: Engine flow map (chosen)",
+      "w": 1440,
+      "x": 0,
+      "y": 300
+    },
+    "incident-evidence-B.dc.html": {
+      "h": 924,
+      "title": "Flow 3 · Error log reader · B: Density histogram + log (chosen)",
+      "w": 1440,
+      "x": 0,
+      "y": 3900
+    },
+    "prompt-hub-A.dc.html": {
+      "h": 924,
+      "title": "Flow 4 · Redaction preview · A: Before and after (chosen)",
+      "w": 1440,
+      "x": 0,
+      "y": 5700
+    },
+    "query-store-B.dc.html": {
+      "h": 924,
+      "title": "Flow 2 · Query Store explorer · B: Time axis first (chosen)",
+      "w": 1440,
+      "x": 0,
+      "y": 2100
+    },
+    "instance-live.dc.html": {
+      "h": 924,
+      "title": "Flow 1 · Live · A: the map's drill target",
+      "w": 1440,
+      "x": 1520,
+      "y": 300
+    },
+    "instance-health.dc.html": {
+      "h": 924,
+      "title": "Flow 1 · Health facts · A: what the instance says about itself",
+      "w": 1440,
+      "x": 3040,
+      "y": 300
+    },
+    "query-store-plan.dc.html": {
+      "h": 924,
+      "title": "Flow 2 · Plan inspector · B: two plans side by side",
+      "w": 1440,
+      "x": 1520,
+      "y": 2100
+    },
+    "incident-evidence-deadlocks.dc.html": {
+      "h": 924,
+      "title": "Flow 3 · Deadlock viewer · B: density histogram + reports",
+      "w": 1440,
+      "x": 1520,
+      "y": 3900
+    },
+    "prompt-hub-row.dc.html": {
+      "h": 924,
+      "title": "Flow 4 · Row to prompt · A: the hand-off from any row",
+      "w": 1440,
+      "x": 1520,
+      "y": 5700
+    },
+    "prompt-hub-builder.dc.html": {
+      "h": 924,
+      "title": "Flow 4 · Prompt builder · A: the prompt before redaction",
+      "w": 1440,
+      "x": 3040,
+      "y": 5700
+    },
+    "prompt-hub-settings.dc.html": {
+      "h": 924,
+      "title": "Flow 4 · Redaction settings and presets · A",
+      "w": 1440,
+      "x": 4560,
+      "y": 5700
+    }
+  },
+  "createdOnFiles": {
+    "at": "2026-11-01T06:40:00Z",
+    "v": 1
+  },
+  "designSystems": [],
+  "launch": {
+    "view": "canvas"
+  },
+  "noteOrder": [
+    "flow1",
+    "flow2",
+    "flow3",
+    "flow4",
+    "t1a",
+    "t2b",
+    "t3b",
+    "t4a",
+    "t1m",
+    "t1k",
+    "t1l",
+    "t1h",
+    "t2p",
+    "t3d",
+    "t4r",
+    "t4b2",
+    "t4s"
+  ],
+  "notes": {
+    "flow1": {
+      "kind": "title1",
+      "maxW": 4480,
+      "text": "Flow 1 of 4 · instance-window · Overview (key screen) · Direction A chosen by Bryan on 2026-11-01; B and C deleted after their parts moved in · version 25 holds all three",
+      "w": 240,
+      "x": 0,
+      "y": 40
+    },
+    "flow2": {
+      "kind": "title1",
+      "maxW": 4480,
+      "text": "Flow 2 of 4 · query-store · Query Store explorer (key screen) · Direction B chosen by Bryan on 2026-11-01; A and C deleted after A's columns moved in · version 25 holds all three",
+      "w": 240,
+      "x": 0,
+      "y": 1840
+    },
+    "flow3": {
+      "kind": "title1",
+      "maxW": 4480,
+      "text": "Flow 3 of 4 · incident-evidence · Error log reader (key screen) · Direction B chosen by Bryan on 2026-11-01; A and C deleted after A's filters moved in · version 25 holds all three",
+      "w": 240,
+      "x": 0,
+      "y": 3640
+    },
+    "flow4": {
+      "kind": "title1",
+      "maxW": 6000,
+      "text": "Flow 4 of 4 · prompt-hub · Redaction preview (key screen) · Direction A chosen by Bryan on 2026-11-01; B and C deleted after B's marks moved in · version 25 holds all three",
+      "w": 240,
+      "x": 0,
+      "y": 5440
+    },
+    "t1a": {
+      "text": "A, engine flow map: the chosen Overview (Bryan, 2026-11-01), merged with the dataviz pass and with C's findings. Static A is the shipped Overview if the flow-map probe fails: every direction works as a static version, so deleting B and C does not delete the fallback. Moved in from C: the ranked 'What is wrong now' list as the first block of the right panel, six rows by severity then age plus a count of the rest, following the Play sample. It replaces the recorded-samples table, a Play aid that does not exist in the product. Tile contract: label, value, signed delta vs the 7-day baseline, 12-point trend with the brushed segment in the chart hue, status as a stroke plus icon plus word, never a fill; the same component is the persistent strip on every tab. Thresholds table: placeholder values for the PRD interview, nothing decided. Play steps six recorded samples at the real 5 s cadence, easing numbers, link widths and strokes; it shows whether the map reads in motion, not whether SSMS stays responsive. Paused and reconnecting hold the last render dimmed, no skeleton; first load shows the cached sample, no spinner. The drill-down click opens the Live board at the brushed moment.",
+      "w": 460,
+      "x": 0,
+      "y": 1264
+    },
+    "t1k": {
+      "text": "What colours each node: CPU and schedulers from SOS_SCHEDULER_YIELD and the runnable count; buffer pool from RESOURCE_SEMAPHORE and the page life expectancy delta; data files from PAGEIOLATCH waits; log file from WRITELOG; blocking from LCK_M waits and the head blocker; tempdb from allocation contention and space. Chart rules measured with the dataviz validator: the shell's light warning and critical colours sit 0.6 apart for deutan vision and 11.6 for everyone (floor 15), so status is a stroke or a fill plus icon and word, never colour alone; text never wears the data colour; magnitude uses one hue; square bar ends; texture is an opt-in Tweak for CVD and print. The legacy chart palette is not used.",
+      "w": 460,
+      "x": 980,
+      "y": 1264
+    },
+    "t1m": {
+      "text": "Motion, Direction A only. The map eases its numbers and link widths between 5 s samples instead of polling faster: one render loop per window, capped at 30 fps, stopped while the window is hidden, collapsed or minimized or while SSMS is not the active window; it honours the Windows animation setting and remote sessions, and low-end graphics get the static picture. Ships only if the proposed flow-map probe shows about 20 nodes at a 30 fps cap keep SSMS responsive while visible and cost nothing while hidden. No moving dots: motion is the values changing. No flashing: a crossed threshold is a steady colour, an icon and a single 150 to 300 ms ease.",
+      "w": 460,
+      "x": 490,
+      "y": 1264
+    },
+    "t2b": {
+      "text": "B, time axis first: the chosen Query Store explorer (Bryan, 2026-11-01). Moved in from A: the delta-duration and plan-change columns, so a regression and its plan pair read in the grid without leaving it. Fixed: the detail pane is eight one-line rows; its Plans and Compiled rows overlapped. Chart rules: lane end-labels and the grid's multipliers are text ink, with the warning icon marking a regression; the live-waits line is the one magnitude hue and its status is an icon plus word at the lane's end. Paste 7: the persistent strip sits above the timeline, identical on every tab; all six query lanes stay (30 px each), paid for by four grid rows (the grid virtualizes) and three detail rows. Tradeoff kept: the grid gets less room than A gave it, so reviewing many queries takes more scrolling.",
+      "w": 1440,
+      "x": 0,
+      "y": 3064
+    },
+    "t3b": {
+      "text": "B, density histogram plus log: the chosen Error log reader (Bryan, 2026-11-01). Moved in from A: the filter rail, as one filter row above the histogram (severity, kind, saved filters; the log file stays in the toolbar). Chart rules: severity is status, so the histogram keeps the shell's status fills, each beside an icon and a word in the legend; bars are 12 of every 20 with a 2 px surface gap between stacked segments; the histogram's table twin is its own count table (one row per minute: critical, error, informational, total), shown by the Table view tweak in place of the bars; the log grid is not the twin. Paste 7: the persistent strip sits above the filter row, paid for by five grid rows. The row-cap banner is the honest state the cap produces.",
+      "w": 1440,
+      "x": 0,
+      "y": 4864
+    },
+    "t4a": {
+      "text": "A, before and after: the chosen Redaction preview (Bryan, 2026-11-01). Moved in from B: each redaction in the after pane is an inline mark, the placeholder plus its category, the way the copied text reads; only the placeholder leaves. The short document pane stands: document panes may be short, grids may not. Tradeoff kept: each pane gets half the width and long prompts scroll twice.",
+      "w": 1440,
+      "x": 0,
+      "y": 6664
+    },
+    "t1l": {
+      "text": "Live, carried across from Direction A (2026-11-01). The map's drill target: a click on a node opens this tab at the brushed moment, so the grid shows that sample. The persistent strip is the same tile component as the map, with two more tiles (all waits, deadlocks). Active requests as a dense grid, 25 rows to the fold, sorted by wait time then CPU; the right panel holds per-second wait deltas (one hue, status as icon plus word), the blocking tree head blocker first, the selected request's statement and facts, and the cost of the last poll. Read-only: no KILL from here. States: live (the pressure sample), healthy, paused and reconnecting (the last sample kept and dimmed, no skeleton), no-permission (the strip and grid replaced by what VIEW SERVER STATE unlocks). The waits bars carry their values as text, so they are their own table and need no toggle. The strip is on every tab of the window, Query Store and Error log included (Bryan, paste 7).",
+      "w": 1440,
+      "x": 1520,
+      "y": 1264
+    },
+    "t1h": {
+      "text": "Health facts, carried across from Direction A (2026-11-01). One grid of facts in six groups: build currency, configuration drift (configured against in use), memory dumps, Query Store per database with the read-only reason, capabilities shown only where the instance has them (absent features stay hidden, never drawn disabled), and Agent jobs. Every fact names what it was read from; status is an icon plus a word. The right panel is the selected fact with its scripts, what the read cost, and the other checks on the instance. Read every 60 s, not per sample. The strip persists here as on Live.",
+      "w": 1440,
+      "x": 3040,
+      "y": 1264
+    },
+    "t2p": {
+      "text": "Plan inspector, carried across from Direction B (2026-11-01). The regressed query's two plans operator by operator, estimated against actual rows, cost share and the warnings the plan XML carries (spill, missing index, cardinality), then estimated against actual rows per operator as a dumbbell: one hue in two shades, one log axis for both plans, a dot alone where the estimate held, end markers with a 2 px surface ring, a legend for the two series. The graph never draws here: three buttons open 2,114, 2,201 or both in SSMS's own plan viewer. Plans come from the last actual plan where SQL Server 2019 and later keeps it. Scripts open unexecuted; the sql-2019 state drops the Query Store hint button and says why. Status is an icon plus a word; the strip persists.",
+      "w": 1440,
+      "x": 1520,
+      "y": 3064
+    },
+    "t3d": {
+      "text": "Deadlock viewer, carried across from Direction B (2026-11-01). The same shape as the Error log: a filter row, a density histogram (deadlocks per 30 min over 24 h, one series named by the title, no legend box, brushed window shaded) with its own count-table twin (one row per bin) behind the Table view tweak and the grid of reports, each with its victim, resources, lock types and process count; the right panel is the selected report's victim, processes, resources and cycle. The graph opens as an .xdl in SSMS's own viewer, never drawn here. Reports come from the system_health files, parsed in the background and cached. States: found, none, parsing (queued rows fill in when their file finishes). Status is an icon plus a word; the strip persists.",
+      "w": 1440,
+      "x": 1520,
+      "y": 4864
+    },
+    "t4r": {
+      "text": "Row to prompt, carried across from Direction A (2026-11-01). Step 1 of the hub: the row that was clicked (Overview, Finding 1) becomes a list of evidence blocks, each a switch with its size, what it contains and what step 3 will redact in it; the right panel picks the goal (the question the prompt asks), shows the hand-off (the AI chat the organization allows, by paste), the format, the size and the preset. The redaction count is a stat tile (the only figure on this screen). Nothing leaves this machine until Copy in step 3. States: connected, and offline (no live connection: exact names unavailable, pattern redaction only, said in the banner and the receipt).",
+      "w": 1440,
+      "x": 1520,
+      "y": 6664
+    },
+    "t4b2": {
+      "text": "Prompt builder, carried across from Direction A (2026-11-01). Step 2: the assembled prompt as editable plain text with headed sections (role, context, finding, tree, statement, waits, question), the real names still in; the right panel lists the sections as switches in order, the prompting checks the template applies (role and goal first, evidence in headed blocks, a question that asks for steps and doubts), the redaction count as a stat tile, the size, and Next: Redaction preview. Blocks from other tabs (plan, deadlock XML, error log) are added from the toolbar.",
+      "w": 1440,
+      "x": 3040,
+      "y": 6664
+    },
+    "t4s": {
+      "text": "Redaction settings and presets, carried across from Direction A (2026-11-01). Per-user presets (Minimal, Standard, Strict, and the user's own) as columns of switches over eight categories, each labelled by its mark, never colour alone; secrets and marked text cannot be switched off. The right panel holds the patterns that run offline too, the exact names read from the connection, and the hand-off facts (Copilot component absent, clipboard only). Receipts: counts and a hash per copy, 90 days, values never recorded.",
+      "w": 1440,
+      "x": 4560,
+      "y": 6664
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "instance-live.dc.html",
+    "instance-health.dc.html",
+    "query-store-B.dc.html",
+    "query-store-plan.dc.html",
+    "incident-evidence-B.dc.html",
+    "incident-evidence-deadlocks.dc.html",
+    "prompt-hub-A.dc.html",
+    "prompt-hub-row.dc.html",
+    "prompt-hub-builder.dc.html",
+    "prompt-hub-settings.dc.html"
+  ],
+  "pages": [],
+  "title": "BRN-001: NoName single-instance release design"
+}

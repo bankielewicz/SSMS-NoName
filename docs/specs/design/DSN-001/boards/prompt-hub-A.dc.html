@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Redaction preview A, before and after</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:var(--HyperlinkFillPrimary)}a:hover{color:var(--AccentTextFillPrimary)}
+/* Shell tokens: Visual Studio 2026 Fluent "Shell" and "ShellInternal" categories as SSMS 22 ships them
+   (Common7/IDE/CommonExtensions/Platform/Shell.*.pkgdef, ShellInternal.*.pkgdef, Theme.CoolBreeze.pkgdef, Theme.CoolSlate.pkgdef).
+   --viz-* come from the legacy Environment VizSurface* tokens, the shell's only chart palette. */
+.vs{width:1440px;height:924px;box-sizing:border-box;overflow:hidden;font-family:"Segoe UI","Segoe UI Variable Text",system-ui,sans-serif;font-size:12px;line-height:16px;color:var(--TextFillPrimary);background:var(--EnvironmentBackground);display:flex;flex-direction:column}
+.vs.light,.vs.breeze{--EnvironmentBackground:#EEEEEE;--EnvironmentTab:#F9F9F9;--EnvironmentHeader:#F9F9F9;--EnvironmentBorder:#5649B0;--EnvironmentIndicator:rgba(117,117,117,.4);--SolidBackgroundFillBase:#F3F3F3;--SolidBackgroundFillSecondary:#EEEEEE;--SolidBackgroundFillTertiary:#F9F9F9;--SolidBackgroundFillQuaternary:#FFFFFF;--SurfaceBackgroundFillDefault:#F9F9F9;--TextFillPrimary:rgba(0,0,0,.894);--TextFillSecondary:rgba(0,0,0,.62);--TextFillTertiary:rgba(0,0,0,.447);--TextFillDisabled:rgba(0,0,0,.36);--AccentFillDefault:#5649B0;--AccentTextFillPrimary:#3F3682;--AccentFillSelectedTextBackground:#0078D4;--AccentFillSelectedTextBackgroundSubtle:rgba(0,120,212,.3);--TextOnAccentFillSelectedText:#FFFFFF;--TextOnAccentFillPrimary:#FFFFFF;--HyperlinkFillPrimary:#003E92;--ControlFillDefault:rgba(255,255,255,.7);--ControlFillSecondary:rgba(249,249,249,.5);--ControlStrokeDefault:rgba(0,0,0,.06);--ControlStrongStrokeDefault:rgba(0,0,0,.61);--ControlStrongFillDefault:rgba(0,0,0,.447);--DividerStrokeDefault:rgba(0,0,0,.08);--SurfaceStrokeDefault:rgba(117,117,117,.4);--SubtleFillSecondary:rgba(0,0,0,.06);--SubtleFillTertiary:rgba(0,0,0,.04);--SystemFillCritical:#C42B1C;--SystemFillCriticalBackground:#FDE7E9;--SystemFillCaution:#9D5D00;--SystemFillCautionBackground:#FFF4CE;--SystemFillSuccess:#0F7B0F;--SystemFillSuccessBackground:#DFF6DD;--SystemFillAttention:#005FB7;--SystemFillAttentionBackground:#F6F6F6;--SystemFillNeutral:rgba(0,0,0,.447);--SystemFillNeutralBackground:rgba(0,0,0,.024);--SystemFillSolidNeutral:#8A8A8A;--viz-steel:#427094;--viz-steel-soft:#B8CCD7;--viz-green:#5D8039;--viz-red:#AD1C2B;--viz-gold:#CAB22D;--viz-plum:#8E5478}
+.vs.breeze{--EnvironmentBackground:#A7C6DB;--EnvironmentTab:#F7FAFC;--EnvironmentHeader:#F7FAFC;--EnvironmentBorder:#1E394A;--EnvironmentIndicator:rgba(30,57,74,.5);--SolidBackgroundFillTertiary:#F7FAFC;--SolidBackgroundFillQuaternary:#FCFDFF;--SurfaceBackgroundFillDefault:#FCFDFF;--TextFillSecondary:rgba(0,0,0,.698);--AccentFillDefault:#1E394A}
+.vs.dark,.vs.slate{--EnvironmentBackground:#1C1C1C;--EnvironmentTab:#282828;--EnvironmentHeader:#282828;--EnvironmentBorder:#9184EE;--EnvironmentIndicator:rgba(117,117,117,.4);--SolidBackgroundFillBase:#202020;--SolidBackgroundFillSecondary:#1C1C1C;--SolidBackgroundFillTertiary:#282828;--SolidBackgroundFillQuaternary:#2C2C2C;--SurfaceBackgroundFillDefault:#2C2C2C;--TextFillPrimary:#FFFFFF;--TextFillSecondary:rgba(255,255,255,.78);--TextFillTertiary:rgba(255,255,255,.545);--TextFillDisabled:rgba(255,255,255,.36);--AccentFillDefault:#9184EE;--AccentTextFillPrimary:#D2CCF8;--AccentFillSelectedTextBackground:#005FB7;--AccentFillSelectedTextBackgroundSubtle:rgba(96,205,255,.4);--TextOnAccentFillSelectedText:#FFFFFF;--TextOnAccentFillPrimary:#000000;--HyperlinkFillPrimary:#99EBFF;--ControlFillDefault:rgba(255,255,255,.06);--ControlFillSecondary:rgba(255,255,255,.08);--ControlStrokeDefault:rgba(255,255,255,.07);--ControlStrongStrokeDefault:rgba(255,255,255,.6);--ControlStrongFillDefault:rgba(255,255,255,.545);--DividerStrokeDefault:rgba(255,255,255,.08);--SurfaceStrokeDefault:rgba(117,117,117,.4);--SubtleFillSecondary:rgba(255,255,255,.06);--SubtleFillTertiary:rgba(255,255,255,.04);--SystemFillCritical:#FF99A4;--SystemFillCriticalBackground:#442726;--SystemFillCaution:#FCE100;--SystemFillCautionBackground:#433519;--SystemFillSuccess:#6CCB5F;--SystemFillSuccessBackground:#393D1B;--SystemFillAttention:#60CDFF;--SystemFillAttentionBackground:rgba(255,255,255,.03);--SystemFillNeutral:rgba(255,255,255,.545);--SystemFillNeutralBackground:rgba(255,255,255,.03);--SystemFillSolidNeutral:#8A8A8A;--viz-steel:#5470D3;--viz-steel-soft:#00656D;--viz-green:#4CA64C;--viz-red:#E37D81;--viz-gold:#F3C761;--viz-plum:#AE4689}
+.vs.slate{--EnvironmentBackground:#2B3441;--EnvironmentTab:#24272B;--EnvironmentHeader:#24272B;--EnvironmentBorder:#B5C0CE;--EnvironmentIndicator:rgba(181,192,206,.38);--SolidBackgroundFillTertiary:#24272B;--SolidBackgroundFillQuaternary:#313234;--SurfaceBackgroundFillDefault:#313234;--TextFillSecondary:rgba(255,255,255,.8);--AccentFillDefault:#B5C0CE}
+.ic{width:16px;height:16px;flex:none;fill:none;stroke:currentColor;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round}
+.ic12{width:12px;height:12px}
+.doctabs{height:24px;flex:none;display:flex;align-items:stretch;background:var(--EnvironmentBackground);padding-left:4px}
+.doctab{display:flex;align-items:center;gap:6px;padding:0 10px;color:var(--TextFillSecondary);background:var(--EnvironmentTab);border-right:1px solid var(--DividerStrokeDefault);border-top:2px solid transparent;white-space:nowrap}
+.doctab.sel{background:var(--SolidBackgroundFillQuaternary);color:var(--TextFillPrimary);border-top-color:var(--EnvironmentIndicator)}
+.win{height:900px;flex:none;display:flex;flex-direction:column;background:var(--SurfaceBackgroundFillDefault);overflow:hidden}
+.tb{height:26px;flex:none;display:flex;align-items:center;gap:2px;padding:0 6px;background:var(--EnvironmentHeader);border-bottom:1px solid var(--DividerStrokeDefault);white-space:nowrap}
+.tbb{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 6px;border:1px solid transparent;background:transparent;color:var(--TextFillPrimary);font:inherit;cursor:default;white-space:nowrap}
+.sep{width:1px;height:16px;background:var(--DividerStrokeDefault);margin:0 4px;flex:none}
+.wtabs{height:24px;flex:none;display:flex;background:var(--EnvironmentHeader);border-bottom:1px solid var(--DividerStrokeDefault);padding:0 4px}
+.wtab{display:flex;align-items:center;gap:6px;padding:0 10px;color:var(--TextFillSecondary);border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap}
+.wtab.sel{color:var(--AccentTextFillPrimary);border-bottom-color:var(--AccentFillDefault)}
+.body{flex:1;min-height:0;display:flex;gap:8px;padding:8px}
+.foot{height:22px;flex:none;display:flex;align-items:center;gap:12px;padding:0 8px;background:var(--EnvironmentHeader);border-top:1px solid var(--DividerStrokeDefault);color:var(--TextFillSecondary);white-space:nowrap;overflow:hidden}
+.panel{display:flex;flex-direction:column;border:1px solid var(--SurfaceStrokeDefault);background:var(--SolidBackgroundFillQuaternary);min-height:0;min-width:0}
+.ph{height:24px;flex:none;display:flex;align-items:center;gap:8px;padding:0 8px;background:var(--SolidBackgroundFillTertiary);border-bottom:1px solid var(--DividerStrokeDefault);font-weight:600;white-space:nowrap}
+.age{margin-left:auto;display:inline-flex;align-items:center;gap:4px;color:var(--TextFillSecondary);font-weight:400}
+.gh{display:grid;height:22px;align-items:center;padding:0 6px;background:var(--SolidBackgroundFillTertiary);border-bottom:1px solid var(--SurfaceStrokeDefault);color:var(--TextFillSecondary);white-space:nowrap}
+.gr{display:grid;height:22px;align-items:center;padding:0 6px;border-bottom:1px solid var(--DividerStrokeDefault);white-space:nowrap}
+.gh>*,.gr>*{overflow:hidden;text-overflow:ellipsis;min-width:0}
+.sev{display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+.crit{color:var(--SystemFillCritical)}.warn{color:var(--SystemFillCaution)}.ok{color:var(--SystemFillSuccess)}.info{color:var(--SystemFillAttention)}.mute{color:var(--TextFillSecondary)}
+.bg-crit{background:var(--SystemFillCriticalBackground)}.bg-warn{background:var(--SystemFillCautionBackground)}.bg-ok{background:var(--SystemFillSuccessBackground)}.bg-info{background:var(--SystemFillAttentionBackground)}
+.btn{height:22px;padding:0 10px;border:1px solid var(--ControlStrongStrokeDefault);background:var(--ControlFillDefault);color:var(--TextFillPrimary);font:inherit;display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+.btn.primary{background:var(--AccentFillDefault);color:var(--TextOnAccentFillPrimary);border-color:transparent}
+.mono{font-family:Consolas,"Cascadia Mono",Menlo,monospace}
+.chip{display:inline-flex;align-items:center;gap:4px;height:18px;padding:0 6px;border:1px solid var(--SurfaceStrokeDefault);background:var(--SolidBackgroundFillTertiary);white-space:nowrap}
+.sect{height:22px;display:flex;align-items:center;gap:8px;padding:0 8px;font-weight:600;border-bottom:1px solid var(--DividerStrokeDefault);background:var(--SolidBackgroundFillTertiary)}
+.doc{flex:1;min-height:0;overflow:hidden;padding:8px;white-space:pre-wrap;font-family:Consolas,"Cascadia Mono",Menlo,monospace;font-size:12px;line-height:18px}
+.rd{padding:0 2px;border:1px solid;white-space:nowrap}
+.rd i{font-style:normal;font-size:9px;line-height:10px;margin-left:3px;padding:0 2px;border:1px solid currentColor;vertical-align:1px;letter-spacing:.3px}
+.c-login{background:var(--SystemFillCautionBackground);border-color:var(--SystemFillCaution)}
+.c-name{background:var(--AccentFillSelectedTextBackgroundSubtle);border-color:var(--AccentFillSelectedTextBackground)}
+.c-secret{background:var(--SystemFillCriticalBackground);border-color:var(--SystemFillCritical)}
+.c-lit{background:var(--SystemFillSuccessBackground);border-color:var(--SystemFillSuccess)}
+.c-mark{background:var(--SubtleFillSecondary);border-color:var(--ControlStrongStrokeDefault)}
+.c-kept{background:transparent;border-color:var(--ControlStrongStrokeDefault);border-style:dashed}
+/* the after pane renders each redaction as an inline mark: placeholder plus its category, the way the copied text reads */
+.mk{display:inline-flex;align-items:center;gap:3px;padding:0 4px;border:1px solid;height:16px;vertical-align:-3px;white-space:nowrap;font-weight:600;font-size:11px;line-height:14px}
+.mk i{font-style:normal;font-weight:400;font-size:9px;line-height:10px;padding:0 2px;border:1px solid currentColor;letter-spacing:.3px}
+.mk.c-kept{font-weight:400}
+.cb{width:13px;height:13px;flex:none;border:1px solid var(--ControlStrongStrokeDefault);background:var(--SolidBackgroundFillQuaternary);display:inline-flex;align-items:center;justify-content:center}
+.cb.on{background:var(--AccentFillDefault);border-color:var(--AccentFillDefault);color:var(--TextOnAccentFillPrimary)}
+.kv{display:grid;grid-template-columns:130px 1fr;min-height:22px;align-items:center;padding:2px 8px;border-bottom:1px solid var(--DividerStrokeDefault);gap:8px}
+</style>
+</helmet>
+<div class="vs {{theme}}">
+<div class="doctabs">
+<div class="doctab"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="2.5" width="11" height="4"></rect><rect x="2.5" y="9.5" width="11" height="4"></rect><path d="M5 4.5h.5M5 11.5h.5"></path></svg>NoName - SQL-SAMPLE-01</div>
+<div class="doctab sel"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2l5 2v4c0 3-2.2 5-5 6-2.8-1-5-3-5-6V4z"></path><path d="M5.8 8.2l1.6 1.6 3-3"></path></svg>Redacted prompt - SQL-SAMPLE-01<button class="tbb" aria-label="Pin tab" style="padding:0;height:16px"><svg class="ic ic12" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.5 2.5l4 4-2 1-1.5 3.5-2.5-2.5L3 13l4.5-4.5L5 6l3.5-1.5z"></path></svg></button><button class="tbb" aria-label="Close tab" style="padding:0;height:16px"><svg class="ic ic12" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"></path></svg></button></div>
+</div>
+<div class="win">
+<div class="tb">
+<span class="tbb"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2l5 2v4c0 3-2.2 5-5 6-2.8-1-5-3-5-6V4z"></path><path d="M5.8 8.2l1.6 1.6 3-3"></path></svg><b>Redacted prompt</b><span class="mute">{{source}}</span></span>
+<span class="sep"></span>
+<button class="tbb">Preset<span class="mute">Standard</span><svg class="ic ic12" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4"></path></svg></button>
+<button class="tbb">Object names<span class="chip" style="height:16px">off</span></button>
+<button class="tbb"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 3h12l-4.5 5.5V13l-3 1V8.5z"></path></svg>Mark more text</button>
+<span class="sep"></span>
+<span class="tbb mute"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="2.5" width="11" height="4"></rect><rect x="2.5" y="9.5" width="11" height="4"></rect><path d="M5 4.5h.5M5 11.5h.5"></path></svg>Exact names from the live connection: 2 logins, 1 group, 2 hosts, 12 databases, 1 linked server</span>
+<span style="flex:1"></span>
+<span class="tbb mute">Copilot component: not installed · copy and paste is the hand-off</span>
+<button class="tbb" aria-label="Settings"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="2.5"></circle><path d="M8 1.5v2M8 12.5v2M1.5 8h2M12.5 8h2M3.4 3.4l1.4 1.4M11.2 11.2l1.4 1.4M3.4 12.6l1.4-1.4M11.2 4.8l1.4-1.4"></path></svg></button>
+</div>
+<div class="wtabs">
+<span class="wtab"><svg class="ic ic12 ok" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-6"></path></svg>1 · Row to prompt</span><span class="wtab"><svg class="ic ic12 ok" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-6"></path></svg>2 · Prompt builder</span><span class="wtab sel">3 · Redaction preview</span><span class="wtab">4 · Redaction settings and presets</span>
+</div>
+<div class="body" style="flex-direction:column">
+<sc-if value="{{isMain}}" hint-placeholder-val="{{ true }}">
+<div style="flex:1;min-height:0;display:flex;gap:8px">
+<div class="panel" style="flex:1">
+<div class="ph">Before · what the tool read<span class="mute" style="font-weight:400">stays on this machine</span><span class="age">14 matches in 6 categories</span></div>
+<div class="doc">You are helping a SQL Server DBA. Diagnose a blocking chain and propose safe next steps. Do not suggest KILL without explaining the consequences.
+
+Context: SQL Server 2025 (17.0.4015), instance <span class="rd c-name">SQL-SAMPLE-01<i>SERVER</i></span>, database <span class="rd c-name">AdventureWorks2022<i>DATABASE</i></span>, maintained by <span class="rd c-login">CONTOSO\DBA-Team<i>GROUP</i></span>.
+- Head blocker: session 72, login <span class="rd c-login">CONTOSO\svc_batch<i>LOGIN</i></span> from host <span class="rd c-name">FABRIKAM-APP-02<i>HOST</i></span>, sleeping, open transaction 42 s, read committed.
+- 7 sessions waiting: 81 (LCK_M_X, <span class="rd c-kept">dbo.Orders<i>KEPT</i></span>, 41 s, login <span class="rd c-login">aw_app<i>LOGIN</i></span>), 93, 95, 104 (LCK_M_S), 110, 117 (LCK_M_X, dbo.OrderLines).
+- Last statement of the head blocker:
+  UPDATE dbo.Orders SET Status = @s, ModifiedAt = SYSUTCDATETIME() WHERE OrderId = @id;
+  -- parameters: @s = <span class="rd c-lit">'Shipped'<i>LITERAL</i></span>, @id = <span class="rd c-lit">118823<i>LITERAL</i></span>
+  -- customer ref <span class="rd c-lit">'ORD-2026-118823'<i>LITERAL</i></span>, batch <span class="rd c-lit">4512<i>LITERAL</i></span>, note: <span class="rd c-mark">Q4 forecast load<i>MARKED</i></span>
+  -- conn: Server=<span class="rd c-name">SQL-SAMPLE-01<i>SERVER</i></span>;Database=<span class="rd c-name">AdventureWorks2022<i>DATABASE</i></span>;User Id=<span class="rd c-login">aw_app<i>LOGIN</i></span>;<span class="rd c-secret">Password=Xy7!kq92Lm<i>SECRET</i></span>
+- Waits in the last 5 s: LCK_M_X 2,940 ms/s, WRITELOG 310 ms/s. Linked server <span class="rd c-name">FABRIKAM-RPT<i>LINKED</i></span> not involved.
+- Optimized locking is on for <span class="rd c-name">AdventureWorks2022<i>DATABASE</i></span>.
+
+Question: why would this session stay sleeping with an open transaction, and what should I check before intervening?</div>
+</div>
+<div class="panel" style="flex:1">
+<div class="ph">After · exactly what leaves when you copy<span class="mute" style="font-weight:400">each mark is a placeholder and its category</span><span class="age">1,312 characters · 13 placeholders · 1 kept</span></div>
+<div class="doc">You are helping a SQL Server DBA. Diagnose a blocking chain and propose safe next steps. Do not suggest KILL without explaining the consequences.
+
+Context: SQL Server 2025 (17.0.4015), instance <span class="mk c-name">[SERVER-1]<i>server</i></span>, database <span class="mk c-name">[DATABASE-1]<i>database</i></span>, maintained by <span class="mk c-login">[GROUP-1]<i>group</i></span>.
+- Head blocker: session 72, login <span class="mk c-login">[LOGIN-1]<i>login</i></span> from host <span class="mk c-name">[HOST-1]<i>host</i></span>, sleeping, open transaction 42 s, read committed.
+- 7 sessions waiting: 81 (LCK_M_X, <span class="mk c-kept">dbo.Orders<i>kept by you</i></span>, 41 s, login <span class="mk c-login">[LOGIN-2]<i>login</i></span>), 93, 95, 104 (LCK_M_S), 110, 117 (LCK_M_X, dbo.OrderLines).
+- Last statement of the head blocker:
+  UPDATE dbo.Orders SET Status = @s, ModifiedAt = SYSUTCDATETIME() WHERE OrderId = @id;
+  -- parameters: @s = <span class="mk c-lit">[LITERAL-1]<i>literal</i></span>, @id = <span class="mk c-lit">[LITERAL-2]<i>literal</i></span>
+  -- customer ref <span class="mk c-lit">[LITERAL-3]<i>literal</i></span>, batch <span class="mk c-lit">[LITERAL-4]<i>literal</i></span>, note: <span class="mk c-mark">[MARKED-1]<i>marked by you</i></span>
+  -- conn: Server=<span class="mk c-name">[SERVER-1]<i>server</i></span>;Database=<span class="mk c-name">[DATABASE-1]<i>database</i></span>;User Id=<span class="mk c-login">[LOGIN-2]<i>login</i></span>;<span class="mk c-secret">[SECRET-1]<i>secret</i></span>
+- Waits in the last 5 s: LCK_M_X 2,940 ms/s, WRITELOG 310 ms/s. Linked server <span class="mk c-name">[LINKED-1]<i>linked server</i></span> not involved.
+- Optimized locking is on for <span class="mk c-name">[DATABASE-1]<i>database</i></span>.
+
+Question: why would this session stay sleeping with an open transaction, and what should I check before intervening?</div>
+</div>
+</div>
+<div style="flex:none;height:300px;display:flex;gap:8px">
+<div class="panel" style="flex:1">
+<div class="ph">Redactions · 14 found, 13 on, 1 turned back on by you<span class="mute" style="font-weight:400">each one is a switch · a label names the category, never colour alone</span><span class="age">exact names from the connection + parsed literals and comments</span></div>
+<div style="display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));flex:1;min-height:0">
+<div style="border-right:1px solid var(--DividerStrokeDefault)">
+<div class="sect"><span class="rd c-login" style="padding:0 4px">LOGIN</span>Logins and groups · 3 · from the connection's sys.server_principals</div>
+<div class="gr" style="grid-template-columns:20px 1fr 110px"><span class="cb on"><svg class="ic ic12" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-6"></path></svg></span><span class="mono">CONTOSO\svc_batch → [LOGIN-1]</span><span class="mute">2 places</span></div>
+<div class="gr" style="grid-template-columns:20px 1fr 110px"><span class="cb on"><svg class="ic ic12" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-6"></path></svg></span><span class="mono">aw_app → [LOGIN-2]</span><span class="mute">2 places</span></div>
+<div class="gr" style="grid-template-columns:20px 1fr 110px"><span class="cb on"><svg class="ic ic12" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-6"></path></svg></span><span class="mono">CONTOSO\DBA-Team → [GROUP-1]</span><span class="mute">1 place</span></div>
+<div class="sect"><span class="rd c-name" style="padding:0 4px">NAME</span>Server, host, database, linked server · 5</div>
+<div class="gr" style="grid-template-columns:20px 1fr 110px"><span class="cb on"><svg class="ic ic12" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-6"></path></svg></span><span class="mono">SQL-SAMPLE-01 → [SERVER-1]</span><span class="mute">2 places</span></div>
+<div class="gr" style="grid-template-columns:20px 1fr 110px"><span class="cb on"><svg class="ic ic12" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-6"></path></svg></span><span class="mono">FABRIKAM-APP-02 → [HOST-1]</span><span class="mute">1 place</span></div>
+<div class="gr" style="grid-template-columns:20px 1fr 110px"><span class="cb on"><svg class="ic ic12" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-6"></path></svg></span><span class="mono">AdventureWorks2022 → [DATABASE-1]</span><span class="mute">3 places</span></div>
+<div class="gr" style="grid-template-columns:20px 1fr 110px"><span class="cb on"><svg class="ic ic12" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-6"></path></svg></span><span class="mono">FABRIKAM-RPT → [LINKED-1]</span><span class="mute">1 place</span></div>
+</div>
+<div>
+<div class="sect"><span class="rd c-secret" style="padding:0 4px">SECRET</span>Secrets · 1 · always on, no switch</div>
+<div class="gr" style="grid-template-columns:20px 1fr 110px"><span class="sev crit"><svg class="ic ic12" viewBox="0 0 16 16" aria-hidden="true"><rect x="3.5" y="7.5" width="9" height="6.5"></rect><path d="M5.5 7.5V5a2.5 2.5 0 0 1 5 0v2.5"></path></svg></span><span class="mono">Password=(hidden) → [SECRET-1]</span><span class="mute">value never shown</span></div>
+<div class="sect"><span class="rd c-lit" style="padding:0 4px">LITERAL</span>Literals and comments · 4 · found by parsing the statement</div>
+<div class="gr" style="grid-template-columns:20px 1fr 110px"><span class="cb on"><svg class="ic ic12" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-6"></path></svg></span><span class="mono">4 literals → [LITERAL-1] to [LITERAL-4]</span><span class="mute">4 places</span></div>
+<div class="sect"><span class="rd c-mark" style="padding:0 4px">MARKED</span>Marked by you · 1</div>
+<div class="gr" style="grid-template-columns:20px 1fr 110px"><span class="cb on"><svg class="ic ic12" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-6"></path></svg></span><span class="mono">"Q4 forecast load" → [MARKED-1]</span><span class="mute">selected at 09:42:10</span></div>
+<div class="sect"><span class="rd c-kept" style="padding:0 4px">KEPT</span>Object names · off in the Standard preset · 1 turned back on by you</div>
+<div class="gr" style="grid-template-columns:20px 1fr 110px"><span class="cb"></span><span class="mono">dbo.Orders → kept as is</span><span class="mute">switched off 09:42:01</span></div>
+</div>
+</div>
+</div>
+<div class="panel" style="width:400px;flex:none">
+<div class="ph">Receipt · written when you copy<span class="age">counts and a hash, never the values</span></div>
+<div class="kv"><span class="mute">Logins, groups</span><span>3 redacted · 5 places</span></div>
+<div class="kv"><span class="mute">Names</span><span>5 redacted · 8 places (server 1, host 1, database 1, linked server 1)</span></div>
+<div class="kv"><span class="mute">Secrets</span><span>1 redacted · 1 place</span></div>
+<div class="kv"><span class="mute">Literals, comments</span><span>4 redacted · 4 places</span></div>
+<div class="kv"><span class="mute">Marked by you</span><span>1 redacted · 1 place</span></div>
+<div class="kv"><span class="mute">Kept by you</span><span>1 object name (dbo.Orders)</span></div>
+<div class="kv"><span class="mute">Prompt</span><span>1,312 characters · SHA-256 <span class="mono">7f3a9c2e41b0</span> · Standard</span></div>
+<div style="flex:1"></div>
+<div style="display:flex;gap:6px;padding:8px;align-items:center;border-top:1px solid var(--DividerStrokeDefault)"><button class="btn primary"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8"></rect><path d="M10.5 5.5V2.5h-8v8h3"></path></svg>Copy prompt</button><button class="btn">Copy as Markdown</button><button class="btn">Back</button></div>
+<div class="mute" style="padding:0 8px 8px">Clipboard only. The extension sends nothing anywhere; paste it into the AI chat your organization allows. Receipts stay in your profile.</div>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{isNothing}}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-height:0;display:flex;gap:8px">
+<div class="panel" style="flex:1">
+<div class="ph">Before · what the tool read<span class="mute" style="font-weight:400">stays on this machine</span><span class="age">0 matches in 6 categories</span></div>
+<div class="doc">Explain why this query is slow on SQL Server 2025 and propose index or rewrite options without changing its results.
+
+SELECT o.OrderId, o.Status, c.Name
+FROM dbo.Orders o
+JOIN dbo.Customers c ON c.CustomerId = o.CustomerId
+WHERE o.Status = @status
+  AND o.CreatedAt &gt;= @since
+ORDER BY o.CreatedAt DESC;
+
+Plan summary: clustered index scan on dbo.Orders (estimated 1,200 rows, actual 480,000), key lookup on dbo.Customers, one warning (sort spilled to tempdb). Parameter values are not included.
+
+Question: which index would let this seek, and is the ORDER BY the reason for the sort spill?</div>
+</div>
+<div class="panel" style="flex:1">
+<div class="ph">After · exactly what leaves when you copy<span class="age">571 characters · 0 placeholders · identical to the left pane</span></div>
+<div class="doc">Explain why this query is slow on SQL Server 2025 and propose index or rewrite options without changing its results.
+
+SELECT o.OrderId, o.Status, c.Name
+FROM dbo.Orders o
+JOIN dbo.Customers c ON c.CustomerId = o.CustomerId
+WHERE o.Status = @status
+  AND o.CreatedAt &gt;= @since
+ORDER BY o.CreatedAt DESC;
+
+Plan summary: clustered index scan on dbo.Orders (estimated 1,200 rows, actual 480,000), key lookup on dbo.Customers, one warning (sort spilled to tempdb). Parameter values are not included.
+
+Question: which index would let this seek, and is the ORDER BY the reason for the sort spill?</div>
+</div>
+</div>
+<div style="flex:none;height:300px;display:flex;gap:8px">
+<div class="panel" style="flex:1">
+<div class="ph"><span class="sev"><svg class="ic ok" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.5"></circle><path d="M4.5 8.2l2.3 2.3 4.7-4.7"></path></svg>Nothing to redact</span><span class="mute" style="font-weight:400">every pass ran; none matched · the prompt leaves exactly as written</span><span class="age">exact names from the connection + parsed literals and comments</span></div>
+<div class="gr" style="grid-template-columns:1fr 70px 190px"><span><span class="rd c-login" style="padding:0 4px">LOGIN</span> Logins and groups · checked 2 logins and 1 group from sys.server_principals</span><span>0 found</span><span class="mute">exact pass ran</span></div>
+<div class="gr" style="grid-template-columns:1fr 70px 190px"><span><span class="rd c-name" style="padding:0 4px">NAME</span> Server, host, database, linked server · checked SQL-SAMPLE-01, 2 hosts, 12 databases, 1 linked server</span><span>0 found</span><span class="mute">exact pass ran</span></div>
+<div class="gr" style="grid-template-columns:1fr 70px 190px"><span><span class="rd c-secret" style="padding:0 4px">SECRET</span> Secrets · connection-string keys, passwords, tokens</span><span>0 found</span><span class="mute">pattern pass ran</span></div>
+<div class="gr" style="grid-template-columns:1fr 70px 190px"><span><span class="rd c-lit" style="padding:0 4px">LITERAL</span> Literals and comments · the statement uses parameters only and carries no comment</span><span>0 found</span><span class="mute">parsed</span></div>
+<div class="gr" style="grid-template-columns:1fr 70px 190px"><span><span class="rd c-mark" style="padding:0 4px">MARKED</span> Marked by you</span><span>0</span><span class="mute">select text and press Mark</span></div>
+<div class="gr" style="grid-template-columns:1fr 70px 190px"><span><span class="rd c-kept" style="padding:0 4px">KEPT</span> Object names · off in the Standard preset · dbo.Orders, dbo.Customers, OrderId, Status, CreatedAt stay</span><span>5 kept</span><span class="mute">turn on for [TABLE-n]</span></div>
+<div class="mute" style="padding:8px">The receipt still records the zero counts and the hash, so you can prove that nothing was changed and nothing sensitive was found in this prompt.</div>
+</div>
+<div class="panel" style="width:400px;flex:none">
+<div class="ph">Receipt · written when you copy<span class="age">counts and a hash, never the values</span></div>
+<div class="kv"><span class="mute">Logins, groups</span><span>0</span></div>
+<div class="kv"><span class="mute">Names</span><span>0</span></div>
+<div class="kv"><span class="mute">Secrets</span><span>0</span></div>
+<div class="kv"><span class="mute">Literals, comments</span><span>0</span></div>
+<div class="kv"><span class="mute">Marked by you</span><span>0</span></div>
+<div class="kv"><span class="mute">Kept by you</span><span>5 object names (preset)</span></div>
+<div class="kv"><span class="mute">Prompt</span><span>571 characters · SHA-256 <span class="mono">2c91d04b7a9e</span> · Standard</span></div>
+<div style="flex:1"></div>
+<div style="display:flex;gap:6px;padding:8px;align-items:center;border-top:1px solid var(--DividerStrokeDefault)"><button class="btn primary"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8"></rect><path d="M10.5 5.5V2.5h-8v8h3"></path></svg>Copy prompt</button><button class="btn">Copy as Markdown</button><button class="btn">Back</button></div>
+<div class="mute" style="padding:0 8px 8px">Clipboard only. The extension sends nothing anywhere; paste it into the AI chat your organization allows. Receipts stay in your profile.</div>
+</div>
+</div>
+</sc-if>
+</div>
+<div class="foot"><span class="sev"><svg class="ic ic12" viewBox="0 0 16 16" aria-hidden="true"><rect x="3.5" y="7.5" width="9" height="6.5"></rect><path d="M5.5 7.5V5a2.5 2.5 0 0 1 5 0v2.5"></path></svg>Nothing leaves this machine until Copy</span><span>Exact names read from the current connection · literals and comments by parsing (ScriptDom) · plan and deadlock XML by element</span><span style="margin-left:auto">Motion: state changes only, 150 to 300 ms · no flashing</span></div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","default":"light","options":["light","dark","breeze","slate"],"section":"Shell theme (SSMS 22 tokens)"},"state":{"editor":"enum","default":"redactions","options":["redactions","nothing"],"section":"State"},"$preview":{"width":1440,"height":924}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const state = this.props.state ?? 'redactions';
+    const nothing = state === 'nothing';
+    return {
+      theme: this.props.theme ?? 'light',
+      isMain: !nothing,
+      isNothing: nothing,
+      source: nothing ? 'from Query Store › query 0x5DE2B1C8 · SQL-SAMPLE-01 · 09:43:02' : 'from Overview › Finding 1, blocking chain · SQL-SAMPLE-01 · 09:41:27'
+    };
+  }
+}
+</script>
+</body>
+</html>
