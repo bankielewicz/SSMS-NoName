@@ -4,9 +4,9 @@ template_type: "brainstorming"
 template_source: "https://github.com/bankielewicz/Specs/blob/c36d38957cf8c90864dd02f18acd6e48f700ae12/docs/templates/discovery/brainstorming.template.md"
 template_revision: "c36d38957cf8c90864dd02f18acd6e48f700ae12"
 provenance_register: "provenance.json"
-provenance_links: ["LINK-NN-0001", "LINK-NN-0002", "LINK-NN-0003", "LINK-NN-0004", "LINK-NN-0005", "LINK-NN-0006", "LINK-NN-0007", "LINK-NN-0008", "LINK-NN-0009", "LINK-NN-0010", "LINK-NN-0011", "LINK-NN-0012", "LINK-NN-0013", "LINK-NN-0014", "LINK-NN-0015", "LINK-NN-0016", "LINK-NN-0017", "LINK-NN-0018", "LINK-NN-0019", "LINK-NN-0020", "LINK-NN-0021", "LINK-NN-0022", "LINK-NN-0023", "LINK-NN-0024", "LINK-NN-0025", "LINK-NN-0026", "LINK-NN-0027", "LINK-NN-0028", "LINK-NN-0029", "LINK-NN-0030", "LINK-NN-0041", "LINK-NN-0042", "LINK-NN-0043", "LINK-NN-0044", "LINK-NN-0045", "LINK-NN-0046", "LINK-NN-0047", "LINK-NN-0048", "LINK-NN-0049", "LINK-NN-0050", "LINK-NN-0051", "LINK-NN-0052", "LINK-NN-0053", "LINK-NN-0054", "LINK-NN-0055", "LINK-NN-0056", "LINK-NN-0060", "LINK-NN-0061", "LINK-NN-0062", "LINK-NN-0063", "LINK-NN-0064", "LINK-NN-0065", "LINK-NN-0066", "LINK-NN-0067", "LINK-NN-0068", "LINK-NN-0069", "LINK-NN-0070", "LINK-NN-0071", "LINK-NN-0072"]
+provenance_links: ["LINK-NN-0001", "LINK-NN-0002", "LINK-NN-0003", "LINK-NN-0004", "LINK-NN-0005", "LINK-NN-0006", "LINK-NN-0007", "LINK-NN-0008", "LINK-NN-0009", "LINK-NN-0010", "LINK-NN-0011", "LINK-NN-0012", "LINK-NN-0013", "LINK-NN-0014", "LINK-NN-0015", "LINK-NN-0016", "LINK-NN-0017", "LINK-NN-0018", "LINK-NN-0019", "LINK-NN-0020", "LINK-NN-0021", "LINK-NN-0022", "LINK-NN-0023", "LINK-NN-0024", "LINK-NN-0025", "LINK-NN-0026", "LINK-NN-0027", "LINK-NN-0028", "LINK-NN-0029", "LINK-NN-0030", "LINK-NN-0041", "LINK-NN-0042", "LINK-NN-0043", "LINK-NN-0044", "LINK-NN-0045", "LINK-NN-0046", "LINK-NN-0047", "LINK-NN-0048", "LINK-NN-0049", "LINK-NN-0050", "LINK-NN-0051", "LINK-NN-0052", "LINK-NN-0053", "LINK-NN-0054", "LINK-NN-0055", "LINK-NN-0056", "LINK-NN-0060", "LINK-NN-0061", "LINK-NN-0062", "LINK-NN-0063", "LINK-NN-0064", "LINK-NN-0065", "LINK-NN-0066", "LINK-NN-0067", "LINK-NN-0068", "LINK-NN-0069", "LINK-NN-0070", "LINK-NN-0071", "LINK-NN-0072", "LINK-NN-0073", "LINK-NN-0074", "LINK-NN-0075"]
 document_id: "IDEA-NN-001"
-document_version: "0.4.4"
+document_version: "0.4.5"
 project_id: "NONAME"
 status: "draft"
 owner: "Bryan Ankielewicz (product owner)"
@@ -15,7 +15,7 @@ updated: "2026-11-02"
 source_of_truth: ["INPUT-NN-001", "INPUT-NN-002", "INPUT-NN-003", "INPUT-NN-004", "INPUT-NN-005", "INPUT-NN-006", "INPUT-NN-007", "INPUT-NN-008", "INPUT-NN-009", "INPUT-NN-010", "INPUT-NN-012", "INPUT-NN-013", "INPUT-NN-014", "INPUT-NN-015", "INPUT-NN-016", "INPUT-NN-017", "INPUT-NN-018", "INPUT-NN-019", "INPUT-NN-020", "INPUT-NN-021", "INPUT-NN-022"]
 related_documents: ["RES-NN-001"]
 depends_on: []
-supersedes: ["IDEA-NN-001@0.4.3"]
+supersedes: ["IDEA-NN-001@0.4.4"]
 assumptions: ["ASM-NN-001", "ASM-NN-002", "ASM-NN-003"]
 open_questions: ["Q-NN-001", "Q-NN-002", "Q-NN-005", "Q-NN-006", "Q-NN-011"]
 ---
@@ -129,7 +129,7 @@ INPUT-NN-015 to INPUT-NN-022 were recorded on 2026-11-01 from the owner's writte
 | E-15 | SSMS 22 contains Copilot's brokered-service contracts, which name `GetGridResultsSegmentAsync`, `GetQueryPlanXmlSegmentAsync`, `GetMessagesTabSegmentAsync`, `GetClientStatisticsAsync`, `GetCurrentConnectionAsync` and `GetOpenEditorsAsync` | observed (names only) | `SqlEditor.BrokeredContracts.dll` 22.11.171, 2026-10-30 | High that the names exist; there are two copies with different bytes; nothing was called | EXP-NN-001 (c), (d), (e) |
 | E-16 | A third-party extension can obtain those brokered services | hypothesis | Inference from E-15 | Unknown; access may be limited to Copilot. They return result data, not which cell the user selected | EXP-NN-001 (e) |
 | E-17 | The results-grid control is an internal, undocumented assembly | observed | `Microsoft.SqlServer.GridControl.dll` 22.11.171, 2026-10-30 | High | EXP-NN-001 (e) |
-| E-18 | The owner's PC is x64 (AMD64), so ARM64 can't be tested on it | observed | Windows `PROCESSOR_ARCHITECTURE`, 2026-10-30 | High | Needs an ARM64 device (Q-NN-004) |
+| E-18 | The owner's PC is x64 (AMD64), so ARM64 can't be tested on it | observed | Windows `PROCESSOR_ARCHITECTURE`, 2026-10-30 | High | Needs an ARM64 device to test on, per [PRD-001](../prd/PRD-001.md) NFR-039 |
 | E-19 | The owner's SSMS 22 has the AI workload (`Microsoft.SqlServer.Workload.SSMS.AI`) and the GitHub Copilot component installed; the `SSMSAgent` folder is that component (`Microsoft.SqlServer.Management.Copilot.SSMSAgent` 22.200.11.171) | observed | vswhere package list and the `SSMSAgent` manifest, 2026-10-30 | High | A test on this PC alone can't show how the extension behaves without the AI component |
 | E-20 | The brokered services (E-15) exist even without the AI component | hypothesis | Their names appear in core `SQLEditors.dll` (in `Extensions\Application`) as well as in the Copilot component; no broker registration was found in SSMS's pkgdef files | Unknown; the static evidence points both ways | EXP-NN-001 on an install without the AI component |
 
@@ -203,7 +203,7 @@ These are proposals for review, not approved requirements.
 | C-02 | Constraint: SSMS releases often | E-02 | Frequent compatibility fixes | Bryan | Each SSMS release |
 | C-03 | Constraint: by default the extension makes no network calls to AI services | INPUT-NN-003 | The product defeats its own purpose | Bryan | Only by owner decision |
 | C-04 | Constraint: settings are per user, with no administrator lock | INPUT-NN-006 | Organizations that require central policy may not adopt it | Bryan | When adopters ask for central policy |
-| C-05 | Constraint: SSMS runs on Windows x64 and ARM64 | SSMS FAQ; E-06 | ARM64 users are excluded if we build x64 only | Bryan | Q-NN-004 |
+| C-05 | Constraint: SSMS runs on Windows x64 and ARM64 | SSMS FAQ; E-06 | ARM64 users are excluded if we build x64 only | Bryan | An ARM64 device to test on (E-18), per [PRD-001](../prd/PRD-001.md) NFR-039 |
 | ASM-NN-001 | Assumption: target users have an approved AI chat to paste into | Implied by INPUT-NN-003 | Prompts have nowhere to go | Bryan | First outside adopter feedback |
 | C-06 | Constraint: the extension runs on .NET Framework 4.7.2 or later inside SSMS | E-13 | Code that needs a newer .NET can't run in-process | Bryan | Each SSMS minor release |
 | C-07 | Constraint: inside SSMS, the extension gets SSMS's ScriptDom (18.0.115 today), whatever version it was built against | E-14 | Parser behaviour changes when SSMS updates it | Bryan | Each SSMS minor release |
@@ -245,6 +245,7 @@ Confirmed needs INPUT-NN-003 to INPUT-NN-007, INPUT-NN-009 and INPUT-NN-012 carr
 | INPUT-NN-001 to INPUT-NN-007 | LINK-NN-0002 to LINK-NN-0008 | Owner statements, 2026-10-29 | Recorded from the conversation; there is no separate durable record |
 | E-01 to E-08, C-01 to C-05 | LINK-NN-0009 to LINK-NN-0017 | Web sources listed in Inputs | Microsoft pages are pinned to their docs commits; other pages are unversioned; the Q&A and redaction-tool pages are known from search summaries only |
 | INPUT-NN-002 background | LINK-NN-0018 | `bankielewicz/SSMS` at `29e1755` | Read as background; nothing derived from it |
+| IDEA-NN-001 v0.4.5 | LINK-NN-0073 to LINK-NN-0075 | v0.4.4; PRD-001 version 2 | The revisit triggers of E-18 and C-05 point at PRD-001 NFR-039 instead of the answered Q-NN-004; no other section changed |
 | IDEA-NN-001 v0.4.4 | LINK-NN-0070 to LINK-NN-0072 | v0.4.3; PRD-001 version 1 | Q-NN-003, Q-NN-004, Q-NN-008 and Q-NN-009 marked answered by the owner in the PRD interview, pointing at PRD-001, and the Query values default in the redaction table updated to Q-NN-003's answer; no other section changed |
 | IDEA-NN-001 v0.4.3 | LINK-NN-0066 to LINK-NN-0069 | v0.4.2; INPUT-NN-016, INPUT-NN-022 | The owner's decisions after the QA review of DSN-001: the reading of INPUT-NN-016 (9 pt is the minimum text size) and a receipt-history question in INPUT-NN-022; no other section changed |
 | IDEA-NN-001 v0.4.2 | LINK-NN-0063 to LINK-NN-0065 | v0.4.1; INPUT-NN-016, INPUT-NN-018 | INPUT-NN-016 notes that "blue" in its quotation was a drafting error; no other section changed |

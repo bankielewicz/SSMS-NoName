@@ -505,6 +505,24 @@
       "locator": "whole-document",
       "availability": "available",
       "owner": "Bryan Ankielewicz (product owner)"
+    },
+    {
+      "entity_id": "E-DOC-IDEA-NN-001-V0.4.5",
+      "kind": "document",
+      "uri": "brainstorming.md",
+      "revision": "unversioned",
+      "locator": "whole-document",
+      "availability": "available",
+      "owner": "Bryan Ankielewicz (product owner)"
+    },
+    {
+      "entity_id": "E-DOC-PRD-001-V2",
+      "kind": "source",
+      "uri": "../prd/PRD-001.md",
+      "revision": "version 2",
+      "locator": "whole-document",
+      "availability": "available",
+      "owner": "Bryan Ankielewicz (product owner)"
     }
   ],
   "links": [
@@ -1369,6 +1387,42 @@
       "activity": "adapted",
       "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
       "recorded_at": "2026-11-02T16:00:00Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0073",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.5",
+      "relation": "supersedes",
+      "object_id": "E-DOC-IDEA-NN-001-V0.4.4",
+      "rationale": "Version 0.4.5 points two revisit triggers at PRD-001 instead of the answered Q-NN-004.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-02T20:00:00Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0074",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.5",
+      "relation": "generated_from",
+      "object_id": "E-TPL-BRAINSTORMING-2.0.0",
+      "rationale": "Same template as earlier versions.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-02T20:00:00Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0075",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.5",
+      "relation": "derived_from",
+      "object_id": "E-DOC-PRD-001-V2",
+      "rationale": "PRD-001 NFR-039: ARM64 support waits on a device to test on.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-02T20:00:00Z",
       "verification": "unverified",
       "verified_at": null
     }
