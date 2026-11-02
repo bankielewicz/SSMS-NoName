@@ -460,6 +460,15 @@
       "locator": "whole-document",
       "availability": "available",
       "owner": "Bryan Ankielewicz (product owner)"
+    },
+    {
+      "entity_id": "E-DOC-IDEA-NN-001-V0.4.1",
+      "kind": "document",
+      "uri": "brainstorming.md",
+      "revision": "unversioned",
+      "locator": "whole-document",
+      "availability": "available",
+      "owner": "Bryan Ankielewicz (product owner)"
     }
   ],
   "links": [
@@ -1168,6 +1177,42 @@
       "activity": "adapted",
       "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
       "recorded_at": "2026-11-01T23:19:10Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0060",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.1",
+      "relation": "supersedes",
+      "object_id": "E-DOC-IDEA-NN-001-V0.4.0",
+      "rationale": "Version 0.4.1 corrects INPUT-NN-016's frame sentence: the Activity Monitor comparison is a nativeness check, not a requirement.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-02T02:10:19Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0061",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.1",
+      "relation": "generated_from",
+      "object_id": "E-TPL-BRAINSTORMING-2.0.0",
+      "rationale": "Same template as earlier versions.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-02T02:10:19Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0062",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.1",
+      "relation": "derived_from",
+      "object_id": "E-INPUT-NN-016",
+      "rationale": "INPUT-NN-016's frame sentence, corrected at the owner's direction.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-02T02:10:19Z",
       "verification": "unverified",
       "verified_at": null
     }
