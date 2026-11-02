@@ -519,7 +519,7 @@
       "entity_id": "E-DOC-PRD-001-V2",
       "kind": "source",
       "uri": "../prd/PRD-001.md",
-      "revision": "version 2",
+      "revision": "ae67be7a56f620adf3336827a60cebce65ef863c",
       "locator": "whole-document",
       "availability": "available",
       "owner": "Bryan Ankielewicz (product owner)"
