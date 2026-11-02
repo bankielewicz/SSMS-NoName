@@ -469,6 +469,15 @@
       "locator": "whole-document",
       "availability": "available",
       "owner": "Bryan Ankielewicz (product owner)"
+    },
+    {
+      "entity_id": "E-DOC-IDEA-NN-001-V0.4.2",
+      "kind": "document",
+      "uri": "brainstorming.md",
+      "revision": "unversioned",
+      "locator": "whole-document",
+      "availability": "available",
+      "owner": "Bryan Ankielewicz (product owner)"
     }
   ],
   "links": [
@@ -1213,6 +1222,42 @@
       "activity": "adapted",
       "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
       "recorded_at": "2026-11-02T02:10:19Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0063",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.2",
+      "relation": "supersedes",
+      "object_id": "E-DOC-IDEA-NN-001-V0.4.1",
+      "rationale": "Version 0.4.2 notes in INPUT-NN-016 that 'blue' in its quotation was a drafting error.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-02T02:17:07Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0064",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.2",
+      "relation": "generated_from",
+      "object_id": "E-TPL-BRAINSTORMING-2.0.0",
+      "rationale": "Same template as earlier versions.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-02T02:17:07Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0065",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.2",
+      "relation": "derived_from",
+      "object_id": "E-INPUT-NN-018",
+      "rationale": "INPUT-NN-018 is the owner's correction that 'blue' was a drafting error, now cross-referenced from INPUT-NN-016.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-02T02:17:07Z",
       "verification": "unverified",
       "verified_at": null
     }
