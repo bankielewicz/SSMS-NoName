@@ -214,7 +214,7 @@
       "y": 6664
     },
     "t4s": {
-      "text": "Redaction settings and presets, carried across from Direction A (2026-11-01). Per-user presets (Minimal, Standard, Strict, and the user's own) as columns of switches over eight categories, each labelled by its mark, never colour alone; secrets and marked text cannot be switched off. The right panel holds the patterns that run offline too, the exact names read from the connection, and the hand-off facts (Copilot component absent, clipboard only). Receipts: counts and a hash per copy, 90 days, values never recorded.",
+      "text": "Redaction settings and presets, carried across from Direction A (2026-11-01). Per-user presets (Minimal, Standard, Strict, and the user's own) as columns of switches over eight categories, each labelled by its mark, never colour alone; secrets and marked text cannot be switched off. The right panel holds the patterns that run offline too, the exact names read from the connection, and the hand-off facts (Copilot component absent, clipboard only). Receipts: counts and a hash, sent with each copied prompt and never stored; values never recorded.",
       "w": 1440,
       "x": 4560,
       "y": 6664

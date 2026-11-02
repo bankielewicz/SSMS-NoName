@@ -37,7 +37,7 @@ a{color:var(--HyperlinkFillPrimary)}a:hover{color:var(--AccentTextFillPrimary)}
 .brush{height:56px;flex:none;display:flex;flex-direction:column;padding:3px 8px 0;background:var(--SolidBackgroundFillTertiary);border-bottom:1px solid var(--DividerStrokeDefault)}
 .brush-top{height:18px;display:flex;align-items:center;gap:12px;color:var(--TextFillSecondary);white-space:nowrap}
 .track{position:relative;height:30px;border:1px solid var(--SurfaceStrokeDefault);background:var(--SolidBackgroundFillQuaternary)}
-.tick{position:absolute;bottom:0;color:var(--TextFillSecondary);font-size:11px;line-height:12px;padding-left:3px;border-left:1px solid var(--DividerStrokeDefault);height:11px}
+.tick{position:absolute;bottom:0;color:var(--TextFillSecondary);font-size:12px;line-height:16px;padding-left:3px;border-left:1px solid var(--DividerStrokeDefault);height:16px}
 .mk{position:absolute;top:2px;display:inline-flex}
 .body{flex:1;min-height:0;display:flex;gap:8px;padding:8px}
 .foot{height:22px;flex:none;display:flex;align-items:center;gap:12px;padding:0 8px;background:var(--EnvironmentHeader);border-top:1px solid var(--DividerStrokeDefault);color:var(--TextFillSecondary);white-space:nowrap;overflow:hidden}
@@ -59,24 +59,24 @@ a{color:var(--HyperlinkFillPrimary)}a:hover{color:var(--AccentTextFillPrimary)}
 .sect{height:22px;display:flex;align-items:center;gap:8px;padding:0 8px;font-weight:600;border-bottom:1px solid var(--DividerStrokeDefault);background:var(--SolidBackgroundFillTertiary);white-space:nowrap}
 .lbl{position:absolute;color:var(--TextFillSecondary)}
 /* stat tile = node, the one tile contract: label, value, signed delta vs the 7-day baseline, 12-point trend with the brushed segment in the chart hue, status as a stroke plus icon plus word, never a fill; the stroke eases 300 ms */
-.tile{position:absolute;width:136px;min-width:136px;height:110px;box-sizing:border-box;padding:5px 7px;display:flex;flex-direction:column;background:var(--SolidBackgroundFillQuaternary);border:1px solid var(--SurfaceStrokeDefault);transition:border-color .3s ease}
+.tile{position:absolute;width:136px;min-width:136px;height:110px;box-sizing:border-box;padding:3px 7px;display:flex;flex-direction:column;background:var(--SolidBackgroundFillQuaternary);border:1px solid var(--SurfaceStrokeDefault);transition:border-color .3s ease}
 .tile .lab{font-size:12px;line-height:14px;font-weight:600;white-space:nowrap}
-.tile .lab2{font-size:10px;line-height:14px;letter-spacing:-.3px;color:var(--TextFillSecondary);white-space:nowrap}
+.tile .lab2{overflow:hidden;text-overflow:ellipsis;font-size:12px;line-height:16px;letter-spacing:0;color:var(--TextFillSecondary);white-space:nowrap}
 .tile .val{font-size:16px;line-height:20px;font-weight:600;white-space:nowrap}
-.tile .delta{font-size:11px;line-height:14px;letter-spacing:-.2px;color:var(--TextFillSecondary);white-space:nowrap}
+.tile .delta{font-size:12px;line-height:16px;letter-spacing:0;color:var(--TextFillSecondary);white-space:nowrap}
 /* findings row, two lines: severity icon + word + finding, then where · since */
-.fr{display:grid;grid-template-columns:20px 1fr;height:30px;box-sizing:border-box;padding:1px 8px 0;border-bottom:1px solid var(--DividerStrokeDefault);white-space:nowrap;align-items:start}
+.fr{display:grid;grid-template-columns:20px 1fr;height:34px;box-sizing:border-box;padding:1px 8px 0;border-bottom:1px solid var(--DividerStrokeDefault);white-space:nowrap;align-items:start}
 .fr .rk{color:var(--TextFillSecondary);line-height:14px;font-variant-numeric:tabular-nums}
 .fr .l1{display:flex;align-items:center;gap:4px;line-height:14px}
-.fr .l2{display:block;font-size:11px;line-height:14px;color:var(--TextFillSecondary)}
-.tile .stat{display:flex;align-items:center;gap:4px;font-size:11px;line-height:14px;white-space:nowrap}
+.fr .l2{display:block;font-size:12px;line-height:16px;color:var(--TextFillSecondary)}
+.tile .stat{display:flex;align-items:center;gap:4px;font-size:12px;line-height:16px;white-space:nowrap}
 .spark{width:112px;height:20px;display:block}
 .lane-band{position:absolute;left:8px;top:216px;width:1016px;height:124px;box-sizing:border-box;border:1px solid var(--SurfaceStrokeDefault);transition:background-color .3s ease,border-color .3s ease}
 .lane-none{background:var(--SubtleFillTertiary);border-style:dashed}
 .tree{position:absolute;left:16px;top:242px;width:468px;display:flex;flex-direction:column}
 .tree .tr{height:20px;display:flex;align-items:center;gap:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .wbars{position:absolute;left:500px;top:242px;width:510px;display:flex;flex-direction:column;gap:1px}
-.wrow{display:grid;grid-template-columns:60px 1fr 40px;align-items:center;gap:6px;height:13px;font-size:11px;line-height:12px;white-space:nowrap}
+.wrow{display:grid;grid-template-columns:60px 1fr 40px;align-items:center;gap:6px;height:16px;font-size:12px;line-height:16px;white-space:nowrap}
 .wrow .tr2{border-left:1px solid var(--SurfaceStrokeDefault);padding-left:2px;display:flex;align-items:center;height:12px}
 .bar{height:8px;background:var(--viz-steel);flex:none}
 .barrow{display:grid;grid-template-columns:150px 1fr 60px;height:22px;align-items:center;padding:0 8px;gap:8px;white-space:nowrap}
@@ -84,9 +84,9 @@ a{color:var(--HyperlinkFillPrimary)}a:hover{color:var(--AccentTextFillPrimary)}
 .trackc{border-left:1px solid var(--SurfaceStrokeDefault);padding-left:2px;height:22px;box-sizing:border-box;display:flex;align-items:center}
 .hit{position:relative}
 .hit:hover .bar{opacity:.85}
-.hit:hover::after{content:attr(data-tip);position:absolute;left:158px;top:20px;z-index:5;white-space:nowrap;background:var(--SolidBackgroundFillQuaternary);border:1px solid var(--SurfaceStrokeDefault);padding:2px 6px;color:var(--TextFillPrimary);font-size:11px;line-height:14px}
+.hit:hover::after{content:attr(data-tip);position:absolute;left:158px;top:20px;z-index:5;white-space:nowrap;background:var(--SolidBackgroundFillQuaternary);border:1px solid var(--SurfaceStrokeDefault);padding:2px 6px;color:var(--TextFillPrimary);font-size:12px;line-height:16px}
 .sm{position:absolute;top:352px;width:160px;height:150px;box-sizing:border-box;padding:4px 6px;display:flex;flex-direction:column;gap:2px;border:1px solid var(--DividerStrokeDefault);background:var(--SolidBackgroundFillQuaternary)}
-.sm .lab{color:var(--TextFillSecondary);white-space:nowrap;overflow:hidden;font-size:11px;line-height:14px}
+.sm .lab{color:var(--TextFillSecondary);white-space:nowrap;overflow:hidden;font-size:12px;line-height:16px}
 .sm .val{font-weight:600;white-space:nowrap}
 .sm svg{width:146px;height:84px;display:block}
 .tnum{font-variant-numeric:tabular-nums}
@@ -100,7 +100,7 @@ a{color:var(--HyperlinkFillPrimary)}a:hover{color:var(--AccentTextFillPrimary)}
 .strip{height:118px;flex:none;box-sizing:border-box;display:flex;gap:10px;padding:4px 8px;border:1px solid var(--SurfaceStrokeDefault);background:var(--SolidBackgroundFillQuaternary);align-items:flex-start}
 .strip .tile{position:static}
 .dim{opacity:.72}
-.strip .slab{display:flex;flex-direction:column;justify-content:center;height:110px;width:86px;flex:none;color:var(--TextFillSecondary);font-size:11px;line-height:14px;white-space:normal}
+.strip .slab{display:flex;flex-direction:column;justify-content:center;height:110px;width:86px;flex:none;color:var(--TextFillSecondary);font-size:12px;line-height:16px;white-space:normal}
 .cb{width:13px;height:13px;flex:none;border:1px solid var(--ControlStrongStrokeDefault);background:var(--SolidBackgroundFillQuaternary);display:inline-flex;align-items:center;justify-content:center}
 .cb.on{background:var(--AccentFillDefault);border-color:var(--AccentFillDefault);color:var(--TextOnAccentFillPrimary)}
 .kv{display:grid;grid-template-columns:130px 1fr;height:22px;box-sizing:border-box;align-items:center;padding:0 8px;border-bottom:1px solid var(--DividerStrokeDefault);gap:8px;white-space:nowrap}
@@ -112,8 +112,8 @@ a{color:var(--HyperlinkFillPrimary)}a:hover{color:var(--AccentTextFillPrimary)}
 .fbar{height:26px;flex:none;box-sizing:border-box;display:flex;align-items:center;gap:8px;padding:0 8px;border:1px solid var(--SurfaceStrokeDefault);background:var(--SolidBackgroundFillTertiary);white-space:nowrap}
 .fi{display:inline-flex;align-items:center;gap:4px}
 .doc{flex:1;min-height:0;overflow:hidden;padding:8px;white-space:pre-wrap;font-family:Consolas,"Cascadia Mono",Menlo,monospace;font-size:12px;line-height:18px}
-.mk{position:static;top:auto;display:inline-flex;align-items:center;gap:3px;padding:0 4px;border:1px solid;height:16px;vertical-align:-3px;white-space:nowrap;font-weight:600;font-size:11px;line-height:14px}
-.mk i{font-style:normal;font-weight:400;font-size:9px;line-height:10px;padding:0 2px;border:1px solid currentColor;letter-spacing:.3px}
+.mk{position:static;top:auto;display:inline-flex;align-items:center;gap:3px;padding:0 4px;border:1px solid;height:16px;vertical-align:-3px;white-space:nowrap;font-weight:600;font-size:12px;line-height:16px}
+.mk i{font-style:normal;font-weight:400;font-size:12px;line-height:16px;padding:0 2px;border:1px solid currentColor;letter-spacing:.3px}
 .c-login{background:var(--SystemFillCautionBackground);border-color:var(--SystemFillCaution)}
 .c-name{background:var(--AccentFillSelectedTextBackgroundSubtle);border-color:var(--AccentFillSelectedTextBackground)}
 .c-secret{background:var(--SystemFillCriticalBackground);border-color:var(--SystemFillCritical)}
@@ -161,11 +161,11 @@ a{color:var(--HyperlinkFillPrimary)}a:hover{color:var(--AccentTextFillPrimary)}
 <div class="kv" style="grid-template-columns:64px 1fr"><span class="mute">Shared</span><span>never · JSON export</span></div>
 <div class="kv" style="grid-template-columns:64px 1fr"><span class="mute">Changed</span><span>Standard · 2026-10-29</span></div>
 <div class="sect">Receipts</div>
-<div class="kv" style="grid-template-columns:64px 1fr"><span class="mute">Written</span><span>counts + hash per Copy</span></div>
-<div class="kv" style="grid-template-columns:64px 1fr"><span class="mute">Kept</span><span>90 days · 412 · 1.1 MB</span></div>
+<div class="kv" style="grid-template-columns:64px 1fr"><span class="mute">Sent</span><span>with each copied prompt: counts + hash</span></div>
+<div class="kv" style="grid-template-columns:64px 1fr"><span class="mute">Stored</span><span>never</span></div>
 <div class="kv" style="grid-template-columns:64px 1fr"><span class="mute">Values</span><span>never recorded</span></div>
 <div style="flex:1"></div>
-<div style="display:flex;gap:6px;padding:8px;border-top:1px solid var(--DividerStrokeDefault)"><button class="btn"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2h6l3 3v9H4z"></path><path d="M10 2v3h3M6 8h5M6 10.5h5"></path></svg>Open receipts</button><button class="btn">Export presets</button></div>
+<div style="display:flex;gap:6px;padding:8px;border-top:1px solid var(--DividerStrokeDefault)"><button class="btn">Export presets</button></div>
 </div>
 <div class="panel" style="flex:1">
 <div class="ph">Categories · what each preset redacts<span class="mute" style="font-weight:400">a label names every category · Standard selected</span><span class="age">8 categories</span></div>
@@ -188,11 +188,11 @@ a{color:var(--HyperlinkFillPrimary)}a:hover{color:var(--AccentTextFillPrimary)}
 <div class="panel" style="width:400px;flex:none">
 <div class="ph">Patterns · run offline as well as online<span class="mute" style="font-weight:400">regular expressions, in order</span><span class="age">5 patterns</span></div>
 <div class="gh" style="grid-template-columns:110px 1fr"><span>Pattern</span><span>Expression, then an example</span></div>
-<div class="gr" style="grid-template-columns:110px 1fr;height:36px"><span>IPv4 address</span><span style="display:flex;flex-direction:column;line-height:16px"><span class="mono" style="font-size:11px">&#92;b(?:&#92;d{1,3}&#92;.){3}&#92;d{1,3}&#92;b</span><span class="mute" style="font-size:11px;line-height:14px">192.0.2.41 → [ADDRESS-n]</span></span></div>
-<div class="gr" style="grid-template-columns:110px 1fr;height:36px"><span>UNC path</span><span style="display:flex;flex-direction:column;line-height:16px"><span class="mono" style="font-size:11px">&#92;&#92;&#92;&#92;[^&#92;&#92;&#92;s]+&#92;&#92;[^&#92;s]+</span><span class="mute" style="font-size:11px;line-height:14px">\\FABRIKAM-FS01\dumps → [PATH-n]</span></span></div>
-<div class="gr" style="grid-template-columns:110px 1fr;height:36px"><span>E-mail</span><span style="display:flex;flex-direction:column;line-height:16px"><span class="mono" style="font-size:11px">[&#92;w.+-]+@[&#92;w-]+&#92;.[&#92;w.]+</span><span class="mute" style="font-size:11px;line-height:14px">name@example.com → [EMAIL-n]</span></span></div>
-<div class="gr" style="grid-template-columns:110px 1fr;height:36px"><span>Connection-string secret</span><span style="display:flex;flex-direction:column;line-height:16px"><span class="mono" style="font-size:11px">(Password|Pwd|Token)=[^;]+</span><span class="mute" style="font-size:11px;line-height:14px">value never shown → [SECRET-n]</span></span></div>
-<div class="gr" style="grid-template-columns:110px 1fr;height:36px"><span>Windows login</span><span style="display:flex;flex-direction:column;line-height:16px"><span class="mono" style="font-size:11px">[A-Z][A-Z0-9-]+&#92;&#92;[&#92;w.$-]+</span><span class="mute" style="font-size:11px;line-height:14px">DOMAIN\name → [LOGIN-n], exact pass first</span></span></div>
+<div class="gr" style="grid-template-columns:110px 1fr;height:36px"><span>IPv4 address</span><span style="display:flex;flex-direction:column;line-height:16px"><span class="mono" style="font-size:12px">&#92;b(?:&#92;d{1,3}&#92;.){3}&#92;d{1,3}&#92;b</span><span class="mute" style="font-size:12px;line-height:16px">192.0.2.41 → [ADDRESS-n]</span></span></div>
+<div class="gr" style="grid-template-columns:110px 1fr;height:36px"><span>UNC path</span><span style="display:flex;flex-direction:column;line-height:16px"><span class="mono" style="font-size:12px">&#92;&#92;&#92;&#92;[^&#92;&#92;&#92;s]+&#92;&#92;[^&#92;s]+</span><span class="mute" style="font-size:12px;line-height:16px">\\FABRIKAM-FS01\dumps → [PATH-n]</span></span></div>
+<div class="gr" style="grid-template-columns:110px 1fr;height:36px"><span>E-mail</span><span style="display:flex;flex-direction:column;line-height:16px"><span class="mono" style="font-size:12px">[&#92;w.+-]+@[&#92;w-]+&#92;.[&#92;w.]+</span><span class="mute" style="font-size:12px;line-height:16px">name@example.com → [EMAIL-n]</span></span></div>
+<div class="gr" style="grid-template-columns:110px 1fr;height:36px"><span>Connection-string secret</span><span style="display:flex;flex-direction:column;line-height:16px"><span class="mono" style="font-size:12px">(Password|Pwd|Token)=[^;]+</span><span class="mute" style="font-size:12px;line-height:16px">value never shown → [SECRET-n]</span></span></div>
+<div class="gr" style="grid-template-columns:110px 1fr;height:36px"><span>Windows login</span><span style="display:flex;flex-direction:column;line-height:16px"><span class="mono" style="font-size:12px">[A-Z][A-Z0-9-]+&#92;&#92;[&#92;w.$-]+</span><span class="mute" style="font-size:12px;line-height:16px">DOMAIN\name → [LOGIN-n], exact pass first</span></span></div>
 <div class="gr" style="grid-template-columns:1fr"><span class="mute">+ Add a pattern · tested against the current prompt before it is saved</span></div>
 <div class="sect">Exact names · read from the live connection</div>
 <div class="kv" style="grid-template-columns:96px 1fr"><span class="mute">Read</span><span>2 logins, 1 group, 2 hosts, 12 databases</span></div>
@@ -204,7 +204,7 @@ a{color:var(--HyperlinkFillPrimary)}a:hover{color:var(--AccentTextFillPrimary)}
 <div class="kv" style="grid-template-columns:96px 1fr"><span class="mute">Format</span><span>Markdown · plain text on request</span></div>
 <div style="flex:1"></div>
 <div style="display:flex;gap:6px;padding:8px;align-items:center;border-top:1px solid var(--DividerStrokeDefault)"><button class="btn primary"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-6"></path></svg>Save Standard</button><button class="btn">Save as new preset</button><button class="btn">Reset to shipped</button></div>
-<div class="mute" style="padding:0 8px 8px">Saving changes only your presets. Prompts already copied keep their receipts.</div>
+<div class="mute" style="padding:0 8px 8px">Saving changes only your presets. Each copied prompt carries its receipt; none is stored.</div>
 </div>
 </div>
 <div class="foot"><span class="sev"><svg class="ic ic12" viewBox="0 0 16 16" aria-hidden="true"><rect x="3.5" y="7.5" width="9" height="6.5"></rect><path d="M5.5 7.5V5a2.5 2.5 0 0 1 5 0v2.5"></path></svg>Nothing leaves this machine until Copy</span><span>Per-user settings in your profile</span><span>Exact names read from the current connection · literals and comments by parsing (ScriptDom) · plan and deadlock XML by element</span><span style="margin-left:auto">Motion: state changes only, 150 to 300 ms · no flashing</span></div>

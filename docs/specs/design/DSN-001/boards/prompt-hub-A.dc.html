@@ -49,7 +49,7 @@ a{color:var(--HyperlinkFillPrimary)}a:hover{color:var(--AccentTextFillPrimary)}
 .sect{height:22px;display:flex;align-items:center;gap:8px;padding:0 8px;font-weight:600;border-bottom:1px solid var(--DividerStrokeDefault);background:var(--SolidBackgroundFillTertiary)}
 .doc{flex:1;min-height:0;overflow:hidden;padding:8px;white-space:pre-wrap;font-family:Consolas,"Cascadia Mono",Menlo,monospace;font-size:12px;line-height:18px}
 .rd{padding:0 2px;border:1px solid;white-space:nowrap}
-.rd i{font-style:normal;font-size:9px;line-height:10px;margin-left:3px;padding:0 2px;border:1px solid currentColor;vertical-align:1px;letter-spacing:.3px}
+.rd i{font-style:normal;font-size:12px;line-height:16px;margin-left:3px;padding:0 2px;border:1px solid currentColor;vertical-align:1px;letter-spacing:.3px}
 .c-login{background:var(--SystemFillCautionBackground);border-color:var(--SystemFillCaution)}
 .c-name{background:var(--AccentFillSelectedTextBackgroundSubtle);border-color:var(--AccentFillSelectedTextBackground)}
 .c-secret{background:var(--SystemFillCriticalBackground);border-color:var(--SystemFillCritical)}
@@ -57,8 +57,8 @@ a{color:var(--HyperlinkFillPrimary)}a:hover{color:var(--AccentTextFillPrimary)}
 .c-mark{background:var(--SubtleFillSecondary);border-color:var(--ControlStrongStrokeDefault)}
 .c-kept{background:transparent;border-color:var(--ControlStrongStrokeDefault);border-style:dashed}
 /* the after pane renders each redaction as an inline mark: placeholder plus its category, the way the copied text reads */
-.mk{display:inline-flex;align-items:center;gap:3px;padding:0 4px;border:1px solid;height:16px;vertical-align:-3px;white-space:nowrap;font-weight:600;font-size:11px;line-height:14px}
-.mk i{font-style:normal;font-weight:400;font-size:9px;line-height:10px;padding:0 2px;border:1px solid currentColor;letter-spacing:.3px}
+.mk{display:inline-flex;align-items:center;gap:3px;padding:0 4px;border:1px solid;height:16px;vertical-align:-3px;white-space:nowrap;font-weight:600;font-size:12px;line-height:16px}
+.mk i{font-style:normal;font-weight:400;font-size:12px;line-height:16px;padding:0 2px;border:1px solid currentColor;letter-spacing:.3px}
 .mk.c-kept{font-weight:400}
 .cb{width:13px;height:13px;flex:none;border:1px solid var(--ControlStrongStrokeDefault);background:var(--SolidBackgroundFillQuaternary);display:inline-flex;align-items:center;justify-content:center}
 .cb.on{background:var(--AccentFillDefault);border-color:var(--AccentFillDefault);color:var(--TextOnAccentFillPrimary)}
@@ -152,17 +152,17 @@ Question: why would this session stay sleeping with an open transaction, and wha
 </div>
 </div>
 <div class="panel" style="width:400px;flex:none">
-<div class="ph">Receipt · written when you copy<span class="age">counts and a hash, never the values</span></div>
+<div class="ph">Receipt · goes out with the copied prompt<span class="age">counts and a hash, never the values</span></div>
 <div class="kv"><span class="mute">Logins, groups</span><span>3 redacted · 5 places</span></div>
 <div class="kv"><span class="mute">Names</span><span>5 redacted · 8 places (server 1, host 1, database 1, linked server 1)</span></div>
 <div class="kv"><span class="mute">Secrets</span><span>1 redacted · 1 place</span></div>
 <div class="kv"><span class="mute">Literals, comments</span><span>4 redacted · 4 places</span></div>
 <div class="kv"><span class="mute">Marked by you</span><span>1 redacted · 1 place</span></div>
-<div class="kv"><span class="mute">Kept by you</span><span>1 object name (dbo.Orders)</span></div>
+<div class="kv"><span class="mute">Kept by you</span><span>1 object name</span></div>
 <div class="kv"><span class="mute">Prompt</span><span>1,312 characters · SHA-256 <span class="mono">7f3a9c2e41b0</span> · Standard</span></div>
 <div style="flex:1"></div>
 <div style="display:flex;gap:6px;padding:8px;align-items:center;border-top:1px solid var(--DividerStrokeDefault)"><button class="btn primary"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8"></rect><path d="M10.5 5.5V2.5h-8v8h3"></path></svg>Copy prompt</button><button class="btn">Copy as Markdown</button><button class="btn">Back</button></div>
-<div class="mute" style="padding:0 8px 8px">Clipboard only. The extension sends nothing anywhere; paste it into the AI chat your organization allows. Receipts stay in your profile.</div>
+<div class="mute" style="padding:0 8px 8px">Clipboard only. The extension sends nothing anywhere; paste it into the AI chat your organization allows. The receipt goes out with the copied prompt; nothing is stored.</div>
 </div>
 </div>
 </sc-if>
@@ -208,10 +208,10 @@ Question: which index would let this seek, and is the ORDER BY the reason for th
 <div class="gr" style="grid-template-columns:1fr 70px 190px"><span><span class="rd c-lit" style="padding:0 4px">LITERAL</span> Literals and comments · the statement uses parameters only and carries no comment</span><span>0 found</span><span class="mute">parsed</span></div>
 <div class="gr" style="grid-template-columns:1fr 70px 190px"><span><span class="rd c-mark" style="padding:0 4px">MARKED</span> Marked by you</span><span>0</span><span class="mute">select text and press Mark</span></div>
 <div class="gr" style="grid-template-columns:1fr 70px 190px"><span><span class="rd c-kept" style="padding:0 4px">KEPT</span> Object names · off in the Standard preset · dbo.Orders, dbo.Customers, OrderId, Status, CreatedAt stay</span><span>5 kept</span><span class="mute">turn on for [TABLE-n]</span></div>
-<div class="mute" style="padding:8px">The receipt still records the zero counts and the hash, so you can prove that nothing was changed and nothing sensitive was found in this prompt.</div>
+<div class="mute" style="padding:8px">The receipt still carries the zero counts and the hash, so you can prove that nothing was changed and nothing sensitive was found in this prompt.</div>
 </div>
 <div class="panel" style="width:400px;flex:none">
-<div class="ph">Receipt · written when you copy<span class="age">counts and a hash, never the values</span></div>
+<div class="ph">Receipt · goes out with the copied prompt<span class="age">counts and a hash, never the values</span></div>
 <div class="kv"><span class="mute">Logins, groups</span><span>0</span></div>
 <div class="kv"><span class="mute">Names</span><span>0</span></div>
 <div class="kv"><span class="mute">Secrets</span><span>0</span></div>
@@ -221,7 +221,7 @@ Question: which index would let this seek, and is the ORDER BY the reason for th
 <div class="kv"><span class="mute">Prompt</span><span>571 characters · SHA-256 <span class="mono">2c91d04b7a9e</span> · Standard</span></div>
 <div style="flex:1"></div>
 <div style="display:flex;gap:6px;padding:8px;align-items:center;border-top:1px solid var(--DividerStrokeDefault)"><button class="btn primary"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8"></rect><path d="M10.5 5.5V2.5h-8v8h3"></path></svg>Copy prompt</button><button class="btn">Copy as Markdown</button><button class="btn">Back</button></div>
-<div class="mute" style="padding:0 8px 8px">Clipboard only. The extension sends nothing anywhere; paste it into the AI chat your organization allows. Receipts stay in your profile.</div>
+<div class="mute" style="padding:0 8px 8px">Clipboard only. The extension sends nothing anywhere; paste it into the AI chat your organization allows. The receipt goes out with the copied prompt; nothing is stored.</div>
 </div>
 </div>
 </sc-if>
