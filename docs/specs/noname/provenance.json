@@ -478,6 +478,15 @@
       "locator": "whole-document",
       "availability": "available",
       "owner": "Bryan Ankielewicz (product owner)"
+    },
+    {
+      "entity_id": "E-DOC-IDEA-NN-001-V0.4.3",
+      "kind": "document",
+      "uri": "brainstorming.md",
+      "revision": "unversioned",
+      "locator": "whole-document",
+      "availability": "available",
+      "owner": "Bryan Ankielewicz (product owner)"
     }
   ],
   "links": [
@@ -1258,6 +1267,54 @@
       "activity": "adapted",
       "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
       "recorded_at": "2026-11-02T02:17:07Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0066",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.3",
+      "relation": "supersedes",
+      "object_id": "E-DOC-IDEA-NN-001-V0.4.2",
+      "rationale": "Version 0.4.3 adds the owner's decisions after the QA review of DSN-001.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-02T03:01:01Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0067",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.3",
+      "relation": "generated_from",
+      "object_id": "E-TPL-BRAINSTORMING-2.0.0",
+      "rationale": "Same template as earlier versions.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-02T03:01:01Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0068",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.3",
+      "relation": "derived_from",
+      "object_id": "E-INPUT-NN-016",
+      "rationale": "The owner's reading of INPUT-NN-016: 9 pt is the minimum text size, not the body size.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-02T03:01:01Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0069",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.3",
+      "relation": "derived_from",
+      "object_id": "E-INPUT-NN-022",
+      "rationale": "A receipt-history question for after the MVP, added to INPUT-NN-022's items left to the PRD interview.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-02T03:01:01Z",
       "verification": "unverified",
       "verified_at": null
     }
