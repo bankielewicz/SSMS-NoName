@@ -501,7 +501,7 @@
       "entity_id": "E-DOC-PRD-001-V1",
       "kind": "source",
       "uri": "../prd/PRD-001.md",
-      "revision": "version 1",
+      "revision": "31a5b961f0022766b3e5df4a25728206059ec5f6",
       "locator": "whole-document",
       "availability": "available",
       "owner": "Bryan Ankielewicz (product owner)"
@@ -1362,7 +1362,7 @@
       "rationale": "Version 0.4.4 marks four open questions answered in the PRD interview.",
       "activity": "adapted",
       "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
-      "recorded_at": "2026-11-02T16:00:00Z",
+      "recorded_at": "2026-11-02T18:55:56Z",
       "verification": "unverified",
       "verified_at": null
     },
@@ -1374,7 +1374,7 @@
       "rationale": "Same template as earlier versions.",
       "activity": "adapted",
       "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
-      "recorded_at": "2026-11-02T16:00:00Z",
+      "recorded_at": "2026-11-02T18:55:56Z",
       "verification": "unverified",
       "verified_at": null
     },
@@ -1386,7 +1386,7 @@
       "rationale": "The owner's answers to Q-NN-003, Q-NN-004, Q-NN-008 and Q-NN-009, recorded in PRD-001 version 1.",
       "activity": "adapted",
       "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
-      "recorded_at": "2026-11-02T16:00:00Z",
+      "recorded_at": "2026-11-02T18:55:56Z",
       "verification": "unverified",
       "verified_at": null
     },
@@ -1398,7 +1398,7 @@
       "rationale": "Version 0.4.5 points two revisit triggers at PRD-001 instead of the answered Q-NN-004.",
       "activity": "adapted",
       "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
-      "recorded_at": "2026-11-02T20:00:00Z",
+      "recorded_at": "2026-11-02T19:14:18Z",
       "verification": "unverified",
       "verified_at": null
     },
@@ -1410,7 +1410,7 @@
       "rationale": "Same template as earlier versions.",
       "activity": "adapted",
       "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
-      "recorded_at": "2026-11-02T20:00:00Z",
+      "recorded_at": "2026-11-02T19:14:18Z",
       "verification": "unverified",
       "verified_at": null
     },
@@ -1422,7 +1422,7 @@
       "rationale": "PRD-001 NFR-039: ARM64 support waits on a device to test on.",
       "activity": "adapted",
       "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
-      "recorded_at": "2026-11-02T20:00:00Z",
+      "recorded_at": "2026-11-02T19:14:18Z",
       "verification": "unverified",
       "verified_at": null
     }
