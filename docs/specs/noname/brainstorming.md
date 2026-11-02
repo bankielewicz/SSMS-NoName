@@ -4,20 +4,20 @@ template_type: "brainstorming"
 template_source: "https://github.com/bankielewicz/Specs/blob/c36d38957cf8c90864dd02f18acd6e48f700ae12/docs/templates/discovery/brainstorming.template.md"
 template_revision: "c36d38957cf8c90864dd02f18acd6e48f700ae12"
 provenance_register: "provenance.json"
-provenance_links: ["LINK-NN-0001", "LINK-NN-0002", "LINK-NN-0003", "LINK-NN-0004", "LINK-NN-0005", "LINK-NN-0006", "LINK-NN-0007", "LINK-NN-0008", "LINK-NN-0009", "LINK-NN-0010", "LINK-NN-0011", "LINK-NN-0012", "LINK-NN-0013", "LINK-NN-0014", "LINK-NN-0015", "LINK-NN-0016", "LINK-NN-0017", "LINK-NN-0018", "LINK-NN-0019", "LINK-NN-0020", "LINK-NN-0021", "LINK-NN-0022", "LINK-NN-0023", "LINK-NN-0024", "LINK-NN-0025", "LINK-NN-0026", "LINK-NN-0027", "LINK-NN-0028", "LINK-NN-0029", "LINK-NN-0030", "LINK-NN-0041", "LINK-NN-0042", "LINK-NN-0043", "LINK-NN-0044", "LINK-NN-0045", "LINK-NN-0046", "LINK-NN-0047", "LINK-NN-0048", "LINK-NN-0049", "LINK-NN-0050", "LINK-NN-0051", "LINK-NN-0052", "LINK-NN-0053", "LINK-NN-0054", "LINK-NN-0055", "LINK-NN-0056", "LINK-NN-0060", "LINK-NN-0061", "LINK-NN-0062", "LINK-NN-0063", "LINK-NN-0064", "LINK-NN-0065", "LINK-NN-0066", "LINK-NN-0067", "LINK-NN-0068", "LINK-NN-0069"]
+provenance_links: ["LINK-NN-0001", "LINK-NN-0002", "LINK-NN-0003", "LINK-NN-0004", "LINK-NN-0005", "LINK-NN-0006", "LINK-NN-0007", "LINK-NN-0008", "LINK-NN-0009", "LINK-NN-0010", "LINK-NN-0011", "LINK-NN-0012", "LINK-NN-0013", "LINK-NN-0014", "LINK-NN-0015", "LINK-NN-0016", "LINK-NN-0017", "LINK-NN-0018", "LINK-NN-0019", "LINK-NN-0020", "LINK-NN-0021", "LINK-NN-0022", "LINK-NN-0023", "LINK-NN-0024", "LINK-NN-0025", "LINK-NN-0026", "LINK-NN-0027", "LINK-NN-0028", "LINK-NN-0029", "LINK-NN-0030", "LINK-NN-0041", "LINK-NN-0042", "LINK-NN-0043", "LINK-NN-0044", "LINK-NN-0045", "LINK-NN-0046", "LINK-NN-0047", "LINK-NN-0048", "LINK-NN-0049", "LINK-NN-0050", "LINK-NN-0051", "LINK-NN-0052", "LINK-NN-0053", "LINK-NN-0054", "LINK-NN-0055", "LINK-NN-0056", "LINK-NN-0060", "LINK-NN-0061", "LINK-NN-0062", "LINK-NN-0063", "LINK-NN-0064", "LINK-NN-0065", "LINK-NN-0066", "LINK-NN-0067", "LINK-NN-0068", "LINK-NN-0069", "LINK-NN-0070", "LINK-NN-0071", "LINK-NN-0072"]
 document_id: "IDEA-NN-001"
-document_version: "0.4.3"
+document_version: "0.4.4"
 project_id: "NONAME"
 status: "draft"
 owner: "Bryan Ankielewicz (product owner)"
 created: "2026-10-29"
-updated: "2026-11-01"
+updated: "2026-11-02"
 source_of_truth: ["INPUT-NN-001", "INPUT-NN-002", "INPUT-NN-003", "INPUT-NN-004", "INPUT-NN-005", "INPUT-NN-006", "INPUT-NN-007", "INPUT-NN-008", "INPUT-NN-009", "INPUT-NN-010", "INPUT-NN-012", "INPUT-NN-013", "INPUT-NN-014", "INPUT-NN-015", "INPUT-NN-016", "INPUT-NN-017", "INPUT-NN-018", "INPUT-NN-019", "INPUT-NN-020", "INPUT-NN-021", "INPUT-NN-022"]
 related_documents: ["RES-NN-001"]
 depends_on: []
-supersedes: ["IDEA-NN-001@0.4.2"]
+supersedes: ["IDEA-NN-001@0.4.3"]
 assumptions: ["ASM-NN-001", "ASM-NN-002", "ASM-NN-003"]
-open_questions: ["Q-NN-001", "Q-NN-002", "Q-NN-003", "Q-NN-004", "Q-NN-005", "Q-NN-006", "Q-NN-008", "Q-NN-009", "Q-NN-011"]
+open_questions: ["Q-NN-001", "Q-NN-002", "Q-NN-005", "Q-NN-006", "Q-NN-011"]
 ---
 
 # Brainstorming: redacted AI prompts from SSMS 22
@@ -173,7 +173,7 @@ These are proposals for review, not approved requirements.
 | Secrets | Passwords in `CREATE LOGIN` and `ALTER LOGIN`, credential secrets, shared access tokens, key and certificate passwords | Always on (Q-NN-009) |
 | Identity | Windows logins and groups (`DOMAIN\name`), user principal names, SIDs, LDAP distinguished names, email addresses | On |
 | Infrastructure | Server and instance names, fully qualified domain names, IP addresses, linked servers, file and network paths, connection strings | On |
-| Query values | String, number and date literals, comments, parameter values inside plans | Strings and comments on; numbers and dates open (Q-NN-003) |
+| Query values | String, number and date literals, comments, parameter values inside plans | Strings and comments on; numbers and dates kept in the Standard preset and redacted in Strict (Q-NN-003, answered; [PRD-001](../prd/PRD-001.md) FR-003) |
 | Object names | Database, schema, table and column names | User setting (INPUT-NN-004); off in the Standard preset |
 | Result data | Results-grid rows | Excluded by default; can be included, with per-column and per-cell redaction (INPUT-NN-005) |
 | Custom | The user's own words and patterns, such as project code names or employee ID formats | The user's list |
@@ -245,6 +245,7 @@ Confirmed needs INPUT-NN-003 to INPUT-NN-007, INPUT-NN-009 and INPUT-NN-012 carr
 | INPUT-NN-001 to INPUT-NN-007 | LINK-NN-0002 to LINK-NN-0008 | Owner statements, 2026-10-29 | Recorded from the conversation; there is no separate durable record |
 | E-01 to E-08, C-01 to C-05 | LINK-NN-0009 to LINK-NN-0017 | Web sources listed in Inputs | Microsoft pages are pinned to their docs commits; other pages are unversioned; the Q&A and redaction-tool pages are known from search summaries only |
 | INPUT-NN-002 background | LINK-NN-0018 | `bankielewicz/SSMS` at `29e1755` | Read as background; nothing derived from it |
+| IDEA-NN-001 v0.4.4 | LINK-NN-0070 to LINK-NN-0072 | v0.4.3; PRD-001 version 1 | Q-NN-003, Q-NN-004, Q-NN-008 and Q-NN-009 marked answered by the owner in the PRD interview, pointing at PRD-001, and the Query values default in the redaction table updated to Q-NN-003's answer; no other section changed |
 | IDEA-NN-001 v0.4.3 | LINK-NN-0066 to LINK-NN-0069 | v0.4.2; INPUT-NN-016, INPUT-NN-022 | The owner's decisions after the QA review of DSN-001: the reading of INPUT-NN-016 (9 pt is the minimum text size) and a receipt-history question in INPUT-NN-022; no other section changed |
 | IDEA-NN-001 v0.4.2 | LINK-NN-0063 to LINK-NN-0065 | v0.4.1; INPUT-NN-016, INPUT-NN-018 | INPUT-NN-016 notes that "blue" in its quotation was a drafting error; no other section changed |
 | IDEA-NN-001 v0.4.1 | LINK-NN-0060 to LINK-NN-0062 | v0.4.0; INPUT-NN-016 | Corrected INPUT-NN-016's frame sentence; no other section changed |
@@ -258,13 +259,13 @@ Confirmed needs INPUT-NN-003 to INPUT-NN-007, INPUT-NN-009 and INPUT-NN-012 carr
 | --- | --- | --- | --- | --- |
 | Q-NN-001 | What is the product name? Candidates: Understudy, SQL Airlock, Stand-In. Avoid: Veil (`SqlVeil` already exists for SQL masking), names containing Mask (confusable with SQL Server's Dynamic Data Masking), Guard (SQL Guard exists), Copilot, or a leading "SSMS" | Bryan | Deferred by INPUT-NN-008; due before creating the public repository | Repository, package and namespace names; not the spike |
 | Q-NN-002 | Which placeholder format stays valid T-SQL and survives an AI's rewrite? | Bryan; proposal by Claude | Before designing paste-back | Restoring names in answers |
-| Q-NN-003 | Does the Standard preset redact number and date literals? | Bryan | Before setting preset defaults | Preset defaults |
-| Q-NN-004 | Does the first release support ARM64? | Bryan | Before packaging | Build configuration |
+| Q-NN-003 | Does the Standard preset redact number and date literals? | Bryan | Answered by Bryan on 2026-11-02 in the PRD interview: Standard keeps number and date literals, Strict redacts them ([PRD-001](../prd/PRD-001.md) FR-003) | Preset defaults |
+| Q-NN-004 | Does the first release support ARM64? | Bryan | Answered by Bryan on 2026-11-02 in the PRD interview: x64 only for the MVP; ARM64 later, once a device to test on exists (E-18) ([PRD-001](../prd/PRD-001.md) NFR-038, NFR-039) | Build configuration |
 | Q-NN-005 | Which open-source licence, and when is it published? | Bryan | Before public release | Publication |
 | Q-NN-006 | What time and capacity are available for the spike and the MVP? | Bryan | Before scheduling | Calendar; not the spike itself |
 | Q-NN-007 | Should `NoName` become a git repository, and a GitHub repository? | Bryan | Answered by INPUT-NN-013 ([RES-NN-001](feasibility-spike.md#input-nn-013)); repository initialized 2026-10-30 | Version history and pull-request workflow |
-| Q-NN-008 | Which inputs are in the MVP: query text, error messages, plans, deadlock graphs, grid selection, Object Explorer objects? | Bryan | Before the PRD | PRD scope |
-| Q-NN-009 | Are secrets always redacted, even if a user's settings would allow them? | Bryan | Before designing presets | Settings model |
+| Q-NN-008 | Which inputs are in the MVP: query text, error messages, plans, deadlock graphs, grid selection, Object Explorer objects? | Bryan | Answered by Bryan on 2026-11-02 in the PRD interview: query text, error messages, execution plans, deadlock graphs and rows handed over by row-to-prompt are in the MVP; Object Explorer objects come later; grid selection stays parked ([PRD-001](../prd/PRD-001.md) FR-001, FR-052) | PRD scope |
+| Q-NN-009 | Are secrets always redacted, even if a user's settings would allow them? | Bryan | Answered by Bryan on 2026-11-02 in the PRD interview: yes, no preset or switch can show a secret ([PRD-001](../prd/PRD-001.md) NFR-041) | Settings model |
 | Q-NN-010 | May a throwaway spike VSIX be installed into SSMS 22 on the owner's PC (not SSMS 21), and removed afterwards with `VSIXInstaller.exe /uninstall`? | Bryan | Answered yes by INPUT-NN-010 ([RES-NN-001](feasibility-spike.md#input-nn-010)) | EXP-NN-001 (a) to (f) |
 | Q-NN-011 | Which SSMS 22 install without the AI component is used for testing: a VM or Windows Sandbox with a fresh core-only install, or temporarily removing the AI workload from this PC with the Visual Studio Installer? | Bryan | Before the spike's second run | EXP-NN-001 without the AI component; evidence for C-08 |
 
