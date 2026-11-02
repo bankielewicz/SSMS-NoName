@@ -47,7 +47,7 @@ This project follows **bankielewicz/DevForgeAI**, the `devforgeai@devforgeai` pl
   Tests added for code that already exists are characterization tests and pass first time; say so in the commit message.
 - **QA and merging:**
   - The working session never labels its own pull request.
-  - An independent QA session, or the owner, runs `/code-review` on the pull request (`/code-review <PR#>`) and records the verdict as a PR comment plus the `merge-approved` or `qa-failed` label. A `qa-failed` verdict sends the PR back; fix its findings test-first.
+  - An independent QA session, or the owner, runs `/code-review` on the pull request (`/code-review <PR#>`) and records the verdict as a PR comment plus the `merge-approved` or `qa-failed` label. The comment's first line is exactly `QA verdict: passed <full 40-character SHA>` or `QA verdict: failed <full 40-character SHA>`, naming the reviewed head commit, followed by the label; `devforgeai:git` reads that line and reports `unverified` without it. A `qa-failed` verdict sends the PR back; fix its findings test-first.
   - `devforgeai:git` commits, pushes and opens the pull request. It merges only when the label is `merge-approved`, CI is green and the owner confirms.
 - **Other skills:** `devforgeai:documents-updater` refreshes the README and CHANGELOG; run `devforgeai:precompact` before `/compact`.
 - **The VSIX can't be unit-tested.** Its evidence is a diagnostic run inside SSMS 22, read back from the logs.
