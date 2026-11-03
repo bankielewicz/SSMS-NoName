@@ -514,15 +514,6 @@
       "locator": "whole-document",
       "availability": "available",
       "owner": "Bryan Ankielewicz (product owner)"
-    },
-    {
-      "entity_id": "E-DOC-PRD-001-V2",
-      "kind": "source",
-      "uri": "../prd/PRD-001.md",
-      "revision": "ae67be7a56f620adf3336827a60cebce65ef863c",
-      "locator": "whole-document",
-      "availability": "available",
-      "owner": "Bryan Ankielewicz (product owner)"
     }
   ],
   "links": [
@@ -1418,8 +1409,8 @@
       "link_id": "LINK-NN-0075",
       "subject_id": "E-DOC-IDEA-NN-001-V0.4.5",
       "relation": "derived_from",
-      "object_id": "E-DOC-PRD-001-V2",
-      "rationale": "PRD-001 NFR-039: ARM64 support waits on a device to test on.",
+      "object_id": "E-DOC-PRD-001-V1",
+      "rationale": "PRD-001 NFR-039 (version 1): ARM64 support waits on a device to test on.",
       "activity": "adapted",
       "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
       "recorded_at": "2026-11-02T19:14:18Z",
