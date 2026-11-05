@@ -456,7 +456,7 @@
       "entity_id": "E-DOC-RES-NN-001-V0.2.0",
       "kind": "document",
       "uri": "feasibility-spike.md",
-      "revision": "unversioned",
+      "revision": "b6fe8fce7f821c37b67bf31df6f23cafc2d23283",
       "locator": "whole-document",
       "availability": "available",
       "owner": "Bryan Ankielewicz (product owner)"
@@ -528,6 +528,24 @@
       "entity_id": "E-DOC-IDEA-NN-001-V0.4.6",
       "kind": "document",
       "uri": "brainstorming.md",
+      "revision": "unversioned",
+      "locator": "whole-document",
+      "availability": "available",
+      "owner": "Bryan Ankielewicz (product owner)"
+    },
+    {
+      "entity_id": "E-INPUT-NN-024",
+      "kind": "source",
+      "uri": "feasibility-spike.md",
+      "revision": "unversioned",
+      "locator": "input-nn-024",
+      "availability": "available",
+      "owner": "Bryan Ankielewicz (product owner)"
+    },
+    {
+      "entity_id": "E-DOC-RES-NN-001-V0.2.1",
+      "kind": "document",
+      "uri": "feasibility-spike.md",
       "revision": "unversioned",
       "locator": "whole-document",
       "availability": "available",
@@ -1468,6 +1486,42 @@
       "activity": "adapted",
       "actor": "Claude Code agent (claude-fable-5-1) for Bryan Ankielewicz",
       "recorded_at": "2026-11-05T00:44:46Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0079",
+      "subject_id": "E-DOC-RES-NN-001-V0.2.1",
+      "relation": "supersedes",
+      "object_id": "E-DOC-RES-NN-001-V0.2.0",
+      "rationale": "Version 0.2.1 rewords PRB-SQL-03 to run on a connection the extension opens itself, with Windows authentication only, and records INPUT-NN-024.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-05T03:20:19Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0080",
+      "subject_id": "E-DOC-RES-NN-001-V0.2.1",
+      "relation": "generated_from",
+      "object_id": "E-TPL-RESEARCH-BRIEF-2.0.0",
+      "rationale": "Same template as earlier versions.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-05T03:20:19Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0081",
+      "subject_id": "E-DOC-RES-NN-001-V0.2.1",
+      "relation": "derived_from",
+      "object_id": "E-INPUT-NN-024",
+      "rationale": "INPUT-NN-024: PRB-SQL-03 proves the extension's own connection with Windows authentication only, and SQL authentication is after the MVP.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-05T03:20:19Z",
       "verification": "unverified",
       "verified_at": null
     }
