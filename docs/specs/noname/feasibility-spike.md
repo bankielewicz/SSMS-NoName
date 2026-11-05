@@ -4,18 +4,18 @@ template_type: "research-brief"
 template_source: "https://github.com/bankielewicz/Specs/blob/c36d38957cf8c90864dd02f18acd6e48f700ae12/docs/templates/discovery/research-brief.template.md"
 template_revision: "c36d38957cf8c90864dd02f18acd6e48f700ae12"
 provenance_register: "provenance.json"
-provenance_links: ["LINK-NN-0031", "LINK-NN-0032", "LINK-NN-0033", "LINK-NN-0034", "LINK-NN-0035", "LINK-NN-0036", "LINK-NN-0037", "LINK-NN-0038", "LINK-NN-0039", "LINK-NN-0040", "LINK-NN-0057", "LINK-NN-0058", "LINK-NN-0059", "LINK-NN-0079", "LINK-NN-0080", "LINK-NN-0081"]
+provenance_links: ["LINK-NN-0031", "LINK-NN-0032", "LINK-NN-0033", "LINK-NN-0034", "LINK-NN-0035", "LINK-NN-0036", "LINK-NN-0037", "LINK-NN-0038", "LINK-NN-0039", "LINK-NN-0040", "LINK-NN-0057", "LINK-NN-0058", "LINK-NN-0059", "LINK-NN-0079", "LINK-NN-0080", "LINK-NN-0081", "LINK-NN-0082", "LINK-NN-0083", "LINK-NN-0084"]
 document_id: "RES-NN-001"
-document_version: "0.2.1"
+document_version: "0.2.2"
 project_id: "NONAME"
 status: "draft"
 owner: "Bryan Ankielewicz (product owner)"
 created: "2026-10-30"
-updated: "2026-11-04"
+updated: "2026-11-05"
 source_of_truth: ["INPUT-NN-009", "INPUT-NN-010", "INPUT-NN-011", "INPUT-NN-012", "INPUT-NN-013", "INPUT-NN-014", "INPUT-NN-015", "INPUT-NN-024"]
 related_documents: ["IDEA-NN-001"]
 depends_on: ["IDEA-NN-001"]
-supersedes: ["RES-NN-001@0.2.0"]
+supersedes: ["RES-NN-001@0.2.1"]
 assumptions: ["ASM-NN-002", "ASM-NN-004"]
 open_questions: ["Q-NN-011", "Q-NN-012", "Q-NN-013", "Q-NN-014"]
 ---
@@ -44,7 +44,7 @@ These were recorded on 2026-10-30. Speaker: Bryan Ankielewicz, product owner.
 
 This one was recorded on 2026-11-04, while the owner answered the review decisions on PRD-001 version 2 (pull request #10). Speaker: Bryan Ankielewicz, product owner.
 
-<a id="input-nn-024"></a>**INPUT-NN-024:** "yes, Windows auth only", and then "sql authentication is for post-mvp". The first answers whether PRB-SQL-03 is reworded in that pull request to run on a connection the extension opens itself, and whether it covers Windows authentication only or asks for a SQL login's password in its own prompt. The second places SQL authentication after the MVP (PRD-001 NFR-046, NFR-047).
+<a id="input-nn-024"></a>**INPUT-NN-024:** "yes, Windows auth only", and then "sql authentication is for post-mvp". The first answers whether PRB-SQL-03 is reworded in that pull request to run on a connection the extension opens itself, and whether it covers Windows authentication only or asks for a SQL login's password in its own prompt. The second places SQL authentication after the MVP (PRD-001 NFR-046, NFR-047); NFR-047 also covers Microsoft Entra ID, from Bryan's approval of the round-7 plan on 2026-11-05 (D2).
 
 ### Sources
 
@@ -119,9 +119,9 @@ This one was recorded on 2026-11-04, while the owner answered the review decisio
 | PRB-HOST-05 | Host | AI component presence: `SSMSAgent` folder and manifest; loaded Copilot assemblies | Present or absent, with version | Recorded, to correlate with RQ-10 |
 | PRB-ED-01 | Editor | Active document and window | Kind and language; window caption as a hash | Recorded |
 | PRB-ED-02 | Editor | Active text view selection and caret | Selection length, line count and a SHA-256 prefix; the text only in verbose mode | Matches what the owner selected |
-| PRB-SQL-01 | SQL | Classic API `CurrentlyActiveWndConnectionInfo` (type found by name) | Type path found; field names; server, database and login as hashes; auth type; password field present yes/no, never its value | Fields read on a connected window |
+| PRB-SQL-01 | SQL | Classic API `CurrentlyActiveWndConnectionInfo` (type found by name) | Type path found; field names; server, database and login as hashes; auth type; encryption, trust-certificate and port settings; password field present yes/no, never its value | Fields read on a connected window |
 | PRB-SQL-02 | SQL | Brokered `GetCurrentConnectionAsync` | Property names; editor moniker; connection string with secrets removed and other values hashed | Details returned |
-| PRB-SQL-03 | SQL | On a SqlConnection the extension opens itself, not the query window's, to the server and database that PRB-SQL-01 read, with Windows authentication only (INPUT-NN-024): a read-only metadata query, behind its own button: product version, edition, principal counts by type, sensitivity-classification and masked-column counts | The authentication type used; counts and version values; never a password or connection string | The extension's own connection opens and the query returns, against a test server only; a window connected with a SQL login is logged as skipped |
+| PRB-SQL-03 | SQL | On a SqlConnection the extension opens itself, not the query window's, to the server and database that PRB-SQL-01 read, with Windows authentication only (INPUT-NN-024) and the window's encryption, trust-certificate and port settings: read-only metadata queries, behind its own button: product version, edition, principal counts by type, sensitivity-classification and masked-column counts, and the Windows groups in the login token (sys.login_token) and the linked-server names (sys.servers) that PRD-001's FR-006 redacts | The authentication type used; counts and version values; the groups and linked-server names as counts and hashes (values only in verbose mode); never a password or connection string | The extension's own connection opens and every query returns, against a test server only; a window that doesn't use Windows authentication is logged as skipped |
 | PRB-GRID-01 | Grid | Internal grid control by reflection: grids in the active results pane, row and column counts, `SelectedCells` blocks | Type chain; counts; selected cell coordinates; header names hashed; cell text only in verbose mode | Coordinates match what the owner selected |
 | PRB-GRID-02 | Grid | Brokered `GetAvailablePanesAsync` and `GetGridResultsSegmentAsync` | Method signatures as found; returned shape | Data returned |
 | PRB-MSG-01 | Messages | Brokered `GetMessagesTabSegmentAsync` | Total length; hash | Text returned |
@@ -223,6 +223,7 @@ The diagnostic hasn't run, so every RQ is `not_run`. Static inspection supplied 
 | INPUT-NN-010 to INPUT-NN-014 | LINK-NN-0032 to LINK-NN-0036 | Owner statements, 2026-10-30 | Recorded from the conversation |
 | RES-NN-001 v0.2.0 | LINK-NN-0057 to LINK-NN-0059 | v0.1.0; INPUT-NN-015 (recorded in IDEA-NN-001) | Adds the proposed probe PRB-UI-03 only; no other section changed |
 | RES-NN-001 v0.2.1 | LINK-NN-0079 to LINK-NN-0081 | v0.2.0 (git b6fe8fc); INPUT-NN-024 | Rewords PRB-SQL-03 to run on a connection the extension opens itself, with Windows authentication only, and records INPUT-NN-024; no other probe changed |
+| RES-NN-001 v0.2.2 | LINK-NN-0082 to LINK-NN-0084 | v0.2.1 (git b655b80); INPUT-NN-024; the independent review of b655b80, findings 4 and 14 | PRB-SQL-03 also reads the Windows groups and linked-server names PRD-001's FR-006 redacts and copies the window's encryption, trust-certificate and port settings, which PRB-SQL-01 now logs; no other probe changed |
 | Inputs and build design | LINK-NN-0037 to LINK-NN-0040 | IDEA-NN-001 v0.2.0; local inspection; community manifests; StatisticsParser source | Third-party repositories are pinned to the commits read on 2026-10-30 |
 
 ## Open questions
