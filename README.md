@@ -1,6 +1,6 @@
 # NoName
 
-NoName (a working name) is a planned SQL Server Management Studio (SSMS) 22 extension suite for one SQL Server instance: tools built on the instance's Query Store, Extended Events, error log, PerfMon counters and DMVs, with optional history kept on the instance, around a prompt builder that turns SQL Server context into an AI prompt, with identities, secrets, infrastructure names and selected data redacted locally first. It is for DBAs and developers whose organizations don't let AI tools connect to databases directly. It is meant to work whether or not SSMS's Copilot/AI component is installed. It is open source under the MIT licence.
+NoName (a working name) is a planned SQL Server Management Studio (SSMS) 22 extension suite for one SQL Server instance: tools built on the instance's Query Store, Extended Events, error log, PerfMon counters and DMVs, with optional history kept on the instance, around a prompt builder that turns SQL Server context into an AI prompt, with identities, secrets, infrastructure names and selected data redacted locally first. It is for DBAs and developers whose organizations don't let AI tools connect to databases directly. It is meant to work whether or not SSMS's Copilot/AI component is installed. It is licensed under the MIT licence.
 
 Unreleased. Today the repository holds only **NoName Diagnostics**, a test-bench extension that will probe which SSMS APIs the suite can use and log every call, result, error and click. Microsoft doesn't support third-party SSMS extensions, so the probes are meant to be rerun after every SSMS update.
 
@@ -49,15 +49,16 @@ Unreleased. Today the repository holds only **NoName Diagnostics**, a test-bench
 | `NoName.Diagnostics.Core` (session log, sanitizer, probe runner; netstandard2.0) | Implemented, with unit tests |
 | `NoName.Diagnostics.Vsix` 0.1.0 | Loads in SSMS 22.11.3 in the background and logs clicks on its three commands; no probes yet |
 | Diagnostic probes (OS, SQL, editor, Object Explorer, results grid) | Specified in the feasibility spike; not built |
-| The suite: prompt builder and single-instance DBA tools | Brainstormed (BRN-001 version 2) and designed in draft (DSN-001: eleven screens in four flows); the PRD and architecture are next |
+| The suite: prompt builder and single-instance DBA tools | Brainstormed (BRN-001 version 2), designed in draft (DSN-001: eleven screens in four flows) and specified in draft (PRD-001 version 2: the MVP and its backlog, with the launch gates per requirement); the architecture is next |
 
 ## Documentation
 
 - [BRN-001, the suite brainstorm](docs/specs/brainstorm/BRN-001.md): the problems, the ideas with their dispositions, and the assumptions each tool depends on.
 - [DSN-001, the release design](docs/specs/design/DSN-001.md): the screens drawn so far (the instance window, Query Store, incident evidence and the prompt hub), the ideas each shows, and the ideas still waiting for a screen. The board files are in [docs/specs/design/DSN-001/boards/](docs/specs/design/DSN-001/boards/).
+- [PRD-001, the product requirements](docs/specs/prd/PRD-001.md): the MVP and its backlog from BRN-001 version 2, each requirement with its preconditions, the launch-gate table, the assumptions and the open questions.
 - [IDEA-NN-001, the first brainstorm](docs/specs/noname/brainstorming.md): owner inputs, including the decisions made during the design step, evidence about SSMS 22, constraints and open questions.
 - [RES-NN-001, the feasibility spike](docs/specs/noname/feasibility-spike.md): the diagnostic extension's research questions, probe catalog and log-privacy rules.
 
 ## Licence
 
-NoName is released under the MIT licence; see [LICENSE](LICENSE).
+NoName is licensed under the MIT licence; see [LICENSE](LICENSE). When the suite is published is still open (Q-NN-005 in IDEA-NN-001).
