@@ -492,7 +492,7 @@
       "entity_id": "E-DOC-IDEA-NN-001-V0.4.4",
       "kind": "document",
       "uri": "brainstorming.md",
-      "revision": "unversioned",
+      "revision": "cac74271bb08e81b4ce1bb6811150385154e5d41",
       "locator": "whole-document",
       "availability": "available",
       "owner": "Bryan Ankielewicz (product owner)"
@@ -553,6 +553,15 @@
     },
     {
       "entity_id": "E-DOC-RES-NN-001-V0.2.2",
+      "kind": "document",
+      "uri": "feasibility-spike.md",
+      "revision": "54b219d188e8be45cbf1773d693622eb0c8df416",
+      "locator": "whole-document",
+      "availability": "available",
+      "owner": "Bryan Ankielewicz (product owner)"
+    },
+    {
+      "entity_id": "E-DOC-RES-NN-001-V0.2.3",
       "kind": "document",
       "uri": "feasibility-spike.md",
       "revision": "unversioned",
@@ -1567,6 +1576,42 @@
       "activity": "adapted",
       "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
       "recorded_at": "2026-11-05T09:06:44Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0085",
+      "subject_id": "E-DOC-RES-NN-001-V0.2.3",
+      "relation": "supersedes",
+      "object_id": "E-DOC-RES-NN-001-V0.2.2",
+      "rationale": "Version 0.2.3 narrows PRB-SQL-03's pass to the own connection and FR-006's lookups, copies application intent and multi-subnet failover too, logs the server identity as hashes, and adds the new logged items to the information-handling table (independent review of 54b219d, findings 1, 5 and 6).",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-05T11:05:23Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0086",
+      "subject_id": "E-DOC-RES-NN-001-V0.2.3",
+      "relation": "generated_from",
+      "object_id": "E-TPL-RESEARCH-BRIEF-2.0.0",
+      "rationale": "Same template as earlier versions.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-05T11:05:23Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0087",
+      "subject_id": "E-DOC-RES-NN-001-V0.2.3",
+      "relation": "derived_from",
+      "object_id": "E-INPUT-NN-024",
+      "rationale": "INPUT-NN-024 keeps PRB-SQL-03 to Windows authentication; version 0.2.3 changes what its pass checks, not its scope.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-05T11:05:23Z",
       "verification": "unverified",
       "verified_at": null
     }
