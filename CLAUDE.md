@@ -18,7 +18,7 @@ Read before changing direction or scope:
 
 Derive the current state from the repository, not from memory:
 - The furthest document in the planning chain that exists (`docs/specs/brainstorm/` → `design/` → `prd/` → `arch/` → `epic/`), its `status` and its latest Change Log row, which say what was decided last; the next skill in the chain is the next step.
-- What a capability waits on: its class in BRN-001 (A proven, B waits on a named probe, C outside SSMS); a class B capability becomes buildable only when its probe passes in NoName Diagnostics.
+- What a capability waits on: its class in BRN-001 (A proven, B waits on a named probe, C outside SSMS); a class B capability becomes buildable only when its gates pass: its probes in NoName Diagnostics, or the checks on the local instance that the PRD's gate table names.
 - Open work: `gh pr list` and `gh issue list` on `bankielewicz/SSMS-NoName`.
 
 Research for the design lives outside the repository: third-party repositories in the git-ignored `tmp/` are read for ideas only, never copied. Two of them aren't MIT: `local-llm-chat-ssms` is GPL-2.0, and SqlPulse has no licence.
