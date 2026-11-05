@@ -510,7 +510,25 @@
       "entity_id": "E-DOC-IDEA-NN-001-V0.4.5",
       "kind": "document",
       "uri": "brainstorming.md",
+      "revision": "fb1638f154cff173a3e999b991eb4cdad97275d4",
+      "locator": "whole-document",
+      "availability": "available",
+      "owner": "Bryan Ankielewicz (product owner)"
+    },
+    {
+      "entity_id": "E-INPUT-NN-023",
+      "kind": "source",
+      "uri": "brainstorming.md",
       "revision": "unversioned",
+      "locator": "input-nn-023",
+      "availability": "available",
+      "owner": "Bryan Ankielewicz (product owner)"
+    },
+    {
+      "entity_id": "E-DOC-IDEA-NN-001-V0.4.6",
+      "kind": "document",
+      "uri": "brainstorming.md",
+      "revision": "0d78f72b44b1280e0f498ca2826d0441dcbf8a59",
       "locator": "whole-document",
       "availability": "available",
       "owner": "Bryan Ankielewicz (product owner)"
@@ -546,6 +564,42 @@
       "entity_id": "E-DOC-RES-NN-001-V0.2.3",
       "kind": "document",
       "uri": "feasibility-spike.md",
+      "revision": "unversioned",
+      "locator": "whole-document",
+      "availability": "available",
+      "owner": "Bryan Ankielewicz (product owner)"
+    },
+    {
+      "entity_id": "E-INPUT-NN-025",
+      "kind": "source",
+      "uri": "brainstorming.md",
+      "revision": "unversioned",
+      "locator": "input-nn-025",
+      "availability": "available",
+      "owner": "Bryan Ankielewicz (product owner)"
+    },
+    {
+      "entity_id": "E-DOC-IDEA-NN-001-V0.4.7",
+      "kind": "document",
+      "uri": "brainstorming.md",
+      "revision": "49f182c5bd5ea3ba6a5f6241875745a38733fba3",
+      "locator": "whole-document",
+      "availability": "available",
+      "owner": "Bryan Ankielewicz (product owner)"
+    },
+    {
+      "entity_id": "E-INPUT-NN-026",
+      "kind": "source",
+      "uri": "brainstorming.md",
+      "revision": "unversioned",
+      "locator": "input-nn-026",
+      "availability": "available",
+      "owner": "Bryan Ankielewicz (product owner)"
+    },
+    {
+      "entity_id": "E-DOC-IDEA-NN-001-V0.4.8",
+      "kind": "document",
+      "uri": "brainstorming.md",
       "revision": "unversioned",
       "locator": "whole-document",
       "availability": "available",
@@ -1454,6 +1508,42 @@
       "verified_at": null
     },
     {
+      "link_id": "LINK-NN-0076",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.6",
+      "relation": "supersedes",
+      "object_id": "E-DOC-IDEA-NN-001-V0.4.5",
+      "rationale": "Version 0.4.6 records INPUT-NN-023, the MIT licence, and marks the licence half of Q-NN-005 answered.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-fable-5-1) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-05T00:44:46Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0077",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.6",
+      "relation": "generated_from",
+      "object_id": "E-TPL-BRAINSTORMING-2.0.0",
+      "rationale": "Same template as earlier versions.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-fable-5-1) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-05T00:44:46Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0078",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.6",
+      "relation": "derived_from",
+      "object_id": "E-INPUT-NN-023",
+      "rationale": "INPUT-NN-023: the suite is published under the MIT License; the LICENSE file was added the same day.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-fable-5-1) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-05T00:44:46Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
       "link_id": "LINK-NN-0079",
       "subject_id": "E-DOC-RES-NN-001-V0.2.1",
       "relation": "supersedes",
@@ -1558,6 +1648,78 @@
       "activity": "adapted",
       "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
       "recorded_at": "2026-11-05T11:05:23Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0088",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.7",
+      "relation": "supersedes",
+      "object_id": "E-DOC-IDEA-NN-001-V0.4.6",
+      "rationale": "Version 0.4.7 records INPUT-NN-025, the QA blocking bar for PRD-001 version 2 and the shape of PR #10's round 10.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-fable-5-1) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-05T16:37:35Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0089",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.7",
+      "relation": "generated_from",
+      "object_id": "E-TPL-BRAINSTORMING-2.0.0",
+      "rationale": "Same template as earlier versions.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-fable-5-1) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-05T16:37:35Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0090",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.7",
+      "relation": "derived_from",
+      "object_id": "E-INPUT-NN-025",
+      "rationale": "INPUT-NN-025: a PRD finding is blocking only when it changes what is built or launched or a must requirement cannot be met; the rest is advisory and batched after the merge.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-fable-5-1) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-05T16:37:35Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0091",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.8",
+      "relation": "supersedes",
+      "object_id": "E-DOC-IDEA-NN-001-V0.4.7",
+      "rationale": "Version 0.4.8 records INPUT-NN-026, the owner's plan-mode approvals of PR #10's round-7, round-8 and round-10 fix plans.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-fable-5-1) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-05T17:12:25Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0092",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.8",
+      "relation": "generated_from",
+      "object_id": "E-TPL-BRAINSTORMING-2.0.0",
+      "rationale": "Same template as earlier versions.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-fable-5-1) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-05T17:12:25Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0093",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.8",
+      "relation": "derived_from",
+      "object_id": "E-INPUT-NN-026",
+      "rationale": "INPUT-NN-026: the decisions D1 to D5, E1 to E9 and the round-9 ratification a to f that PRD-001 version 2 cites as the owner's approvals.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-fable-5-1) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-05T17:12:25Z",
       "verification": "unverified",
       "verified_at": null
     }
