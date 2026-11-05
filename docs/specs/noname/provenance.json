@@ -510,7 +510,7 @@
       "entity_id": "E-DOC-IDEA-NN-001-V0.4.5",
       "kind": "document",
       "uri": "brainstorming.md",
-      "revision": "unversioned",
+      "revision": "fb1638f154cff173a3e999b991eb4cdad97275d4",
       "locator": "whole-document",
       "availability": "available",
       "owner": "Bryan Ankielewicz (product owner)"
