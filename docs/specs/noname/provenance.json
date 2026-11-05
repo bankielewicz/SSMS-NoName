@@ -514,6 +514,24 @@
       "locator": "whole-document",
       "availability": "available",
       "owner": "Bryan Ankielewicz (product owner)"
+    },
+    {
+      "entity_id": "E-INPUT-NN-023",
+      "kind": "source",
+      "uri": "brainstorming.md",
+      "revision": "unversioned",
+      "locator": "input-nn-023",
+      "availability": "available",
+      "owner": "Bryan Ankielewicz (product owner)"
+    },
+    {
+      "entity_id": "E-DOC-IDEA-NN-001-V0.4.6",
+      "kind": "document",
+      "uri": "brainstorming.md",
+      "revision": "unversioned",
+      "locator": "whole-document",
+      "availability": "available",
+      "owner": "Bryan Ankielewicz (product owner)"
     }
   ],
   "links": [
@@ -1414,6 +1432,42 @@
       "activity": "adapted",
       "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
       "recorded_at": "2026-11-02T19:14:18Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0076",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.6",
+      "relation": "supersedes",
+      "object_id": "E-DOC-IDEA-NN-001-V0.4.5",
+      "rationale": "Version 0.4.6 records INPUT-NN-023, the MIT licence, and marks the licence half of Q-NN-005 answered.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-fable-5-1) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-05T00:44:46Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0077",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.6",
+      "relation": "generated_from",
+      "object_id": "E-TPL-BRAINSTORMING-2.0.0",
+      "rationale": "Same template as earlier versions.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-fable-5-1) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-05T00:44:46Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0078",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.6",
+      "relation": "derived_from",
+      "object_id": "E-INPUT-NN-023",
+      "rationale": "INPUT-NN-023: the suite is published under the MIT License; the LICENSE file was added the same day.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-fable-5-1) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-05T00:44:46Z",
       "verification": "unverified",
       "verified_at": null
     }
