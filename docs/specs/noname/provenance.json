@@ -582,6 +582,24 @@
       "entity_id": "E-DOC-IDEA-NN-001-V0.4.7",
       "kind": "document",
       "uri": "brainstorming.md",
+      "revision": "49f182c5bd5ea3ba6a5f6241875745a38733fba3",
+      "locator": "whole-document",
+      "availability": "available",
+      "owner": "Bryan Ankielewicz (product owner)"
+    },
+    {
+      "entity_id": "E-INPUT-NN-026",
+      "kind": "source",
+      "uri": "brainstorming.md",
+      "revision": "unversioned",
+      "locator": "input-nn-026",
+      "availability": "available",
+      "owner": "Bryan Ankielewicz (product owner)"
+    },
+    {
+      "entity_id": "E-DOC-IDEA-NN-001-V0.4.8",
+      "kind": "document",
+      "uri": "brainstorming.md",
       "revision": "unversioned",
       "locator": "whole-document",
       "availability": "available",
@@ -1666,6 +1684,42 @@
       "activity": "adapted",
       "actor": "Claude Code agent (claude-fable-5-1) for Bryan Ankielewicz",
       "recorded_at": "2026-11-05T16:37:35Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0091",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.8",
+      "relation": "supersedes",
+      "object_id": "E-DOC-IDEA-NN-001-V0.4.7",
+      "rationale": "Version 0.4.8 records INPUT-NN-026, the owner's plan-mode approvals of PR #10's round-7, round-8 and round-10 fix plans.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-fable-5-1) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-05T17:12:25Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0092",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.8",
+      "relation": "generated_from",
+      "object_id": "E-TPL-BRAINSTORMING-2.0.0",
+      "rationale": "Same template as earlier versions.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-fable-5-1) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-05T17:12:25Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0093",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.8",
+      "relation": "derived_from",
+      "object_id": "E-INPUT-NN-026",
+      "rationale": "INPUT-NN-026: the decisions D1 to D5, E1 to E9 and the round-9 ratification a to f that PRD-001 version 2 cites as the owner's approvals.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-fable-5-1) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-05T17:12:25Z",
       "verification": "unverified",
       "verified_at": null
     }
