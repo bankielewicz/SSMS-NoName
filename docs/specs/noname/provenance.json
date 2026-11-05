@@ -528,7 +528,7 @@
       "entity_id": "E-DOC-IDEA-NN-001-V0.4.6",
       "kind": "document",
       "uri": "brainstorming.md",
-      "revision": "unversioned",
+      "revision": "0d78f72b44b1280e0f498ca2826d0441dcbf8a59",
       "locator": "whole-document",
       "availability": "available",
       "owner": "Bryan Ankielewicz (product owner)"
@@ -564,6 +564,24 @@
       "entity_id": "E-DOC-RES-NN-001-V0.2.3",
       "kind": "document",
       "uri": "feasibility-spike.md",
+      "revision": "unversioned",
+      "locator": "whole-document",
+      "availability": "available",
+      "owner": "Bryan Ankielewicz (product owner)"
+    },
+    {
+      "entity_id": "E-INPUT-NN-025",
+      "kind": "source",
+      "uri": "brainstorming.md",
+      "revision": "unversioned",
+      "locator": "input-nn-025",
+      "availability": "available",
+      "owner": "Bryan Ankielewicz (product owner)"
+    },
+    {
+      "entity_id": "E-DOC-IDEA-NN-001-V0.4.7",
+      "kind": "document",
+      "uri": "brainstorming.md",
       "revision": "unversioned",
       "locator": "whole-document",
       "availability": "available",
@@ -1612,6 +1630,42 @@
       "activity": "adapted",
       "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
       "recorded_at": "2026-11-05T11:05:23Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0088",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.7",
+      "relation": "supersedes",
+      "object_id": "E-DOC-IDEA-NN-001-V0.4.6",
+      "rationale": "Version 0.4.7 records INPUT-NN-025, the QA blocking bar for PRD-001 version 2 and the shape of PR #10's round 10.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-fable-5-1) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-05T16:37:35Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0089",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.7",
+      "relation": "generated_from",
+      "object_id": "E-TPL-BRAINSTORMING-2.0.0",
+      "rationale": "Same template as earlier versions.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-fable-5-1) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-05T16:37:35Z",
+      "verification": "unverified",
+      "verified_at": null
+    },
+    {
+      "link_id": "LINK-NN-0090",
+      "subject_id": "E-DOC-IDEA-NN-001-V0.4.7",
+      "relation": "derived_from",
+      "object_id": "E-INPUT-NN-025",
+      "rationale": "INPUT-NN-025: a PRD finding is blocking only when it changes what is built or launched or a must requirement cannot be met; the rest is advisory and batched after the merge.",
+      "activity": "adapted",
+      "actor": "Claude Code agent (claude-fable-5-1) for Bryan Ankielewicz",
+      "recorded_at": "2026-11-05T16:37:35Z",
       "verification": "unverified",
       "verified_at": null
     }
