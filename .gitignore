@@ -24,3 +24,7 @@ coverage.cobertura.xml
 
 # Python bytecode from running the coverage gate and its tests
 __pycache__/
+
+# Research notes (owner's choice, 2026-11-06). The files PR #15 merged stay tracked;
+# a new file here is left out of commits unless it is added with `git add -f`.
+/docs/research/
