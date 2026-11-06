@@ -3,7 +3,7 @@ id: ARCH-001
 type: arch
 title: "NoName architecture"
 status: draft
-version: 3
+version: 4
 created: 2026-11-06
 updated: 2026-11-06
 owner: "Bryan Ankielewicz"
@@ -46,8 +46,8 @@ Inspection scope, named by Bryan Ankielewicz on 2026-11-06: `src/`, `docs/specs/
 
 - **The host** (NFR-001, NFR-002, NFR-003, NFR-006, NFR-014, NFR-038, NFR-044, NFR-045): an unsupported, often-updated SSMS 22 on .NET Framework 4.8, x64. SSMS types are bound late, ScriptDom is SSMS's own, a broken API disables only its feature and says why, and the logic sits in a library with no SSMS reference under the 95% gate. These shape CMP-01 to CMP-04 and ADR-001, ADR-006 and ADR-008.
 - **Privacy and security of what leaves the machine** (NFR-004, NFR-007, NFR-008, NFR-010 to NFR-013, NFR-041, NFR-048): no AI calls, no telemetry, no stored prompts or secrets, values logged as shapes, secrets always redacted, and plan and deadlock XML kept in a local temp file. These shape CMP-05, CMP-07 and CMP-09 and ADR-001, ADR-002 and ADR-007.
-- **Lightness** (NFR-018, NFR-019, NFR-020, NFR-031, FR-038): nothing heavy on the UI thread, first paint within 500 ms from cached data, one measured poll cost. These shape CMP-06 and CMP-08 and ADR-005 and ADR-006.
-- **Connections and permissions** (NFR-009, NFR-015, NFR-032, NFR-035, NFR-040, NFR-046, NFR-049): Windows authentication only for the extension's own connection, stated states instead of dialogs, and only VIEW SERVER STATE and VIEW DATABASE STATE for the read-only tools. These shape CMP-03, CMP-06 and CMP-12 and ADR-010 (which supersedes ADR-003).
+- **Lightness** (NFR-018, NFR-019, NFR-020, NFR-031, FR-038): nothing heavy on the UI thread, first paint within 500 ms from cached data, one measured poll cost. These shape CMP-06 and CMP-08 and ADR-012 (which supersedes ADR-005) and ADR-006.
+- **Connections and permissions** (NFR-009, NFR-015, NFR-032, NFR-035, NFR-040, NFR-046, NFR-049): Windows authentication only for the extension's own connection, stated states instead of dialogs, and only VIEW SERVER STATE and VIEW DATABASE STATE for the read-only tools. These shape CMP-03, CMP-06 and CMP-12 and ADR-011 (which supersedes ADR-010, itself superseding ADR-003).
 - **Look and accessibility** (NFR-022 to NFR-030, NFR-042): the Visual Studio 2026 shell's tokens and themes, status as icon plus word, table views, keyboard and screen readers, restrained motion. These shape CMP-08 and ADR-006.
 - **Observability** (NFR-016, NFR-034): the JSON Lines session log and its redacted copy. These shape CMP-02 and CMP-09.
 - **Compliance** (NFR-017): no copied third-party code.
@@ -364,7 +364,7 @@ decisions:
     question: "How is the extension's own connection shown to reach the same server and replica as the query window when the window connects through an availability-group listener, an alias or read-only intent?"
     blocking: true
     state: resolved
-    resolved_by: [ADR-010]
+    resolved_by: [ADR-011]
     notes: "From PRD-001 v2's NEEDS ADR marker. ADR-003's check needs PRB-SQL-01 extended to read the window's SPID (section 8)."
     upstream:
       - {id: PRD-001, item: FR-006, relation: informed_by, version: 2, hash: null}
@@ -409,7 +409,7 @@ decisions:
     question: "Do the tabs of an instance window share one sampler that polls the instance, or does each tab poll on its own, and how is the per-poll server cost measured?"
     blocking: true
     state: resolved
-    resolved_by: [ADR-005]
+    resolved_by: [ADR-012]
     notes: null
     upstream:
       - {id: PRD-001, item: FR-013, relation: informed_by, version: 2, hash: null}
@@ -504,7 +504,7 @@ decisions:
     question: "How is the extension's own connection shown to reach the same server and replica as the query window, for the disclosure and verification requirements PRD-001 v3 adds?"
     blocking: true
     state: resolved
-    resolved_by: [ADR-010]
+    resolved_by: [ADR-011]
     notes: "Same question as DEC-03, for NFR-049 and FR-061; Bryan Ankielewicz confirmed on 2026-11-06, approving the round-11 plan, that ADR-010 answers it."
     upstream:
       - {id: PRD-001, item: NFR-049, relation: informed_by, version: 3, hash: null}
@@ -563,13 +563,25 @@ evidence:
     kind: adr
     finding: "Version 1, status superseded (superseded_by ADR-010): a SPID lookup with a fallback comparing SERVERPROPERTY('ServerName') and the replica role with the window's, which compares the extension with itself and can't see the window."
     classification: context
+  - id: EVD-09
+    status: active
+    source: "ADR-010"
+    kind: adr
+    finding: "Version 1, status superseded (superseded_by ADR-011): verified the window's replica by a bare SPID lookup in sys.dm_exec_sessions, found means verified, which is server-local and can collide across replicas."
+    classification: context
+  - id: EVD-10
+    status: active
+    source: "ADR-005"
+    kind: adr
+    finding: "Version 1, status superseded (superseded_by ADR-012): one shared sampler, with each poll's cost read from the sampler's own session counters mid-batch, which measure the previous poll and include idle time."
+    classification: context
 ```
 
 ## 6. Deployment
 
 The workstation runs everything in the MVP, inside the SSMS 22 process on Windows x64 (NFR-001, NFR-038). Two per-user VSIXs, built from one solution with one version number, are installed with SSMS 22's own VSIXInstaller (ADR-008): the product (CMP-01) and NoName Diagnostics (CMP-02). Each carries its own copy of the late-bound host layer (CMP-03), and both carry the Core library (CMP-04) and the WPF views (CMP-08). Core is built from one shared source project into two assemblies with different identities: NoName.Diagnostics.Core in the Diagnostics VSIX only, and the product's own Core (placeholder NoName.Core until Q-NN-001) in the product VSIX only, so each VSIX always runs its own copy (ADR-009). The per-user files (CMP-09) live under the user's local application data.
 
-The extension reaches the monitored instance (CMP-12) only over its own Windows-authenticated connection, which discloses the replica it observes and verifies the window's replica by finding the window's session (ADR-010), and through the query window's connection details that SSMS exposes. Plan and deadlock XML leaves NoName only as a temp file opened in SSMS's own viewer (ADR-002, NFR-048). Prompts leave only through the clipboard or a file the user saves.
+The extension reaches the monitored instance (CMP-12) only over its own Windows-authenticated connection, which discloses the replica it observes and verifies the window's replica by finding the window's session (ADR-011), and through the query window's connection details that SSMS exposes. Plan and deadlock XML leaves NoName only as a temp file opened in SSMS's own viewer (ADR-002, NFR-048). Prompts leave only through the clipboard or a file the user saves.
 
 After the MVP, the NoName database (CMP-10) is installed on the monitored instance by a script Core generates and the user runs (ADR-004). Its server-scope objects are the certificate's login in master, server-level grants and Agent jobs. Without it, every feature says what still works (PRD-001 section 9).
 
@@ -609,3 +621,4 @@ flowchart TB
 | 1 | 2026-11-06 | claude-code (session 586c34bd-26ec-44c8-b02f-7c97b0f659d3) | Initial draft for PRD-001 v2, with outcome create confirmed by Bryan Ankielewicz. Eight architectural questions, all resolved by his decisions of 2026-11-06 with the sharpenings he gave for each ADR. DEC-01 open → resolved: ADR-001 accepted (decided by Bryan Ankielewicz). DEC-02 open → resolved: ADR-002 accepted (decided by Bryan Ankielewicz). DEC-03 open → resolved: ADR-003 accepted (decided by Bryan Ankielewicz). DEC-04 open → resolved: ADR-004 accepted (decided by Bryan Ankielewicz). DEC-05 open → resolved: ADR-005 accepted (decided by Bryan Ankielewicz). DEC-06 open → resolved: ADR-006 accepted (decided by Bryan Ankielewicz). DEC-07 open → resolved: ADR-007 accepted (decided by Bryan Ankielewicz). DEC-08 open → resolved: ADR-008 accepted (decided by Bryan Ankielewicz). Policy resolution: interview.max_calls=8 (default); architecture.mandated_platforms=none (default); quality.required_categories=floor only (default) | all |
 | 2 | 2026-11-06 | claude-code (session 586c34bd-26ec-44c8-b02f-7c97b0f659d3) | Amended for PRD-001 v2, with outcome amend confirmed by Bryan Ankielewicz, after a review note that the two-VSIX clash ADR-008 names also applies to the Core library. Added DEC-09 (how Core avoids the clash). DEC-09 open → resolved: ADR-009 accepted (decided by Bryan Ankielewicz): one shared source project built into two assemblies with different identities, one per VSIX, coverage gate untouched. Section 6 now names ADR-009; section 8's open question on Core's collision is answered and removed. CMP-04's deployment text, which predates ADR-009, is left unchanged as existing items must be. Policy resolution: interview.max_calls=8 (default); architecture.mandated_platforms=none (default); quality.required_categories=floor only (default) | DEC-09 |
 | 3 | 2026-11-06 | claude-code (session 586c34bd-26ec-44c8-b02f-7c97b0f659d3) | Amended for PRD-001 v3, with outcome amend confirmed by Bryan Ankielewicz approving the round-11 plan. The frontmatter PRD link moves to version 3. DEC-03 resolved_by ADR-003 → ADR-010 (supersession approved by Bryan Ankielewicz): ADR-003's name-and-role fallback compared the extension with itself; ADR-010 discloses the observed replica as a launch must and verifies the window's replica by its session as a should. Added DEC-10, the same question for PRD-001 v3's new NFR-049 and FR-061. DEC-10 open → resolved: ADR-010 accepted (decided by Bryan Ankielewicz). Added EVD-08 for ADR-003 (superseded). Section 7's five proposals are made in PRD-001 v3; section 8's SPID question is answered by RES-NN-001 0.2.4; sections 1 and 6 updated. After a Codex review, PRD-001 v3's FR-061, NFR-049 and NFR-020 carry corrected rules: the window's session is matched on session_id, login_name, host_name and host_process_id across every replica, with exactly one match verified and every other outcome unverified, and a poll's cost comes from the running request's counters read at the end of the batch. ADR-005 and ADR-010 stay as written, as Bryan Ankielewicz decided, so their mechanism text is older than the PRD's. Policy resolution: interview.max_calls=8 (default); architecture.mandated_platforms=none (default); quality.required_categories=floor only (default) | DEC-03, DEC-10, EVD-08 |
+| 4 | 2026-11-06 | claude-code (session 586c34bd-26ec-44c8-b02f-7c97b0f659d3) | Amended for PRD-001 v3, with outcome amend; Bryan Ankielewicz chose this amendment (option a) and approved both supersessions after the Codex reviews of 2026-11-06. DEC-03 resolved_by ADR-010 → ADR-011 and DEC-10 resolved_by ADR-010 → ADR-011 (supersession approved by Bryan Ankielewicz): ADR-010's bare SPID match is server-local and can collide across replicas; ADR-011 verifies only when exactly one replica holds a session matching session_id, login_name, host_name and host_process_id. DEC-05 resolved_by ADR-005 → ADR-012 (supersession approved by Bryan Ankielewicz): ADR-005's session counters read mid-batch measure the previous poll and include idle time; ADR-012 measures each poll from its own running request. Added EVD-09 (ADR-010) and EVD-10 (ADR-005), both superseded. Sections 2 and 6 cite ADR-011 and ADR-012. The note in row 3 that ADR-005 and ADR-010 stay as written no longer holds. Policy resolution: interview.max_calls=8 (default); architecture.mandated_platforms=none (default); quality.required_categories=floor only (default) | DEC-03, DEC-05, DEC-10, EVD-09, EVD-10 |

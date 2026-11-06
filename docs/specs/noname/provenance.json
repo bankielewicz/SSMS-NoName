@@ -1737,7 +1737,7 @@
       "subject_id": "E-DOC-RES-NN-001-V0.2.4",
       "relation": "supersedes",
       "object_id": "E-DOC-RES-NN-001-V0.2.3",
-      "rationale": "Version 0.2.4 adds the window's SPID to PRB-SQL-01 as a result of its own for PRD-001's FR-061, the observed replica's server name and role to PRB-SQL-03's pass for NFR-049, PRB-SQL-03's forced not-found step for FR-061, matching session, login, host and SSMS process across every replica, and its poll-cost step for NFR-020, each as a result of its own, as ADR-010 decides (Bryan, 2026-11-06).",
+      "rationale": "Version 0.2.4 adds the window's SPID to PRB-SQL-01 as a result of its own for PRD-001's FR-061, the observed replica's server name and role to PRB-SQL-03's pass for NFR-049, PRB-SQL-03's forced not-found step for FR-061, matching session, login, host and SSMS process across every replica, and its poll-cost step for NFR-020, each as a result of its own, as ADR-011 decides (Bryan, 2026-11-06).",
       "activity": "adapted",
       "actor": "Claude Code agent (claude-opus-5-5) for Bryan Ankielewicz",
       "recorded_at": "2026-11-06T12:00:00Z",
