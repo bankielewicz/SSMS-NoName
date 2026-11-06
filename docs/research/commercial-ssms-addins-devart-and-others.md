@@ -5,7 +5,7 @@ Research track 2 of 4 for NoName. Written 2026-11-04 by a Sonnet 5.5 research su
 
 **Scope.** Devart dbForge SQL Tools add-ins (not dbForge Studio), plus SSMSBoost, SSMS Tools Pack, SolarWinds Plan Explorer and SQL Sentry, Idera, SQL Enlight, SQLTreeo, VersionSQL, Quest Spotlight, Minion, and newer SSMS 22 entrants found through the community gallery (S43). Redgate and ApexSQL belong to another track; they appear only where their compatibility notes are evidence.
 
-**How pages were read.** The `WebFetch` tool was not available. Vendor pages were fetched with `curl` and stripped to text; the SQL Enlight site is a JavaScript app, so its facts come from its published JS bundles. All read dates are 2026-11-04. Every `docs.devart.com`, vendor and Microsoft page below was read directly unless marked.
+**How pages were read.** The `WebFetch` tool was not available. Vendor pages were fetched with `curl` and stripped to text; the SQL Enlight site is a JavaScript app, so its facts come from its published JS bundles. All read dates are 2026-11-04, except S49 and S22's second reading (2026-11-05). Every `docs.devart.com`, vendor and Microsoft page below was read directly unless marked.
 
 **Evidence labels.**
 - **V** = read on the vendor's own current page (the vendor's claim, not first-party proof that it runs on the owner's host).
@@ -14,7 +14,7 @@ Research track 2 of 4 for NoName. Written 2026-11-04 by a Sonnet 5.5 research su
 - **inferred** = my reading of how a feature works; no vendor states the mechanism.
 - **claimed** = marketing statement, not verified.
 
-**Class rule used in the matrix.** BRN-001 class A needs the capability to be hosted inside SSMS and the vendor to state SSMS 22 support. Everything marked A below is therefore vendor-claimed, which is the standard the task set. A product that is a standalone app (Event Profiler, SQL Decryptor, Job Timeline, Plan Explorer's viewer) is class C precedent even when it has a small SSMS launcher.
+**Class rule used in the matrix.** This track's A is its own label: the capability is hosted inside SSMS and the vendor states SSMS 22 support. It is not BRN-001's class A, which is "inside SSMS, proven" (BRN-001 section 1); the [synthesis](synthesis-ssms-extension-market-and-capabilities.md), section 2, maps it to B+. Everything marked A below is therefore vendor-claimed, which is the standard the task set. A product that is a standalone app (Event Profiler, SQL Decryptor, Job Timeline, Plan Explorer's viewer) is class C precedent even when it has a small SSMS launcher.
 
 **Host context.** SSMS 22.11.3 (released 2026-10-29) updated Visual Studio to 18.11.3 [12328.437] (M, S42). That build number equals the owner's host, so the host is 22.11.3. No vendor below names 22.11 explicitly; the newest explicit statements are SSMSBoost 22.10.2 and SQL Complete 22.6 (S, see S48).
 
@@ -61,7 +61,7 @@ Research track 2 of 4 for NoName. Written 2026-11-04 by a Sonnet 5.5 research su
 
 **Re-support per SSMS release is the norm (V, supports IDEA-05).**
 - SSMSBoost shipped builds for 22.5.2 (v5.5), 22.7.1 (v5.6) and 22.10.2 (v5.7) (S23).
-- SSMS Tools Pack lists "22.7+" only, so earlier 22 builds are not supported (S27).
+- SSMS Tools Pack's current release (7.4.1.0) lists "22.7+" for SSMS 22 (S27); its 7.0 release (2026-01-20) already stated "full support for SSMS 21 and 22" (S28), so "22.7+" is the current release's minimum, not the first SSMS 22 build the product supported.
 - VersionSQL 2.6.1 fixed "assembly version mismatches on SSMS 22.0 to 22.2" and dark-mode flyout items (S34).
 - Redgate says 22.5 crashes older SQL Source Control, SQL Doc, SQL Data Generator and SQL Dependency Tracker builds (S44).
 - SQL Shades needs 22.7+ for Query Store tooltips (S45 search summary, S).
@@ -233,7 +233,7 @@ Each is new or extends a numbered idea. Evidence is vendor-stated; the probe col
 - **GitHub Copilot in SSMS**: generally available in 22.4.1 (2026-03-18); Agent Mode generally available in 22.10.2 with a **bundled SQL Tools MCP server** (version 3.0.17). This bears on IDEA-06: an MCP channel to SQL Server already ships with SSMS when the Copilot component is installed.
 - **Query Hint Recommendation Tool**: generally available in 22.4.1. Also native: Query Store reports, Activity Monitor, Extended Events Profiler and viewer, Database Engine Tuning Advisor, execution plan in a new tab, rename tabs.
 - **Tab rename and color-by-extension**: native per a 2026-04 review (S45, S) and the release notes' Rename Tabs dialog entry (S42). Tabs Studio, Tools Pack and SQL Complete tab features overlap.
-- **Per-connection status-bar color** exists natively but with one color for all connections, which is the gap SSMSBoost and Tools Pack fill (S22).
+- **Status-bar color per server** is native: "Use custom color" on the Connect to Server dialog's Connection Properties tab sets the Query Editor status-bar color for a server entry in Object Explorer or Registered Servers (M, S49). SSMSBoost adds a color per server or per server and database, re-applied on every connection change, and an alert for chosen databases (S22). Tools Pack also lists connection coloring (see its section above).
 
 **Shipped only in old SSMS hosts, no SSMS 21/22 successor found.**
 - Quest Spotlight SSMS extensions and plug-ins appear only in old support articles (S48, S). Treat as unavailable.
@@ -284,7 +284,7 @@ All read 2026-11-04. Labels V/M/S as defined above.
 - S19 · https://www.devart.com/dbforge/sql/data-pump/ · V · formats.
 - S20 · https://www.devart.com/dbforge/sql/{schemacompare,datacompare,documenter,data-generator,querybuilder}/ · V · app versus add-in.
 - S21 · https://www.devart.com/dbforge/sql/search/ · V · object and data search.
-- S22 · https://www.ssmsboost.com/ · V · supported SSMS list 2012 to 22, connection features.
+- S22 · https://www.ssmsboost.com/ · V · supported SSMS list 2012 to 22, connection features; colour per server or server and database, re-read 2026-11-05.
 - S23 · https://www.ssmsboost.com/Changelog · V · per-release SSMS 22 support, menu quirk.
 - S24 · https://www.ssmsboost.com/Licenses · V · v5.8.9789, 2026-10-20, feature list.
 - S25 · https://www.ssmsboost.com/VersionCompare · V · Community versus Professional table.
@@ -310,3 +310,4 @@ All read 2026-11-04. Labels V/M/S as defined above.
 - S46 · https://www.idera.com/products/sql-diagnostic-manager-for-sql-server/ , /sql-doctor/ , /sql-admin-toolset/ · V · marketing shells, 14.3.
 - S47 · https://minionware.net/ and /products/minion-enterprise/ · V · empty shells.
 - S48 · Web-search summaries, unread pages · S · ComponentSource news (2026-02-26) and release changelog for SQL Complete 22.6 support; THWACK posts on the Plan Explorer plugin; Quest support articles on old Spotlight plug-ins; Simple Talk 2013 review of SQL Enlight; Devart MCP server on NuGet (not an SSMS add-in).
+- S49 · https://learn.microsoft.com/en-us/ssms/f1-help/connect-to-server-connection-properties-page-database-engine · M · "Use custom color", per server entry; page date 2025-12-01, read 2026-11-05.
